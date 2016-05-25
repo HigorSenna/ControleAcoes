@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Hello JSF!</title>
+</h:head>
+<h:body>
+	<div class="container-fluid">
+		<div class="header">
+			<ui:include src="menu.xhtml" />
+		</div>
+		
+		<div id="content"
+			style="border: 1px solid red; width: 100%; height: 650px;">
+			<ui:insert name="conteudoDinamico" />
+		</div>
+
+		<div class="footer">
+			<ui:include src="rodape.xhtml" />
+		</div>
+	</div>
+</h:body>
+</html>

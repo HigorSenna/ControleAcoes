@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h2>Cadastro de CONTA</h2>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+				<p:inputText styleClass="form-control input-lg"
+					placeholder="Agencia" />
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+				<p:inputText styleClass="form-control input-lg"
+					placeholder="Nome Banco" />
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+				<p:inputText styleClass="form-control input-lg"
+					placeholder="Numero Conta" />
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-6">
+			<div class="form-group">
+				<p:inputText styleClass="form-control input-lg"
+					placeholder="Saldo inicial" id="saldo"
+					value="#{cadastroContaController.contaBancaria.saldo}">
+					<f:validateDoubleRange minimum="500" />
+				</p:inputText>
+			</div>
+		</div>
+	</div>
+</ui:composition>

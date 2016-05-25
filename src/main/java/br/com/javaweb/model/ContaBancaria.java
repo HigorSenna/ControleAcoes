@@ -41,18 +41,19 @@ public class ContaBancaria implements Serializable {
     private int numConta;
 
     @Column(nullable = false, precision = 7, scale = 2)
-    private BigDecimal saldo;
+    private double saldo;
     @OneToMany(mappedBy = "idConta", fetch = FetchType.LAZY)
     private List<Investidor> investidoresList;
 
     public ContaBancaria() {
+    	this.saldo = 500;
     }
 
     public ContaBancaria(Integer idConta) {
         this.idConta = idConta;
     }
 
-    public ContaBancaria(Integer idConta, String agencia, String nmBanco, int numConta, BigDecimal saldo) {
+    public ContaBancaria(Integer idConta, String agencia, String nmBanco, int numConta, double saldo) {
         this.idConta = idConta;
         this.agencia = agencia;
         this.nmBanco = nmBanco;
@@ -92,11 +93,11 @@ public class ContaBancaria implements Serializable {
         this.numConta = numConta;
     }
 
-    public BigDecimal getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(BigDecimal saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 

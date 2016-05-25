@@ -2,14 +2,30 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui>" template="../template/layout.xhtml">
-
-
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
 	<ui:define name="conteudoDinamico">
-		<h:form>
-			<h:inputText value="" /> value="teste" />
+		<h:form styleClass="register-form"
+			style="width: 80%; margin-left: 8%;">
+			<p:messages autoUpdate="true" />
+			<ui:include src="/pages/formCadInvestidor.xhtml" />
+
+			<hr class="colorgraph"
+				style="background-image: none !important; background-color: black !important;" />
+
+			<br />
+			<ui:include src="/pages/formCadConta.xhtml" />
+
+			<hr class="colorgraph"
+				style="background-image: none !important; background-color: black !important;" />
+			<div class="row">
+				<div class="col-xs-2 col-md-2">
+					<p:commandButton value="Cadastrar" validateClient="true"
+						styleClass="btn btn-theme btn-block btn-lg" />
+				</div>
+			</div>
+			<p:messages autoUpdate="true" />
 		</h:form>
 	</ui:define>
 </ui:composition>

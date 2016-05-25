@@ -7,8 +7,7 @@
 	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
 	<ui:define name="conteudoDinamico">
 		<h:form styleClass="register-form"
-			style="width: 80%; margin-left: 8%;">
-			<p:messages autoUpdate="true" />
+			style="width: 80%; margin-left: 8%;" prependId="false">
 			<ui:include src="/pages/formCadInvestidor.xhtml" />
 
 			<hr class="colorgraph"
@@ -22,10 +21,10 @@
 			<div class="row">
 				<div class="col-xs-2 col-md-2">
 					<p:commandButton value="Cadastrar" validateClient="true"
-						styleClass="btn btn-theme btn-block btn-lg" />
+						styleClass="btn btn-theme btn-block btn-lg" process="@form" action="#{cadastroInvestidorContaController.salvar()}"/>
 				</div>
 			</div>
-			<p:messages autoUpdate="true" />
+			<p:messages autoUpdate="true"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

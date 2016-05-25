@@ -8,28 +8,25 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:inputText styleClass="form-control input-lg" placeholder="Nome" />
+				<p:inputText styleClass="form-control input-lg" placeholder="Nome" id="Nome" required="true" value="#{cadastroInvestidorContaController.investidor.nomeInvestidor}"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
-			<div class="form-group">
-				<p:inputText styleClass="form-control input-lg" placeholder="CPF" />
+			<div class="form-group">		
+				<p:inputText styleClass="form-control input-lg" placeholder="CPF" id="CPF" required="true" value="#{cadastroInvestidorContaController.investidor.cpf}"/>				
 			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<p:inputText styleClass="form-control input-lg" placeholder="Endereco" />
-	</div>
+	</div>	
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:inputText styleClass="form-control input-lg" placeholder="RG" />
+				<p:inputText styleClass="form-control input-lg" placeholder="RG" id="RG" required="true" value="#{cadastroInvestidorContaController.investidor.rg}" />
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
 				<p:inputText styleClass="form-control input-lg"
-					placeholder="Profissao" />
+					placeholder="Profissao" value="#{cadastroInvestidorContaController.investidor.profissao}" />
 			</div>
 		</div>
 	</div>
@@ -37,12 +34,12 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:inputText styleClass="form-control input-lg" placeholder="Login" />
+				<p:inputText styleClass="form-control input-lg" placeholder="Login" value="#{cadastroInvestidorContaController.investidor.login}"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:password styleClass="form-control input-lg" placeholder="Senha" />
+				<p:password styleClass="form-control input-lg" placeholder="Senha" value="#{cadastroInvestidorContaController.investidor.senha}"/>
 			</div>
 		</div>
 	</div>

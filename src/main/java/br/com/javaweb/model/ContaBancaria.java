@@ -30,7 +30,7 @@ public class ContaBancaria implements Serializable {
     private Integer idConta;
     
     @Size(min = 1, max = 10)
-    @Column(nullable = false, length = 10)
+    @Column(name="NUM_AGENCIA",nullable = false, length = 10)
     private String agencia;
     
     @Size(min = 1, max = 45)
@@ -40,7 +40,7 @@ public class ContaBancaria implements Serializable {
     @Column(name = "NUM_CONTA", nullable = false)
     private int numConta;
 
-    @Column(nullable = false, precision = 7, scale = 2)
+    @Column(name="SALDO",nullable = false, precision = 7, scale = 2)
     private double saldo;
     @OneToMany(mappedBy = "idConta", fetch = FetchType.LAZY)
     private List<Investidor> investidoresList;

@@ -7,14 +7,14 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:inputText styleClass="form-control input-lg"
-					placeholder="Agencia" />
+				<p:inputText styleClass="form-control input-lg" id="Agencia"
+					placeholder="Agencia" required="true" value="#{cadastroInvestidorContaController.contaBancaria.agencia}"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
 				<p:inputText styleClass="form-control input-lg"
-					placeholder="Nome Banco" />
+					placeholder="Nome Banco" id="NomeBanco" required="true" value="#{cadastroInvestidorContaController.contaBancaria.nmBanco}"/>
 			</div>
 		</div>
 	</div>
@@ -22,14 +22,14 @@
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
 				<p:inputText styleClass="form-control input-lg"
-					placeholder="Numero Conta" />
+					placeholder="Numero Conta" id="NumeroConta" required="true" value="#{cadastroInvestidorContaController.contaBancaria.numConta}" />
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
 				<p:inputText styleClass="form-control input-lg"
-					placeholder="Saldo inicial" id="saldo"
-					value="#{cadastroContaController.contaBancaria.saldo}">
+					placeholder="Saldo inicial" id="Saldo"
+					value="#{cadastroInvestidorContaController.contaBancaria.saldo}" required="true">
 					<f:validateDoubleRange minimum="500" />
 				</p:inputText>
 			</div>

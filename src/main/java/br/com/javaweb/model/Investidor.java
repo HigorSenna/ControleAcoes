@@ -6,6 +6,8 @@ import br.com.javaweb.transacoes.model.Compra;
 import br.com.javaweb.transacoes.model.HistoricoTransacao;
 import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,7 +44,7 @@ public class Investidor implements Serializable{
       
     @Size(min = 1, max = 40)
     @Column(name = "NM_INVESTIDOR", nullable = true, length = 40)
-    private String nmInvestidor;
+    private String nomeInvestidor;
         
     @Size(min = 1, max = 45)
     @Column(nullable = true, length = 45)
@@ -57,7 +59,7 @@ public class Investidor implements Serializable{
     private String senha;
     
     @JoinColumn(name = "ID_CONTA", referencedColumnName = "ID_CONTA")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private ContaBancaria idConta;
     
     @OneToMany(mappedBy = "idInvestidor", fetch = FetchType.LAZY)
@@ -76,11 +78,11 @@ public class Investidor implements Serializable{
         this.idInvestidor = idInvestidor;
     }
 
-    public Investidor(Integer idInvestidor, int cpf, String login, String nmInvestidor, String profissao, String rg, String senha) {
+    public Investidor(Integer idInvestidor, int cpf, String login, String nomeInvestidor, String profissao, String rg, String senha) {
         this.idInvestidor = idInvestidor;
         this.cpf = cpf;
         this.login = login;
-        this.nmInvestidor = nmInvestidor;
+        this.nomeInvestidor = nomeInvestidor;
         this.profissao = profissao;
         this.rg = rg;
         this.senha = senha;
@@ -110,12 +112,12 @@ public class Investidor implements Serializable{
         this.login = login;
     }
 
-    public String getNmInvestidor() {
-        return nmInvestidor;
+    public String getNomeInvestidor() {
+        return nomeInvestidor;
     }
 
-    public void setNmInvestidor(String nmInvestidor) {
-        this.nmInvestidor = nmInvestidor;
+    public void setNomeInvestidor(String nomeInvestidor) {
+        this.nomeInvestidor = nomeInvestidor;
     }
 
     public String getProfissao() {

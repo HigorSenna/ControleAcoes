@@ -1,10 +1,11 @@
 
 package br.com.javaweb.service;
 
-import DAO.InvestidorDAO;
-import br.com.javaweb.model.Investidor;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import DAO.InvestidorDAO;
+import br.com.javaweb.model.Investidor;
 
 public class InvestidorService {
 
@@ -14,5 +15,9 @@ public class InvestidorService {
 
     public Investidor verificarLogin(String login, String senha) throws Exception {
         return investidorDAO.validarLoginSenha(login, senha);
+    }
+    
+    public void salvar(Investidor investidor) throws Exception{
+    	investidorDAO.create(investidor);    	
     }
 }

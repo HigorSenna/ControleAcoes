@@ -2,7 +2,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<h2>Cadastro de Investidor</h2>
 	<div class="row">	  
@@ -12,8 +13,8 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
-			<div class="form-group">		
-				<p:inputText styleClass="form-control input-lg" placeholder="CPF" id="CPF" required="true" value="#{cadastroInvestidorContaController.investidor.cpf}"/>				
+			<div class="form-group">	
+				<p:inputText styleClass="form-control input-lg" id="CPF" required="true" placeholder="CPF" value="#{cadastroInvestidorContaController.investidor.cpf}"/>						
 			</div>
 		</div>
 	</div>	

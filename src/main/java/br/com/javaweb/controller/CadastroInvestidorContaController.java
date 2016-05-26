@@ -1,7 +1,5 @@
 package br.com.javaweb.controller;
 
-import java.io.IOException;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
@@ -23,12 +21,8 @@ public class CadastroInvestidorContaController {
 			investidorService.salvar(investidor);
 			MessagesAndRedirect.exibirMensagemSucessoRedirect("Registro inserido com sucesso!", "principal.xhtml");
 		} catch (Exception ex) {
-			ex.getMessage();//erro ao salvar ou ao redirecionar
-			try {
-				MessagesAndRedirect.exibirMensagemErroRedirect("Registro não Inserido!", "principal.xhtml");
-			} catch (Exception e) {
-				e.getMessage();//erro ao tentar redirecionar 
-			}
+			ex.getMessage();// erro ao salvar ou ao redirecionar
+			MessagesAndRedirect.exibirMensagemErroRedirect("Registro não Inserido!", "principal.xhtml");
 		}
 	}
 

@@ -2,10 +2,12 @@
 package br.com.javaweb.controller;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
+import br.com.javaweb.utils.MessagesAndRedirect;
 import br.com.javaweb.utils.Session;
 
 @ManagedBean
@@ -14,22 +16,29 @@ public class LoginController {
 
 	private Investidor investidor = new Investidor();
 	private InvestidorService investidorService = new InvestidorService();
+	
+	public void fecharSessao(){
+		Session.fecharSessao();
+		MessagesAndRedirect.exibirMensagemErroRedirect("Você deslogou!", "login.xhtml");;
+	}
+	public void validarSessao(String paginaRedirecionar){
+		if (Session.existeSessao("user")) {			 
+			MessagesAndRedirect.redirecionarPara("consultaInvestidorCadastrado.xhtml");
+		} else {
+			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "login.xhtml");
+		}
+	}
 
-	public String validarLogin() {
+	public void validarLogin() {
 		try {
 			investidorService.verificarLogin(investidor.getLogin(), investidor.getSenha());
 			Session.criarSessao("user", investidor.getLogin());
-			return "/pages/principal.xhtml";
-			/* criar sessao */
-			// FacesContext context = FacesContext.getCurrentInstance();
-			// HttpSession session = (HttpSession)
-			// context.getExternalContext().getSession(true);
-			// session.setAttribute("user", investidor.getLogin());
+			MessagesAndRedirect.redirecionarPara("principal.xhtml");		
 
 		} catch (Exception e) {
-			// e.printStackTrace();
+			e.getMessage();
 			investidor = new Investidor();
-			return "login.xhtml";
+			MessagesAndRedirect.redirecionarPara("login.xhtml");
 		}
 	}
 

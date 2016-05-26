@@ -68,11 +68,11 @@ public class InvestidorDAO implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            ContaBancaria idConta = investidores.getIdConta();
-            if (idConta != null) {
-                idConta = em.getReference(idConta.getClass(), idConta.getIdConta());
-                investidores.setIdConta(idConta);
-            }
+//            ContaBancaria idConta = investidores.getIdConta();
+//            if (idConta != null) {
+//                idConta = em.getReference(idConta.getClass(), idConta.getIdConta());
+//                investidores.setIdConta(idConta);
+//            }
             List<HistoricoTransacao> attachedHistoricosTransacoesList = new ArrayList<HistoricoTransacao>();
             for (HistoricoTransacao historicosTransacoesListHistoricosTransacoesToAttach : investidores.getHistoricosTransacoesList()) {
                 historicosTransacoesListHistoricosTransacoesToAttach = em.getReference(historicosTransacoesListHistoricosTransacoesToAttach.getClass(), historicosTransacoesListHistoricosTransacoesToAttach.getIdHistorico());
@@ -92,10 +92,10 @@ public class InvestidorDAO implements Serializable {
             }
             investidores.setCompasList(attachedCompasList);
             em.persist(investidores);
-            if (idConta != null) {
-                idConta.getInvestidoresList().add(investidores);
-                idConta = em.merge(idConta);
-            }
+//            if (idConta != null) {
+//                idConta.getInvestidoresList().add(investidores);
+//                idConta = em.merge(idConta);
+//            }
             for (HistoricoTransacao historicosTransacoesListHistoricosTransacoes : investidores.getHistoricosTransacoesList()) {
                 Investidor oldIdInvestidorOfHistoricosTransacoesListHistoricosTransacoes = historicosTransacoesListHistoricosTransacoes.getIdInvestidor();
                 historicosTransacoesListHistoricosTransacoes.setIdInvestidor(investidores);

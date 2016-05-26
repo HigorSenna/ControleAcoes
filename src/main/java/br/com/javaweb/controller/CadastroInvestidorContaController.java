@@ -16,7 +16,7 @@ public class CadastroInvestidorContaController {
 	
 	public void salvar(){
 		try{
-//			investidor.setIdConta(contaBancaria);
+			investidor.setIdConta(contaBancaria);
 			investidorService.salvar(investidor);	
 		}
 		catch(Exception ex){			

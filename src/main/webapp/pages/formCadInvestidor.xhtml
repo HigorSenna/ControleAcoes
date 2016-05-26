@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<h2>Cadastro de Investidor</h2>
-	<div class="row">
+	<div class="row">	  
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
 				<p:inputText styleClass="form-control input-lg" placeholder="Nome" id="Nome" required="true" value="#{cadastroInvestidorContaController.investidor.nomeInvestidor}"/>
@@ -34,14 +34,13 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:inputText styleClass="form-control input-lg" placeholder="Login" value="#{cadastroInvestidorContaController.investidor.login}"/>
+				<p:inputText styleClass="form-control input-lg" placeholder="Login" id="Login" required="true" value="#{cadastroInvestidorContaController.investidor.login}"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:password styleClass="form-control input-lg" placeholder="Senha" value="#{cadastroInvestidorContaController.investidor.senha}"/>
+				<p:password styleClass="form-control input-lg" placeholder="Senha" required="true" id="Senha" value="#{cadastroInvestidorContaController.investidor.senha}"/>
 			</div>
 		</div>
 	</div>
-
 </ui:composition>

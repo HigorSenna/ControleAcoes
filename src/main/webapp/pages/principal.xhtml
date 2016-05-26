@@ -6,8 +6,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
 	<ui:define name="conteudoDinamico">
-		<h:form styleClass="register-form"
+		<h:form styleClass="register-form"		
 			style="width: 80%; margin-left: 8%;" prependId="false">
+			 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 			<ui:include src="/pages/formCadInvestidor.xhtml" />
 
 			<hr class="colorgraph"
@@ -24,7 +25,6 @@
 						styleClass="btn btn-theme btn-block btn-lg" process="@form" action="#{cadastroInvestidorContaController.salvar()}"/>
 				</div>
 			</div>
-			<p:messages autoUpdate="true"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

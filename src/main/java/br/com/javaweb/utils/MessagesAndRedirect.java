@@ -5,10 +5,6 @@ import javax.faces.context.FacesContext;
 
 public class MessagesAndRedirect {
 	private static final FacesContext context = FacesContext.getCurrentInstance();
-//	FacesContext context = FacesContext.getCurrentInstance();
-//	context.getExternalContext().getFlash().setKeepMessages(true);
-//	FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"","Registro Salvo com Sucesso!"));
-//	FacesContext.getCurrentInstance().getExternalContext().redirect("principal.xhtml");
 	
 	private static void manterMensagemAoRedirecionar(){
 		context.getExternalContext().getFlash().setKeepMessages(true);		

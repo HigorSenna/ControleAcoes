@@ -1,6 +1,8 @@
 
 package br.com.javaweb.service;
 
+import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -19,5 +21,10 @@ public class InvestidorService {
     
     public void salvar(Investidor investidor) throws Exception{
     	investidorDAO.create(investidor);    	
+    }
+    
+    public List<Investidor> buscarInvestidores(){
+    	return investidorDAO.buscarTodos();
+    	
     }
 }

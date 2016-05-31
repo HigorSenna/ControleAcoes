@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 
 public class Session {
 	private static FacesContext context;
-	private static HttpSession session = null;
+	private static HttpSession session;
 	
 	private static void criarSessao(){
 		context = FacesContext.getCurrentInstance();

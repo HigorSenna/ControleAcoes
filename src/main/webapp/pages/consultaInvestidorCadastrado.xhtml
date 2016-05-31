@@ -5,8 +5,26 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions" template="/template/layout.xhtml">
 	
-	<ui:define name="corpoLayout">
-		<p:outputLabel value="Heelo Pagina"/>
-	
+	<ui:define name="conteudoDinamico">
+	<h:form prependId="false">
+		 <p:dataTable id="investidores" style="margin-bottom:0;margin-left:150px;width:1220px;" paginator="true" rows="10" 
+		 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		 		rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+		 		var="investidor" value="#{consultaInvestidorController.buscarInvestidores()}">  	        
+	          
+	        <p:column headerText="Id">
+	            <h:outputText value="#{investidor.idInvestidor}"/>
+	        </p:column>
+	        <p:column headerText="Nome">
+	            <h:outputText value="#{investidor.nomeInvestidor}" />
+	        </p:column>
+	        <p:column headerText="CPF">
+	            <h:outputText value="#{investidor.cpf}"  />
+	        </p:column>
+	        <p:column headerText="Profissao">
+	            <h:outputText value="#{investidor.profissao}"/>
+	        </p:column>	        
+	    </p:dataTable>
+	</h:form>	    
 	</ui:define>	
 </ui:composition>

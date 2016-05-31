@@ -2,7 +2,6 @@
 package br.com.javaweb.controller;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
 import br.com.javaweb.model.Investidor;
@@ -25,7 +24,7 @@ public class LoginController {
 		if (Session.existeSessao("user")) {			 
 			MessagesAndRedirect.redirecionarPara("consultaInvestidorCadastrado.xhtml");
 		} else {
-			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "login.xhtml");
+			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "pages/login.xhtml");
 		}
 	}
 
@@ -33,12 +32,12 @@ public class LoginController {
 		try {
 			investidorService.verificarLogin(investidor.getLogin(), investidor.getSenha());
 			Session.criarSessao("user", investidor.getLogin());
-			MessagesAndRedirect.redirecionarPara("principal.xhtml");		
+			MessagesAndRedirect.redirecionarPara("pages/principal.xhtml");		
 
 		} catch (Exception e) {
 			e.getMessage();
 			investidor = new Investidor();
-			MessagesAndRedirect.redirecionarPara("login.xhtml");
+			MessagesAndRedirect.exibirMensagemErroRedirect("Login Inválido", "pages/login.xhtml");
 		}
 	}
 

@@ -35,6 +35,12 @@ public class InvestidorDAO implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+    public List<Investidor> buscarTodos(){
+    	String jpql = "SELECT i FROM Investidor i";
+        Query q = getEntityManager().createQuery(jpql);
+        return (List<Investidor>) q.getResultList();
+    }
 
     public Investidor validarLoginSenha(String login, String senha) throws Exception {
         String jpql = "SELECT i FROM Investidor i WHERE i.login =:loginParam and i.senha =:senhaParam";

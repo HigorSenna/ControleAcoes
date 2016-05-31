@@ -6,24 +6,21 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-
-	<title>Hello JSF!</title>
-</h:head>
-<h:body>
-	<div class="container-fluid">
-		<div class="header">
-			<ui:include src="menu.xhtml" />
+	<h:head>
+		<title>Hello JSF!</title>
+	</h:head>
+	<h:body>
+		<div class="container-fluid">
+			<div class="header">
+				<ui:include src="menu.xhtml" />
+			</div>
+			<div id="content"
+				style="width: 100%; height: 890px;">
+				<ui:insert name="conteudoDinamico" />
+			</div>
+			<div class="footer">
+				<ui:include src="rodape.xhtml" />
+			</div>
 		</div>
-		
-		<div id="content"
-			style="border: 1px solid red; width: 100%; height: 890px;">
-			<ui:insert name="conteudoDinamico" />
-		</div>
-
-		<div class="footer">
-			<ui:include src="rodape.xhtml" />
-		</div>
-	</div>
-</h:body>
+	</h:body>
 </html>

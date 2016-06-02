@@ -36,6 +36,7 @@ public class InvestidorDAO implements Serializable {
         return emf.createEntityManager();
     }
     
+	@SuppressWarnings("unchecked")
 	public List<Investidor> buscarTodos(){
     	String jpql = "SELECT i FROM Investidor i";
         Query q = getEntityManager().createQuery(jpql);        
@@ -302,10 +303,12 @@ public class InvestidorDAO implements Serializable {
         return findInvestidoresEntities(false, maxResults, firstResult);
     }
 
-    private List<Investidor> findInvestidoresEntities(boolean all, int maxResults, int firstResult) {
+    @SuppressWarnings("unchecked")
+	private List<Investidor> findInvestidoresEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            @SuppressWarnings("rawtypes")
+			CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Investidor.class));
             Query q = em.createQuery(cq);
             if (!all) {
@@ -327,10 +330,12 @@ public class InvestidorDAO implements Serializable {
         }
     }
 
-    public int getInvestidoresCount() {
+    @SuppressWarnings("unchecked")
+	public int getInvestidoresCount() {
         EntityManager em = getEntityManager();
         try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            @SuppressWarnings("rawtypes")
+			CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             Root<Investidor> rt = cq.from(Investidor.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);

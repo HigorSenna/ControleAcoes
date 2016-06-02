@@ -15,7 +15,7 @@ public class ConsultaInvestidorController implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private Investidor investidor = new Investidor();
-	private InvestidorService investidorService = new InvestidorService();
+	private InvestidorService investidorService = new InvestidorService();	
 		
 	public List<Investidor> buscarInvestidores(){
 		return investidorService.buscarInvestidores();

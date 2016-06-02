@@ -9,7 +9,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import DAO.InvestidorDAO;
-import DAO.exceptions.NonexistentEntityException;
 import br.com.javaweb.model.Investidor;
 
 public class InvestidorService {
@@ -18,11 +17,13 @@ public class InvestidorService {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("ControleAcoes");
     InvestidorDAO investidorDAO = new InvestidorDAO(emf);
     
-    public void editar(Integer id) throws NonexistentEntityException, Exception{
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Investidor recuperarObjetoParaEdicao(Integer id){
     	Investidor investidor = investidorDAO.findInvestidores(id);
-    	investidorDAO.edit(investidor);
+    	return investidor;
     }
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Investidor verificarLogin(String login, String senha) throws Exception {
         return investidorDAO.validarLoginSenha(login, senha);
     }

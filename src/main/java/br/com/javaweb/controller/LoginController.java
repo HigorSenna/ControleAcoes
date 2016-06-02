@@ -22,12 +22,13 @@ public class LoginController {
 	}
 	public void validarSessao(String paginaRedirecionar){
 		if (Session.existeSessao("user")) {			 
-			MessagesAndRedirect.redirecionarPara("consultaInvestidorCadastrado.xhtml");
+			MessagesAndRedirect.redirecionarPara(paginaRedirecionar);
 		} else {
 			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "pages/login.xhtml");
 		}
 	}
 
+	
 	public void validarLogin() {
 		try {
 			investidorService.verificarLogin(investidor.getLogin(), investidor.getSenha());

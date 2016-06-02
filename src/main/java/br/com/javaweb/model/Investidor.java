@@ -1,9 +1,6 @@
 
 package br.com.javaweb.model;
 
-import br.com.javaweb.transacoes.model.Venda;
-import br.com.javaweb.transacoes.model.Compra;
-import br.com.javaweb.transacoes.model.HistoricoTransacao;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,14 +17,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import br.com.javaweb.transacoes.model.Compra;
+import br.com.javaweb.transacoes.model.HistoricoTransacao;
+import br.com.javaweb.transacoes.model.Venda;
+
 
 @Entity
 @Table(name="investidores"  ,catalog = "controle_acoes", schema = "")
 public class Investidor implements Serializable{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -195,10 +193,4 @@ public class Investidor implements Serializable{
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "br.com.javaweb.model.Investidores[ idInvestidor=" + idInvestidor + " ]";
-    }
-    
 }

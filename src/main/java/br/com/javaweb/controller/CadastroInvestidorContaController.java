@@ -15,6 +15,16 @@ public class CadastroInvestidorContaController {
 	private Investidor investidor = new Investidor();
 	private InvestidorService investidorService = new InvestidorService();
 
+	public void editar(Integer id) {
+		try {
+			investidorService.editar(id);
+			MessagesAndRedirect.exibirMensagemSucessoRedirect("Registro alterado com sucesso!",
+					"editarInvestidor.xhtml");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
 	public void salvar() {
 		try {
 			investidor.setIdConta(contaBancaria);

@@ -9,6 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import DAO.InvestidorDAO;
+import DAO.exceptions.NonexistentEntityException;
 import br.com.javaweb.model.Investidor;
 
 public class InvestidorService {
@@ -16,6 +17,10 @@ public class InvestidorService {
     public InvestidorService(){}
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("ControleAcoes");
     InvestidorDAO investidorDAO = new InvestidorDAO(emf);
+    
+    public void excluir(Integer id) throws NonexistentEntityException{
+    	investidorDAO.destroy(id);
+    }
     
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public Investidor recuperarObjetoParaEdicao(Integer id){

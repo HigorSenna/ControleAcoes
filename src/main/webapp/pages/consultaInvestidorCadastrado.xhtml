@@ -7,9 +7,10 @@
 	template="/template/layout.xhtml">
 
 	<ui:define name="conteudoDinamico">
-		<h:form>
+		<h:form prependId="false">
+		<p:messages showDetail="true" style="width:80%;margin-left:10%;" closable="true"/>
 			<p:dataTable id="investidores"
-				style="margin-bottom:0;margin-left:4%;width:1220px;"
+				style="margin-bottom:0;margin-left:10%;width:80%;"
 				paginator="true" rows="10" lazy="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom"
@@ -31,13 +32,13 @@
 					<h:outputText value="#{investidor.profissao}" />
 				</p:column>
 
-				<p:column headerText="Excluir">
+				<p:column headerText="Excluir" style="width:100px;">
 <!-- 					<p:commandLink style="width:10px!important;margin-left:80px;" action="modalExclusao.xhtml"> -->
 <!-- 						<f:param name="id" value="#{investidor.idInvestidor}"/> -->
 <!-- 						<p:graphicImage url="/estilos/img/Edit.png" -->
 <!-- 							style="width:25px;height:25px;margin-bottom:0px!important;" /> -->
-<!-- 					</p:commandLink> -->
-					<p:commandLink style="width:10px!important;margin-left:20px;">
+<!-- 					</p:commandLink> -->						
+					<p:commandLink style="width:10px!important;margin-left:30%;" action="#{consultaInvestidorController.excluirInvestidor(investidor)}">
 						<p:graphicImage url="/estilos/img/excluir.png"
 							style="width:25px;height:25px;margin-bottom:0px!important;" />
 					</p:commandLink>

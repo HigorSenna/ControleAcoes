@@ -36,24 +36,51 @@ public class ConnectorURL {
 	        System.out.println(obj2.get("ult_cotacao"));   
 	        
 	        System.out.println(obj2.size());//pegando o tamanho de um vetor especifico de acoes
+	        
 	        JSONObject arrayAcao = null;
 	        List<Object> atributosAcoes = new ArrayList<>();
+	        
 	        for(int i = 0 ; i< array.size() ; i++){
+	        	int j = 0;
 				System.out.println(array.get(i)); 			
 				arrayAcao = (JSONObject)array.get(i); //pego o array da acao especifica	
-				for(int j = 0 ;j< arrayAcao.size() ;j++){ //arrayAcao.size() tamanho do array especifico 
-					atributosAcoes.add(arrayAcao.get("ult_cotacao"));
-					atributosAcoes.add(arrayAcao.get("aber_cotacao"));
-					atributosAcoes.add(arrayAcao.get("variacao"));
-					atributosAcoes.add(arrayAcao.get("max_cotacao_dia"));
-					atributosAcoes.add(arrayAcao.get("min_cotacao_dia"));
+				
+				for(j = 0 ;j < 1;j++){ //para cada i, tenho que fazer o for apenas uma vez
+					atributosAcoes.add("\n");
+					atributosAcoes.add("Nome AÇÃO ");
 					atributosAcoes.add(arrayAcao.get("acao"));
+					atributosAcoes.add("\n");
+					
+					atributosAcoes.add("------------------------------");
+					atributosAcoes.add("\n");
+					atributosAcoes.add("\n");
+					atributosAcoes.add("Ultima Cotação ");
+					atributosAcoes.add(arrayAcao.get("ult_cotacao"));
+					atributosAcoes.add("\n");
+					
+					atributosAcoes.add("Abertura Cotação ");
+					atributosAcoes.add(arrayAcao.get("aber_cotacao"));
+					atributosAcoes.add("\n");
+					
+					atributosAcoes.add("Variação");
+					atributosAcoes.add(arrayAcao.get("variacao"));
+					atributosAcoes.add("\n");
+					
+					atributosAcoes.add("Maximo cotação dia ");
+					atributosAcoes.add(arrayAcao.get("max_cotacao_dia"));
+					atributosAcoes.add("\n");
+					
+					atributosAcoes.add("Minimo Cotação dia: ");
+					atributosAcoes.add(arrayAcao.get("min_cotacao_dia"));
+					atributosAcoes.add("\n");
+					
+					atributosAcoes.add("Media Cotação");
 					atributosAcoes.add(arrayAcao.get("med_cotacao_dia"));
 				}
 			}
-	        
+	  
 	        for(Object atributo: atributosAcoes){
-	        	System.out.println(atributo);
+	        	System.out.print(atributo);
 	        }
 			
 		} catch (ParseException e) {

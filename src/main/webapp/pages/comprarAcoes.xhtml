@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
+	<ui:define name="conteudoDinamico">
+		<div class="container-fluid">
+			<h2>Compra de Ações</h2>
+		</div>		
+		
+		<div class="table table-hover">
+			<p:dataTable id="acoes"
+				style="margin-bottom:0;margin-left:10%;width:80%;"
+				paginator="true" rows="10" lazy="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom"
+				var="acao"
+				value="#{consultaAcoesController.exibirAcoes()}">
+				<f:facet name="header">
+					Ações
+				</f:facet>
+				<p:column headerText="Empresa">
+					<h:outputText value="#{acao.nomeAcao}" />
+				</p:column>
+				
+				<p:column headerText="Valor de Abertura">
+					<h:outputText value="#{acao.aberturaCotacao}" />
+				</p:column>
+				
+				<p:column headerText="Valor Mínimo">
+					<h:outputText value="#{acao.minimoCotacaoDia}" />
+				</p:column>
+				
+				<p:column headerText="Valor Máximo">
+					<h:outputText value="#{acao.maximoCotacaoDia}" />
+				</p:column>
+				
+				<p:column headerText="Variação">
+					<h:outputText value="#{acao.variacao}" />
+				</p:column>
+				
+				<p:column headerText="Média">
+					<h:outputText value="#{acao.mediaAcaoDia}" />
+				</p:column>
+				
+				<p:column headerText="Valor final Dia">
+					<h:outputText value="#{acao.valorUltimaCotacao}" />
+				</p:column>
+
+				<p:column headerText="Comprar" style="width:100px;">
+
+				</p:column>
+			</p:dataTable>
+		</div>
+	</ui:define>
+</ui:composition>
+	

@@ -15,15 +15,15 @@ public class ConnectorURL {
 	private static String todosValoresQueVemDoWebService;
 	private static List<Object> atributosAcoes;
 	
-	public static List<Object> conectarNaUrl(String url) throws Exception{
+	public static List<Object> conectarNaUrlPegandoValoresDoWebService(String url) throws Exception{
 		URL urlConexao = new URL(url);				
 		URLConnection yc = urlConexao.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 		
-		return pegarParametrosUrl(in);
+		return pegarItemsWebService(in);
 	}
 	
-	private static List<Object> pegarParametrosUrl(BufferedReader in) throws Exception{		
+	private static List<Object> pegarItemsWebService(BufferedReader in) throws Exception{		
 		JSONParser parser = new JSONParser();
 		todosValoresQueVemDoWebService = in.readLine();		
 		Object obj = parser.parse(todosValoresQueVemDoWebService);

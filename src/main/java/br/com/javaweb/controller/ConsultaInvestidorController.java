@@ -22,7 +22,7 @@ public class ConsultaInvestidorController implements Serializable {
 	
 	public void conectarUrl(){
 		try {
-			ConnectorURL.pegarParametrosWebService("http://cotacao.davesmartins.com.br/webCotacao/?cod=VALE5;PETR4;ITSA3");
+			ConnectorURL.conectarNaUrl("http://cotacao.davesmartins.com.br/webCotacao/?cod=VALE5;PETR4;ITSA3");
 		} catch (Exception e) {
 			System.out.println(e.getMessage()); 
 		}

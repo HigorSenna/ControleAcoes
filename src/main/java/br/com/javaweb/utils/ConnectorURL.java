@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class ConnectorURL {
-	private static String todosValoresQuemVemDoWebService;
+	private static String todosValoresQueVemDoWebService;
 	private static List<Object> atributosAcoes;
 	
 	public static List<Object> conectarNaUrl(String url) throws Exception{
@@ -25,8 +25,8 @@ public class ConnectorURL {
 	
 	private static List<Object> pegarParametrosUrl(BufferedReader in) throws Exception{		
 		JSONParser parser = new JSONParser();
-		todosValoresQuemVemDoWebService = in.readLine();		
-		Object obj = parser.parse(todosValoresQuemVemDoWebService);
+		todosValoresQueVemDoWebService = in.readLine();		
+		Object obj = parser.parse(todosValoresQueVemDoWebService);
 		JSONArray arraysDoWebService = (JSONArray) obj;
         JSONObject arrayAcao = null;
         atributosAcoes = new ArrayList<>();

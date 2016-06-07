@@ -7,9 +7,8 @@
 		<div class="container-fluid">
 			<h2>Compra de Ações</h2>
 		</div>		
-		
 		<div class="table table-hover">
-			<p:dataTable id="acoes"
+			<p:dataTable id="acoes" 
 				style="margin-bottom:0;margin-left:10%;width:80%;"
 				paginator="true" rows="10" lazy="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -48,9 +47,18 @@
 				</p:column>
 
 				<p:column headerText="Comprar" style="width:100px;">
-
+					<h:link>
+						<h:graphicImage value="/estilos/img/buy.png" style="width:40px; height:40px;margin:auto 25%!important;" />
+					</h:link>
+				</p:column>
+				
+				<p:column headerText="Vender" style="width:100px;">
+					<h:link>
+						<h:graphicImage value="/estilos/img/sell.png" style="width:40px; height:40px;margin:auto 25%!important;" />
+					</h:link>
 				</p:column>
 			</p:dataTable>
+			<h:link outcome="comprarAcoes.xhtml" style="margin-left:76%;margin-top:5%;">Atualizar Tabela</h:link>
 		</div>
 	</ui:define>
 </ui:composition>

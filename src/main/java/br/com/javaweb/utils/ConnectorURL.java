@@ -25,19 +25,22 @@ public class ConnectorURL {
 		return pegarItemsWebService(in);
 	}
 	
-	private static List<Acao> pegarItemsWebService(BufferedReader in) throws Exception{		
+	private static List<Acao> pegarItemsWebService(BufferedReader in) throws Exception{				
+		acoes.clear();
 		JSONParser parser = new JSONParser();
 		todosValoresQueVemDoWebService = in.readLine();		
 		Object obj = parser.parse(todosValoresQueVemDoWebService);
 		JSONArray arraysDoWebService = (JSONArray) obj;
         JSONObject arrayAcao = null;
         atributosAcoes = new ArrayList<>();
-        Acao acao = new Acao();
+        
         for(int i = 0; i < arraysDoWebService.size(); i++){
+        	Acao acao = new Acao();
         	int j = 0;
 //        	System.out.println(arraysDoWebService.size());
-			System.out.println(arraysDoWebService.get(i)); 			
+//			System.out.println(arraysDoWebService.get(i)); 			
 			arrayAcao = (JSONObject)arraysDoWebService.get(i); //pego o array na posicao i da acao especifica	
+			
 			for(j = 0 ;j <= 0;j++){ //para cada i, tenho que fazer o for apenas uma vez
 				atributosAcoes.add(arrayAcao.get("acao"));
 				acao.setNomeAcao(arrayAcao.get("acao").toString());				
@@ -62,15 +65,11 @@ public class ConnectorURL {
 				acao.setMediaAcaoDia(arrayAcao.get("med_cotacao_dia").toString());
 				acoes.add(acao);
 			}
-		
         }
-//        testarMetodoAcoes(acoes);
+        testarMetodoAcoes(acoes);
         in.close();
         return acoes;
-        
 	}
-	
-	
 	
 	private static void testarMetodoAcoes(List<Acao> acoes){
 		for (Acao acao : acoes) {

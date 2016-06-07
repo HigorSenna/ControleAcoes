@@ -15,7 +15,7 @@ public class ConsultaAcoesController {
 
 	public List<Acao> exibirAcoes(){
 		try {
-			return ConnectorURL.conectarNaUrlPegandoValoresDoWebService("http://cotacao.davesmartins.com.br/webCotacao/?cod=VALE5");
+			return ConnectorURL.conectarNaUrlPegandoValoresDoWebService("http://cotacao.davesmartins.com.br/webCotacao/?cod=VALE5;PETR4;ITSA3;BBDC4;ABEV3;");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.javaweb.transacoes.model;
 
-import br.com.javaweb.model.Investidor;
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +15,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import br.com.javaweb.model.Acao;
+import br.com.javaweb.model.Investidor;
+
 @Entity
 @Table(name="compras",catalog = "controle_acoes", schema = "")
 public class Compra implements Serializable {
@@ -30,15 +28,17 @@ public class Compra implements Serializable {
     @NotNull
     @Column(name = "ID_COMPRA", nullable = false)
     private Integer idCompra;
+    
     @Column(name = "DT_COMPRA")
     @Temporal(TemporalType.DATE)
     private Date dtCompra;
+    
     @JoinColumn(name = "ID_INVESTIDOR", referencedColumnName = "ID_INVESTIDOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private Investidor idInvestidor;
-
+    
     public Compra() {
-    }
+    }    
 
     public Compra(Integer idCompra) {
         this.idCompra = idCompra;
@@ -67,6 +67,7 @@ public class Compra implements Serializable {
     public void setIdInvestidor(Investidor idInvestidor) {
         this.idInvestidor = idInvestidor;
     }
+    
 
     @Override
     public int hashCode() {
@@ -77,7 +78,6 @@ public class Compra implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Compra)) {
             return false;
         }

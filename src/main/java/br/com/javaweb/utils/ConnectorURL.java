@@ -42,26 +42,18 @@ public class ConnectorURL {
 			arrayAcao = (JSONObject)arraysDoWebService.get(i); //pego o array na posicao i da acao especifica	
 			
 			for(j = 0 ;j <= 0;j++){ //para cada i, tenho que fazer o for apenas uma vez
-				atributosAcoes.add(arrayAcao.get("acao"));
 				acao.setNomeAcao(arrayAcao.get("acao").toString());				
 				
-				atributosAcoes.add(arrayAcao.get("ult_cotacao"));	//				
 				acao.setValorUltimaCotacao(arrayAcao.get("ult_cotacao").toString());	
 				
-				atributosAcoes.add(arrayAcao.get("aber_cotacao"));
 				acao.setAberturaCotacao(arrayAcao.get("aber_cotacao").toString());
 				
-				atributosAcoes.add(arrayAcao.get("variacao"));
 				acao.setVariacao(arrayAcao.get("variacao").toString());
 				
-				atributosAcoes.add(arrayAcao.get("max_cotacao_dia"));
 				acao.setMaximoCotacaoDia(arrayAcao.get("max_cotacao_dia").toString());
 				
-				
-				atributosAcoes.add(arrayAcao.get("min_cotacao_dia"));
 				acao.setMinimoCotacaoDia(arrayAcao.get("min_cotacao_dia").toString());
 				
-				atributosAcoes.add(arrayAcao.get("med_cotacao_dia"));
 				acao.setMediaAcaoDia(arrayAcao.get("med_cotacao_dia").toString());
 				acoes.add(acao);
 			}

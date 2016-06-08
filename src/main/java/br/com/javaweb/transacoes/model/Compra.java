@@ -20,8 +20,8 @@ import br.com.javaweb.model.Investidor;
 
 @Entity
 @Table(name="compras",catalog = "controle_acoes", schema = "")
-public class Compra implements Serializable {
 
+public class Compra implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -36,6 +36,8 @@ public class Compra implements Serializable {
     @JoinColumn(name = "ID_INVESTIDOR", referencedColumnName = "ID_INVESTIDOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private Investidor idInvestidor;
+    
+    private Acao acao;
     
     public Compra() {
     }    
@@ -69,7 +71,15 @@ public class Compra implements Serializable {
     }
     
 
-    @Override
+    public Acao getAcao() {
+		return acao;
+	}
+
+	public void setAcao(Acao acao) {
+		this.acao = acao;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idCompra != null ? idCompra.hashCode() : 0);

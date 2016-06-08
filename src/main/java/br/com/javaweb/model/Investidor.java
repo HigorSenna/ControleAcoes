@@ -67,7 +67,7 @@ public class Investidor implements Serializable{
     private List<Venda> vendasList;
     
     @OneToMany(mappedBy = "idInvestidor", fetch = FetchType.LAZY)
-    private List<Compra> compasList;
+    private List<Compra> comprasList;
 
     public Investidor() {
     }
@@ -165,16 +165,16 @@ public class Investidor implements Serializable{
     public void setVendasList(List<Venda> vendasList) {
         this.vendasList = vendasList;
     }
+    
+    public List<Compra> getComprasList() {
+		return comprasList;
+	}
 
-    public List<Compra> getCompasList() {
-        return compasList;
-    }
+	public void setComprasList(List<Compra> comprasList) {
+		this.comprasList = comprasList;
+	}
 
-    public void setCompasList(List<Compra> compasList) {
-        this.compasList = compasList;
-    }
-
-    @Override
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idInvestidor != null ? idInvestidor.hashCode() : 0);
@@ -183,7 +183,6 @@ public class Investidor implements Serializable{
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Investidor)) {
             return false;
         }

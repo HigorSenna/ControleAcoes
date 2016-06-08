@@ -68,8 +68,8 @@ public class InvestidorDAO implements Serializable {
         if (investidores.getVendasList() == null) {
             investidores.setVendasList(new ArrayList<Venda>());
         }
-        if (investidores.getCompasList() == null) {
-            investidores.setCompasList(new ArrayList<Compra>());
+        if (investidores.getComprasList() == null) {
+            investidores.setComprasList(new ArrayList<Compra>());
         }
         EntityManager em = null;
         try {
@@ -93,11 +93,11 @@ public class InvestidorDAO implements Serializable {
             }
             investidores.setVendasList(attachedVendasList);
             List<Compra> attachedCompasList = new ArrayList<Compra>();
-            for (Compra compasListCompasToAttach : investidores.getCompasList()) {
+            for (Compra compasListCompasToAttach : investidores.getComprasList()) {
                 compasListCompasToAttach = em.getReference(compasListCompasToAttach.getClass(), compasListCompasToAttach.getIdCompra());
                 attachedCompasList.add(compasListCompasToAttach);
             }
-            investidores.setCompasList(attachedCompasList);
+            investidores.setComprasList(attachedCompasList);
             em.persist(investidores);
 //            if (idConta != null) {
 //                idConta.getInvestidoresList().add(investidores);
@@ -121,12 +121,12 @@ public class InvestidorDAO implements Serializable {
                     oldIdInvestidorOfVendasListVendas = em.merge(oldIdInvestidorOfVendasListVendas);
                 }
             }
-            for (Compra compasListCompas : investidores.getCompasList()) {
+            for (Compra compasListCompas : investidores.getComprasList()) {
                 Investidor oldIdInvestidorOfCompasListCompas = compasListCompas.getIdInvestidor();
                 compasListCompas.setIdInvestidor(investidores);
                 compasListCompas = em.merge(compasListCompas);
                 if (oldIdInvestidorOfCompasListCompas != null) {
-                    oldIdInvestidorOfCompasListCompas.getCompasList().remove(compasListCompas);
+                    oldIdInvestidorOfCompasListCompas.getComprasList().remove(compasListCompas);
                     oldIdInvestidorOfCompasListCompas = em.merge(oldIdInvestidorOfCompasListCompas);
                 }
             }
@@ -150,8 +150,8 @@ public class InvestidorDAO implements Serializable {
             List<HistoricoTransacao> historicosTransacoesListNew = investidores.getHistoricosTransacoesList();
             List<Venda> vendasListOld = persistentInvestidores.getVendasList();
             List<Venda> vendasListNew = investidores.getVendasList();
-            List<Compra> compasListOld = persistentInvestidores.getCompasList();
-            List<Compra> compasListNew = investidores.getCompasList();
+            List<Compra> compasListOld = persistentInvestidores.getComprasList();
+            List<Compra> compasListNew = investidores.getComprasList();
             if (idContaNew != null) {
                 idContaNew = em.getReference(idContaNew.getClass(), idContaNew.getIdConta());
                 investidores.setIdConta(idContaNew);
@@ -176,7 +176,7 @@ public class InvestidorDAO implements Serializable {
                 attachedCompasListNew.add(compasListNewCompasToAttach);
             }
             compasListNew = attachedCompasListNew;
-            investidores.setCompasList(compasListNew);
+            investidores.setComprasList(compasListNew);
             investidores = em.merge(investidores);
             if (idContaOld != null && !idContaOld.equals(idContaNew)) {
                 idContaOld.getInvestidoresList().remove(investidores);
@@ -232,7 +232,7 @@ public class InvestidorDAO implements Serializable {
                     compasListNewCompas.setIdInvestidor(investidores);
                     compasListNewCompas = em.merge(compasListNewCompas);
                     if (oldIdInvestidorOfCompasListNewCompas != null && !oldIdInvestidorOfCompasListNewCompas.equals(investidores)) {
-                        oldIdInvestidorOfCompasListNewCompas.getCompasList().remove(compasListNewCompas);
+                        oldIdInvestidorOfCompasListNewCompas.getComprasList().remove(compasListNewCompas);
                         oldIdInvestidorOfCompasListNewCompas = em.merge(oldIdInvestidorOfCompasListNewCompas);
                     }
                 }
@@ -281,7 +281,7 @@ public class InvestidorDAO implements Serializable {
                 vendasListVendas.setIdInvestidor(null);
                 vendasListVendas = em.merge(vendasListVendas);
             }
-            List<Compra> compasList = investidores.getCompasList();
+            List<Compra> compasList = investidores.getComprasList();
             for (Compra compasListCompas : compasList) {
                 compasListCompas.setIdInvestidor(null);
                 compasListCompas = em.merge(compasListCompas);

@@ -1,13 +1,14 @@
 package br.com.javaweb.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import DAO.CompraDAO;
-import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
+import br.com.javaweb.transacoes.model.Compra;
 
 public class CompraAcaoService implements Serializable {
 
@@ -17,8 +18,13 @@ public class CompraAcaoService implements Serializable {
 	
 	CompraDAO compraAcaoDAO = new CompraDAO(emf);
 	
-	public void comprarAcao(Investidor investidor,Acao acao){
-//		if(investidor.getIdConta().getSaldo() >= acao.get)
+	public void comprarAcao(List<Compra> compras,Investidor investidor){
+		//salvar investidor
+	}
+		
+	
+	public void checarValorCompra(Compra compra){
+		
 	}
 
 }

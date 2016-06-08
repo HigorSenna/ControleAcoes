@@ -15,7 +15,6 @@ import br.com.javaweb.model.Acao;
 
 public class ConnectorURL {
 	private static String todosValoresQueVemDoWebService;
-	private static List<Object> atributosAcoes;
 	private static List<Acao> acoes = new ArrayList<>();
 	
 	public static List<Acao> conectarNaUrlPegandoValoresDoWebService(String url) throws Exception{
@@ -32,7 +31,6 @@ public class ConnectorURL {
 		Object obj = parser.parse(todosValoresQueVemDoWebService);
 		JSONArray arraysDoWebService = (JSONArray) obj;
         JSONObject arrayAcao = null;
-        atributosAcoes = new ArrayList<>();
         
         for(int i = 0; i < arraysDoWebService.size(); i++){
         	Acao acao = new Acao();

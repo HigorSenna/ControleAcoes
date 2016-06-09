@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.CompraAcaoService;
 import br.com.javaweb.transacoes.model.Compra;
 
+@ManagedBean
+@ViewScoped
 public class CadastroCompraController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -18,16 +23,18 @@ public class CadastroCompraController implements Serializable{
 	private Acao acao;
 	private CompraAcaoService compraAcaoService;
 
-	public void comprarAcao(Investidor investidor, Compra compra,Acao acao){
+	public void comprarAcao(Acao acao){
+		compra = new Compra();
+		investidor = new Investidor();// pegar da sessao
 		if(investidor.getComprasList() == null){
 			List<Compra> compras = new ArrayList<>();
-			compra.setNomeAcao(acao.getNomeAcao());
-			compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao()));
-			compraAcaoService.comprarAcao(compras, investidor);		
+			compra.setNomeAcao(acao.getNomeAcao());			
+			compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao().replaceAll(",", ".")));
+			compraAcaoService.comprarAcao(compras, investidor,acao.getQuantidade());		
 		}
 		else{
 			investidor.getComprasList().add(compra);
-			compraAcaoService.comprarAcao(investidor.getComprasList(), investidor);	
+			compraAcaoService.comprarAcao(investidor.getComprasList(), investidor,acao.getQuantidade());	
 		}
 	}
 	

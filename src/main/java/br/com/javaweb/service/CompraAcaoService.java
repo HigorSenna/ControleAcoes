@@ -18,11 +18,12 @@ public class CompraAcaoService implements Serializable {
 	
 	CompraDAO compraAcaoDAO = new CompraDAO(emf);
 	
-	public void comprarAcao(List<Compra> compras,Investidor investidor){
+	public void comprarAcao(List<Compra> compras,Investidor investidor,int quantidade){
+		System.out.println("aaa");
 		//salvar investidor
 	}
 
-	private void saldoInvestidorSuficiente(List<Compra> compras,int quantidade,Investidor investidor){
+	private void saldoInvestidorSuficiente(List<Compra> compras,int quantidade,Investidor investidor){		
 		if(valorCompraMenor5Mil(compras, quantidade)){
 			if(investidor.getIdConta().getSaldo() <= calculoComum(compras, quantidade)){
 				//nao é suficiente

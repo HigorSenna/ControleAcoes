@@ -42,17 +42,17 @@ public class ConnectorURL {
 			for(j = 0 ;j <= 0;j++){ //para cada i, tenho que fazer o for apenas uma vez
 				acao.setNomeAcao(arrayAcao.get("acao").toString());				
 				
-				acao.setValorUltimaCotacao(arrayAcao.get("ult_cotacao").toString());	
+				acao.setValorUltimaCotacao(arrayAcao.get("ult_cotacao").toString().replaceAll(",", "."));					
 				
-				acao.setAberturaCotacao(arrayAcao.get("aber_cotacao").toString());
+				acao.setAberturaCotacao(arrayAcao.get("aber_cotacao").toString().replaceAll(",", "."));
 				
-				acao.setVariacao(arrayAcao.get("variacao").toString());
+				acao.setVariacao(arrayAcao.get("variacao").toString().replaceAll(",", "."));
 				
-				acao.setMaximoCotacaoDia(arrayAcao.get("max_cotacao_dia").toString());
+				acao.setMaximoCotacaoDia(arrayAcao.get("max_cotacao_dia").toString().replaceAll(",", "."));
 				
-				acao.setMinimoCotacaoDia(arrayAcao.get("min_cotacao_dia").toString());
+				acao.setMinimoCotacaoDia(arrayAcao.get("min_cotacao_dia").toString().replaceAll(",", "."));
 				
-				acao.setMediaAcaoDia(arrayAcao.get("med_cotacao_dia").toString());
+				acao.setMediaAcaoDia(arrayAcao.get("med_cotacao_dia").toString().replaceAll(",", "."));
 				acoes.add(acao);
 			}
         }

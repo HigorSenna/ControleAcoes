@@ -9,6 +9,7 @@ public class Acao {
 	private String maximoCotacaoDia;
 	private String minimoCotacaoDia;
 	private String mediaAcaoDia;
+	private int quantidade;
 	
 	public Acao() {
 		
@@ -54,5 +55,11 @@ public class Acao {
 	}
 	public void setMediaAcaoDia(String mediaAcaoDia) {
 		this.mediaAcaoDia = mediaAcaoDia;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}	
 }

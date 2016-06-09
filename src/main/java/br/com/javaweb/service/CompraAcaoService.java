@@ -19,31 +19,31 @@ public class CompraAcaoService implements Serializable {
 	CompraDAO compraAcaoDAO = new CompraDAO(emf);
 	
 	public void comprarAcao(List<Compra> compras,Investidor investidor,int quantidade){
-		System.out.println("aaa");
-		//salvar investidor
+		saldoInvestidorSuficiente(compras, quantidade, investidor);
 	}
 
 	private void saldoInvestidorSuficiente(List<Compra> compras,int quantidade,Investidor investidor){		
 		if(valorCompraMenor5Mil(compras, quantidade)){
 			if(investidor.getIdConta().getSaldo() <= calculoComum(compras, quantidade)){
+				System.out.println("Saldo insuficiente");
 				//nao é suficiente
 			}			
 			else{
-				//é suficiente
+				System.out.println("Pode Comprar");
 			}
 		}
 		else{
 			if(investidor.getIdConta().getSaldo() <=calculoAcrescido(compras, quantidade) ){
-				//nao é suficiente
+				System.out.println("Não Pode Comprar 2");
 			}			
 			else{
-				//é suficiete
+				System.out.println("Pode Comprar 2");
 			}
 		}
 	}
 		
 	private boolean valorCompraMenor5Mil(List<Compra> compras,int quantidade){
-		if(compras.get(compras.size()-1).getValorFinalAcao() * quantidade <= 5000){
+		if(compras.get(0).getValorFinalAcao() * quantidade <= 5000){
 			return true;
 		}
 		return false;			
@@ -57,7 +57,7 @@ public class CompraAcaoService implements Serializable {
 	}	
 	
 	private double calculoComum(List<Compra> compras,int quantidade){
-		double totalPagar = ((compras.get(compras.size()-1).getValorFinalAcao() * quantidade) + 20);
+		double totalPagar = ((compras.get(0).getValorFinalAcao() * quantidade) + 20);
 		return totalPagar;
 	}
 }

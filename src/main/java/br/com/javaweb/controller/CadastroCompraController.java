@@ -11,6 +11,7 @@ import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.CompraAcaoService;
 import br.com.javaweb.transacoes.model.Compra;
+import br.com.javaweb.utils.Session;
 
 @ManagedBean
 @ViewScoped
@@ -26,17 +27,23 @@ public class CadastroCompraController implements Serializable{
 	public void comprarAcao(Acao acao){
 		compraAcaoService = new CompraAcaoService();
 		compra = new Compra();
-		investidor = new Investidor();// pegar da sessao
+		investidor = buscarInvestidorSessao(); // buscar o investidor antes de colocar na sessao
+//		investidor = new Investidor();// pegar da sessao e buscar no banco
 		if(investidor.getComprasList() == null){
 			List<Compra> compras = new ArrayList<>();
 			compra.setNomeAcao(acao.getNomeAcao());			
 			compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao().replaceAll(",", ".")));
+			compras.add(compra);
 			compraAcaoService.comprarAcao(compras, investidor,acao.getQuantidade());		
 		}
 		else{
 			investidor.getComprasList().add(compra);
 			compraAcaoService.comprarAcao(investidor.getComprasList(), investidor,acao.getQuantidade());	
 		}
+	}
+	
+	public Investidor buscarInvestidorSessao(){
+		 return (Investidor) Session.pegarSessao();
 	}
 	
 	public Compra getCompra() {

@@ -32,7 +32,8 @@ public class LoginController {
 	public void validarLogin() {
 		try {
 			investidorService.verificarLogin(investidor.getLogin(), investidor.getSenha());
-			Session.criarSessao("user", investidor.getLogin());
+			investidor = investidorService.buscarInvestidorLoginSenha(investidor.getLogin(), investidor.getSenha());
+			Session.criarSessao("user", investidor);
 			MessagesAndRedirect.redirecionarPara("pages/principal.xhtml");		
 
 		} catch (Exception e) {

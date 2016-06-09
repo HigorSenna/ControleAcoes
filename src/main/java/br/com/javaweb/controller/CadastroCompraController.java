@@ -28,7 +28,6 @@ public class CadastroCompraController implements Serializable{
 		compraAcaoService = new CompraAcaoService();
 		compra = new Compra();
 		investidor = buscarInvestidorSessao(); // buscar o investidor antes de colocar na sessao
-//		investidor = new Investidor();// pegar da sessao e buscar no banco
 		if(investidor.getComprasList() == null){
 			List<Compra> compras = new ArrayList<>();
 			compra.setNomeAcao(acao.getNomeAcao());			
@@ -37,6 +36,8 @@ public class CadastroCompraController implements Serializable{
 			compraAcaoService.comprarAcao(compras, investidor,acao.getQuantidade());		
 		}
 		else{
+			compra.setNomeAcao(acao.getNomeAcao());			
+			compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao().replaceAll(",", ".")));
 			investidor.getComprasList().add(compra);
 			compraAcaoService.comprarAcao(investidor.getComprasList(), investidor,acao.getQuantidade());	
 		}

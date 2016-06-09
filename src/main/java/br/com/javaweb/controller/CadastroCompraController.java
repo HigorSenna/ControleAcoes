@@ -24,6 +24,7 @@ public class CadastroCompraController implements Serializable{
 	private CompraAcaoService compraAcaoService;
 
 	public void comprarAcao(Acao acao){
+		compraAcaoService = new CompraAcaoService();
 		compra = new Compra();
 		investidor = new Investidor();// pegar da sessao
 		if(investidor.getComprasList() == null){

@@ -15,7 +15,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
 
 @Entity
@@ -37,8 +36,12 @@ public class Compra implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Investidor idInvestidor;
     
-    private Acao acao;
+    @Column(name="NM_ACAO")
+    private String nomeAcao;
     
+    @Column(name="VL_FIM_ACAO")
+    private double valorFinalAcao;
+       
     public Compra() {
     }    
 
@@ -68,15 +71,23 @@ public class Compra implements Serializable {
 
     public void setIdInvestidor(Investidor idInvestidor) {
         this.idInvestidor = idInvestidor;
-    }
+    }    
     
 
-    public Acao getAcao() {
-		return acao;
+	public String getNomeAcao() {
+		return nomeAcao;
 	}
 
-	public void setAcao(Acao acao) {
-		this.acao = acao;
+	public void setNomeAcao(String nomeAcao) {
+		this.nomeAcao = nomeAcao;
+	}
+
+	public double getValorFinalAcao() {
+		return valorFinalAcao;
+	}
+
+	public void setValorFinalAcao(double valorFinalAcao) {
+		this.valorFinalAcao = valorFinalAcao;
 	}
 
 	@Override

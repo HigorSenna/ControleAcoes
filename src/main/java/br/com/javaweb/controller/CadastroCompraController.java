@@ -21,7 +21,8 @@ public class CadastroCompraController implements Serializable{
 	public void comprarAcao(Investidor investidor, Compra compra,Acao acao){
 		if(investidor.getComprasList() == null){
 			List<Compra> compras = new ArrayList<>();
-			compra.setAcao(acao);
+			compra.setNomeAcao(acao.getNomeAcao());
+			compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao()));
 			compraAcaoService.comprarAcao(compras, investidor);		
 		}
 		else{

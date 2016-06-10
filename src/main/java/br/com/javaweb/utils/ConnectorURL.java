@@ -21,14 +21,17 @@ public class ConnectorURL {
 		URL urlConexao = new URL(url);				
 		URLConnection yc = urlConexao.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-		return pegarItemsWebService(in);
+		return pegarItemsWebService(in,yc);		
 	}
 	
-	private static List<Acao> pegarItemsWebService(BufferedReader in) throws Exception{				
+	private static List<Acao> pegarItemsWebService(BufferedReader in,URLConnection yc) throws Exception{				
 		acoes.clear();
 		JSONParser parser = new JSONParser();
 		todosValoresQueVemDoWebService = in.readLine();		
 		Object obj = parser.parse(todosValoresQueVemDoWebService);
+		
+		yc = null;
+		in.close(); 
 		JSONArray arraysDoWebService = (JSONArray) obj;
         JSONObject arrayAcao = null;
         
@@ -56,8 +59,7 @@ public class ConnectorURL {
 				acoes.add(acao);
 			}
         }
-        testarMetodoAcoes(acoes);
-        in.close();
+        testarMetodoAcoes(acoes);              
         return acoes;
 	}
 	

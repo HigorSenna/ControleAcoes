@@ -24,7 +24,7 @@ public class CompraAcaoService implements Serializable {
 	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor) throws Exception{		
 		if(valorCompraMenor5Mil(compra, quantidade)){
 			if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidade)){
-				System.out.println("Saldo insuficiente");
+				System.out.println("Saldo insuficiente");				
 				throw new Exception();
 				//nao é suficiente
 			}			
@@ -40,6 +40,7 @@ public class CompraAcaoService implements Serializable {
 					atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);					
 					
 				} catch (Exception e) {
+					System.out.println(e.getMessage());
 					throw new Exception();
 				}
 			}

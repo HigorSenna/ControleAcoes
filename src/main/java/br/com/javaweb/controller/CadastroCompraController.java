@@ -13,6 +13,7 @@ import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.CompraAcaoService;
 import br.com.javaweb.transacoes.model.Compra;
 import br.com.javaweb.utils.ConnectorURL;
+import br.com.javaweb.utils.MessagesAndRedirect;
 import br.com.javaweb.utils.Session;
 
 @ManagedBean
@@ -44,15 +45,16 @@ public class CadastroCompraController implements Serializable{
 	public void comprarAcao(Acao acao){
 		compraAcaoService = new CompraAcaoService();
 		compra = new Compra();
-		investidor = buscarInvestidorSessao(); // buscar o investidor antes de colocar na sessao
+		investidor = buscarInvestidorSessao(); // busca o investidor antes de colocar na sessao
 		
 		compra.setNomeAcao(acao.getNomeAcao());			
 		compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao().replaceAll(",", ".")));
 		compra.setIdInvestidor(investidor);
 		try {
-			compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade());			
+			compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade());		
+			MessagesAndRedirect.exibirMensagemSucessoRedirect("Compra Realizada com sucesso", "comprarAcoes.xhtml");
 		} catch (Exception e) {
-			e.printStackTrace();
+			MessagesAndRedirect.exibirMensagemErroRedirect("Falha ao comprar, verifique seu saldo ou entre em contato com a empresa!!", "comprarAcoes.xhtml");
 		}		
 	}
 	

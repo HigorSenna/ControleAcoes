@@ -17,26 +17,28 @@ public class CompraAcaoService implements Serializable {
 	
 	CompraDAO compraAcaoDAO = new CompraDAO(emf);
 	
-	public void comprarAcao(Compra compra,Investidor investidor,int quantidade){
+	public void comprarAcao(Compra compra,Investidor investidor,int quantidade) throws Exception{
 		saldoInvestidorSuficiente(compra, quantidade, investidor);
 	}
 
-	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor){		
+	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor) throws Exception{		
 		if(valorCompraMenor5Mil(compra, quantidade)){
 			if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidade)){
 				System.out.println("Saldo insuficiente");
+				throw new Exception();
 				//nao é suficiente
 			}			
 			else{
 				System.out.println("Pode Comprar < 5 mil");
-				//debitar saldo, if comprou, atualizo o saldo da conta
-				double valorDebitar = investidor.getIdConta().getSaldo() - calculoComum(compra, quantidade);
-				double saldoFinal = investidor.getIdConta().getSaldo() - valorDebitar;
+				//debitar saldo, if comprou, atualizo o saldo da conta			
 				
 				try {
-					compraAcaoDAO.inserirCompra(compra);
-					investidor.getIdConta().setSaldo(saldoFinal);	
-					compraAcaoDAO.atualizarCompraInvestidor(investidor);
+					compra.setQuantidade(quantidade);
+					compra.setValorPago(calculoComum(compra, quantidade));
+					compraAcaoDAO.inserirCompra(compra);	
+					//VALIDAR SE A COMPRA JA EXISTE, SE EXISTIR, RECUPERAR A COMPRA EXISTENTE E ACRESCENTAR OS DADOS
+					atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);
+					
 					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -51,7 +53,7 @@ public class CompraAcaoService implements Serializable {
 				System.out.println("Pode Comprar 2");
 			}
 		}
-	}
+	}	
 		
 	private boolean valorCompraMenor5Mil(Compra compra,int quantidade){
 		if(compra.getValorFinalAcao() * quantidade <= 5000){
@@ -70,5 +72,11 @@ public class CompraAcaoService implements Serializable {
 	private double calculoComum(Compra compra,int quantidade){
 		double totalPagar = ((compra.getValorFinalAcao() * quantidade) + 20);
 		return totalPagar;
+	}
+	
+	private void atualizarDadosCompraComumInvestidor(Investidor investidor,Compra compra,int quantidade){		
+			double saldoFinal = investidor.getIdConta().getSaldo() - calculoComum(compra, quantidade);
+			investidor.getIdConta().setSaldo(saldoFinal);		
+			compraAcaoDAO.atualizarCompraInvestidor(investidor);
 	}
 }

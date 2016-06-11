@@ -45,8 +45,11 @@ public class Compra implements Serializable {
     @Column(name="VL_FIM_ACAO")
     private double valorFinalAcao;
     
-//    @Column(name="QTD_ACOES")
-//    private int quantidade;
+    @Column(name="VL_PAGO")
+    private double valorPago;
+    
+    @Column(name="QTD_COMPRA")
+    private int quantidade;
        
     public Compra() {
     }    
@@ -96,13 +99,21 @@ public class Compra implements Serializable {
 		this.valorFinalAcao = valorFinalAcao;
 	}
 
-//	public int getQuantidade() {
-//		return quantidade;
-//	}
-//
-//	public void setQuantidade(int quantidade) {
-//		this.quantidade = quantidade;
-//	}
+	public double getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(double valorPago) {
+		this.valorPago = valorPago;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 
 	@Override
     public int hashCode() {

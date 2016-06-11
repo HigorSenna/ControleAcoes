@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,6 +25,7 @@ import br.com.javaweb.model.Investidor;
 public class Compra implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_COMPRA", nullable = false)
@@ -41,6 +44,9 @@ public class Compra implements Serializable {
     
     @Column(name="VL_FIM_ACAO")
     private double valorFinalAcao;
+    
+//    @Column(name="QTD_ACOES")
+//    private int quantidade;
        
     public Compra() {
     }    
@@ -89,6 +95,14 @@ public class Compra implements Serializable {
 	public void setValorFinalAcao(double valorFinalAcao) {
 		this.valorFinalAcao = valorFinalAcao;
 	}
+
+//	public int getQuantidade() {
+//		return quantidade;
+//	}
+//
+//	public void setQuantidade(int quantidade) {
+//		this.quantidade = quantidade;
+//	}
 
 	@Override
     public int hashCode() {

@@ -1,7 +1,6 @@
 package br.com.javaweb.service;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -18,22 +17,25 @@ public class CompraAcaoService implements Serializable {
 	
 	CompraDAO compraAcaoDAO = new CompraDAO(emf);
 	
-	public void comprarAcao(List<Compra> compras,Investidor investidor,int quantidade){
-		saldoInvestidorSuficiente(compras, quantidade, investidor);
+	public void comprarAcao(Compra compra,Investidor investidor,int quantidade){
+		saldoInvestidorSuficiente(compra, quantidade, investidor);
 	}
 
-	private void saldoInvestidorSuficiente(List<Compra> compras,int quantidade,Investidor investidor){		
-		if(valorCompraMenor5Mil(compras, quantidade)){
-			if(investidor.getIdConta().getSaldo() <= calculoComum(compras, quantidade)){
+	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor){		
+		if(valorCompraMenor5Mil(compra, quantidade)){
+			if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidade)){
 				System.out.println("Saldo insuficiente");
 				//nao é suficiente
 			}			
 			else{
-				System.out.println("Pode Comprar");
+				System.out.println("Pode Comprar < 5 mil");
+				//debitar saldo, if comprou, atualizo o saldo da conta
+				compraAcaoDAO.inserirCompra(compra);	
+				
 			}
 		}
 		else{
-			if(investidor.getIdConta().getSaldo() <=calculoAcrescido(compras, quantidade) ){
+			if(investidor.getIdConta().getSaldo() <=calculoAcrescido(compra, quantidade) ){
 				System.out.println("Não Pode Comprar 2");
 			}			
 			else{
@@ -42,22 +44,22 @@ public class CompraAcaoService implements Serializable {
 		}
 	}
 		
-	private boolean valorCompraMenor5Mil(List<Compra> compras,int quantidade){
-		if(compras.get(0).getValorFinalAcao() * quantidade <= 5000){
+	private boolean valorCompraMenor5Mil(Compra compra,int quantidade){
+		if(compra.getValorFinalAcao() * quantidade <= 5000){
 			return true;
 		}
 		return false;			
 	}
 	
-	private double calculoAcrescido(List<Compra> compras,int quantidade){
-		double valorMinPagar = calculoComum(compras, quantidade);
+	private double calculoAcrescido(Compra compra,int quantidade){
+		double valorMinPagar = calculoComum(compra, quantidade);
 		
 		double totalPagar = valorMinPagar * 0.5 + valorMinPagar + 15.21; // fazer regra para validar se a taxa de 15.21 ja foi cobrada no dia
 		return totalPagar;
 	}	
 	
-	private double calculoComum(List<Compra> compras,int quantidade){
-		double totalPagar = ((compras.get(0).getValorFinalAcao() * quantidade) + 20);
+	private double calculoComum(Compra compra,int quantidade){
+		double totalPagar = ((compra.getValorFinalAcao() * quantidade) + 20);
 		return totalPagar;
 	}
 }

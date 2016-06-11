@@ -1,9 +1,12 @@
 package DAO;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import br.com.javaweb.transacoes.model.Compra;
 
 public class CompraDAO implements Serializable {
 
@@ -19,6 +22,21 @@ public class CompraDAO implements Serializable {
     }
 
    
-    public void inserirCompra(){}
+    public void inserirCompra(Compra compra){
+    	Date atual = new Date();	
+    	compra.setDtCompra(atual);
+    	EntityManager em = null;     
+        em = getEntityManager();
+        
+        em.getTransaction().begin(); 
+        
+        	em.persist(compra);   
+        	
+        em.getTransaction().commit();   
+        
+        if(em !=null){
+        	em.close();
+        }
+    }
     
 }

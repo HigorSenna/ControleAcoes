@@ -24,7 +24,7 @@ public class CompraAcaoService implements Serializable {
 	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor) throws Exception{		
 		if(valorCompraMenor5Mil(compra, quantidade)){
 			if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidade)){
-				System.out.println("Saldo insuficiente");				
+				System.out.println("Saldo insuficiente < 5 mil");				
 				throw new Exception();
 			}			
 			else{
@@ -49,11 +49,19 @@ public class CompraAcaoService implements Serializable {
 				System.out.println("Não Pode Comprar 2");
 			}			
 			else{
-				System.out.println("Pode Comprar 2 > 5mil");
-				compra.setQuantidade(quantidade);
-				compra.setValorPago(calculoAcrescido(compra, quantidade));
-				compraAcaoDAO.inserirCompra(compra);
-				atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
+				try {
+					System.out.println("Pode Comprar 2 > 5mil");
+					double valorComAcrescimo20 = calculoComum(compra,quantidade);
+					compra.setValorPago(calculoAcrescido(compra, quantidade)-15.21 -0.5 * valorComAcrescimo20);//valor pago sem taxas				
+					compra.setTaxa(20 + 0.5 * calculoComum(compra,quantidade) + 15.21);
+					compra.setTotalPago(calculoAcrescido(compra, quantidade));
+					compra.setQuantidade(quantidade);				
+					compraAcaoDAO.inserirCompra(compra);
+					atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					throw new Exception();
+				}
 			}
 		}
 	}	

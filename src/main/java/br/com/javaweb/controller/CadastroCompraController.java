@@ -49,7 +49,11 @@ public class CadastroCompraController implements Serializable{
 		compra.setNomeAcao(acao.getNomeAcao());			
 		compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao().replaceAll(",", ".")));
 		compra.setIdInvestidor(investidor);
-		compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade());		
+		try {
+			compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade());			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	public Investidor buscarInvestidorSessao(){

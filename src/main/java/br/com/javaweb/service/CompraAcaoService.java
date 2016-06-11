@@ -30,8 +30,17 @@ public class CompraAcaoService implements Serializable {
 			else{
 				System.out.println("Pode Comprar < 5 mil");
 				//debitar saldo, if comprou, atualizo o saldo da conta
-				compraAcaoDAO.inserirCompra(compra);	
+				double valorDebitar = investidor.getIdConta().getSaldo() - calculoComum(compra, quantidade);
+				double saldoFinal = investidor.getIdConta().getSaldo() - valorDebitar;
 				
+				try {
+					compraAcaoDAO.inserirCompra(compra);
+					investidor.getIdConta().setSaldo(saldoFinal);	
+					compraAcaoDAO.atualizarCompraInvestidor(investidor);
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		}
 		else{

@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import br.com.javaweb.model.Investidor;
 import br.com.javaweb.transacoes.model.Compra;
 
 public class CompraDAO implements Serializable {
@@ -20,6 +21,17 @@ public class CompraDAO implements Serializable {
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+    
+    public void atualizarCompraInvestidor(Investidor investidor){
+    	EntityManager em = null;
+    	em = getEntityManager();
+        
+        em.getTransaction().begin(); 
+        
+        	em.merge(investidor);   
+        	
+        em.getTransaction().commit(); 
+    }
 
    
     public void inserirCompra(Compra compra){
@@ -32,11 +44,11 @@ public class CompraDAO implements Serializable {
         
         	em.persist(compra);   
         	
-        em.getTransaction().commit();   
+        em.getTransaction().commit();     
+        
         
         if(em !=null){
         	em.close();
         }
-    }
-    
+    }   
 }

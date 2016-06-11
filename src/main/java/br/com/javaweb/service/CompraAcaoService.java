@@ -37,11 +37,10 @@ public class CompraAcaoService implements Serializable {
 					compra.setValorPago(calculoComum(compra, quantidade));
 					compraAcaoDAO.inserirCompra(compra);	
 					//VALIDAR SE A COMPRA JA EXISTE, SE EXISTIR, RECUPERAR A COMPRA EXISTENTE E ACRESCENTAR OS DADOS
-					atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);
-					
+					atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);					
 					
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					throw new Exception();
 				}
 			}
 		}

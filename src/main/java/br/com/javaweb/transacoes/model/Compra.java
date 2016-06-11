@@ -50,6 +50,13 @@ public class Compra implements Serializable {
     
     @Column(name="QTD_COMPRA")
     private int quantidade;
+    
+    @Column(name="TAXAS")
+    private double taxa;
+    
+    @Column(name="TOTAL_PAGO")
+    private double totalPago;
+    
        
     public Compra() {
     }    
@@ -113,6 +120,22 @@ public class Compra implements Serializable {
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public double getTaxa() {
+		return taxa;
+	}
+
+	public void setTaxa(double taxa) {
+		this.taxa = taxa;
+	}
+
+	public double getTotalPago() {
+		return totalPago;
+	}
+
+	public void setTotalPago(double totalPago) {
+		this.totalPago = totalPago;
 	}
 
 	@Override

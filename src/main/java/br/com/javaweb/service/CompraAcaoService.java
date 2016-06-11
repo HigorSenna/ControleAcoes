@@ -26,17 +26,16 @@ public class CompraAcaoService implements Serializable {
 			if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidade)){
 				System.out.println("Saldo insuficiente");				
 				throw new Exception();
-				//nao é suficiente
 			}			
 			else{
 				System.out.println("Pode Comprar < 5 mil");
-				//debitar saldo, if comprou, atualizo o saldo da conta			
-				
 				try {
 					compra.setQuantidade(quantidade);
-					compra.setValorPago(calculoComum(compra, quantidade));
-					compraAcaoDAO.inserirCompra(compra);	
-					//VALIDAR SE A COMPRA JA EXISTE, SE EXISTIR, RECUPERAR A COMPRA EXISTENTE E ACRESCENTAR OS DADOS
+					compra.setValorPago(calculoComum(compra, quantidade) -20);//valor pago sem taxas
+					compra.setTotalPago(calculoComum(compra, quantidade));
+					compra.setTaxa(20);
+					compraAcaoDAO.inserirCompra(compra);					
+					//SE O INVESTIDOR FIZER 100 COMRPAS DA MESMA ACAO, SERÁ REGISTRADO 100 REGISTROS NO BANCO
 					atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);					
 					
 				} catch (Exception e) {
@@ -50,7 +49,11 @@ public class CompraAcaoService implements Serializable {
 				System.out.println("Não Pode Comprar 2");
 			}			
 			else{
-				System.out.println("Pode Comprar 2");
+				System.out.println("Pode Comprar 2 > 5mil");
+				compra.setQuantidade(quantidade);
+				compra.setValorPago(calculoAcrescido(compra, quantidade));
+				compraAcaoDAO.inserirCompra(compra);
+				atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
 			}
 		}
 	}	
@@ -75,8 +78,13 @@ public class CompraAcaoService implements Serializable {
 	}
 	
 	private void atualizarDadosCompraComumInvestidor(Investidor investidor,Compra compra,int quantidade){		
-			double saldoFinal = investidor.getIdConta().getSaldo() - calculoComum(compra, quantidade);
-			investidor.getIdConta().setSaldo(saldoFinal);		
-			compraAcaoDAO.atualizarCompraInvestidor(investidor);
+		double saldoFinal = investidor.getIdConta().getSaldo() - calculoComum(compra, quantidade);
+		investidor.getIdConta().setSaldo(saldoFinal);		
+		compraAcaoDAO.atualizarCompraInvestidor(investidor);
 	}
+	private void atualizarDadosCompraComTaxasInvestidor(Investidor investidor,Compra compra,int quantidade){
+		double saldoFinal = investidor.getIdConta().getSaldo() - calculoAcrescido(compra, quantidade);
+		investidor.getIdConta().setSaldo(saldoFinal);		
+		compraAcaoDAO.atualizarCompraInvestidor(investidor);
+	}	
 }

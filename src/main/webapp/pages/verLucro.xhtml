@@ -2,7 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">	
 	<ui:define name="conteudoDinamico">
 		<div class="container-fluid">
 			<h2>Lucro corretora</h2>
@@ -12,47 +12,19 @@
 		<div class="table table-hover">
 			<p:dataTable id="acoes" 
 				style="margin-bottom:0;margin-left:10%;width:80%;text-align:center;"
-				paginator="true" rows="10" lazy="false"
+				paginator="true" rows="10" lazy="false" var="corretora"
+				value="#{consultaLucroCorretoraController.corretora}"
 				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom">
 				<f:facet name="header">
-					Lucro
+					Tabela de lucro da corretora
 				</f:facet>
-				<p:column headerText="Empresa">
-					<h:outputText value="" />
+				<p:column headerText="Qtd Acoes Vendidas(Compra realizada pelos investidores)" style="backgrund-color:black!important;">
+					<h:outputText value="#{corretora.numeroTransacoesFeitas}" />
 				</p:column>
 				
-				<p:column headerText="Valor de Abertura">
-					<h:outputText value="" />
-				</p:column>
-				
-				<p:column headerText="Valor Mínimo">
-					<h:outputText value="" />
-				</p:column>
-				
-				<p:column headerText="Valor Máximo">
-					<h:outputText value="" />
-				</p:column>
-				
-				<p:column headerText="Variação">
-					<h:outputText value="" />
-				</p:column>
-				
-				<p:column headerText="Média">
-					<h:outputText value="" />
-				</p:column>
-				
-				<p:column headerText="Valor final Dia">
-					<h:outputText value="" />
-				</p:column>
-				
-				<p:column headerText="Quantidade">
-					<h:inputText id="qtd" value="" style="width:100px;"/>
-				</p:column>
-
-				<p:column headerText="Comprar" style="width:100px;">
-					<p:commandButton value="Buy" style="width:50px;margin-left:15px;"/>
-					<h:graphicImage value="/estilos/img/buy.png" style="width:40px; height:40px;margin:auto 25%!important;" />
-				</p:column>
+				<p:column headerText="Lucro">
+					<h:outputText value="#{corretora.lucro}" style="color:greenyellow;"/>
+				</p:column>					
 			</p:dataTable>
 		</div>
 		</h:form>

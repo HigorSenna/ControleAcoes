@@ -1,0 +1,8 @@
+@CHARSET "ISO-8859-1";
+.ui-widget-content, .ui-datatable-even{
+	background-color:black !important;
+}
+.ui-datatable tbody td{
+	text-align:center !important;
+	color:white !important;
+}

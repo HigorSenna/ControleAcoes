@@ -2,9 +2,11 @@ package DAO;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.transacoes.model.Compra;
@@ -50,5 +52,13 @@ public class CompraDAO implements Serializable {
         if(em !=null){
         	em.close();
         }
-    }   
+    } 
+    
+    public List<Compra> buscarTodasCompras(){
+    	EntityManager em = null;     
+        em = getEntityManager();       
+        String jpql = "SELECT c FROM Compra c";
+        Query q = getEntityManager().createQuery(jpql);
+        return q.getResultList();        
+    }
 }

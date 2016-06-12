@@ -1,7 +1,10 @@
 package br.com.javaweb.service;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -95,4 +98,9 @@ public class CompraAcaoService implements Serializable {
 		investidor.getIdConta().setSaldo(saldoFinal);		
 		compraAcaoDAO.atualizarCompraInvestidor(investidor);
 	}	
+	
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<Compra> buscarTodasCompras(){
+		return compraAcaoDAO.buscarTodasCompras();
+	}
 }

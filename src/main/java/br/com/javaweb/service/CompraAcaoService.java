@@ -32,10 +32,9 @@ public class CompraAcaoService implements Serializable {
 				throw new Exception();
 			}			
 			else{
-				System.out.println("Pode Comprar < 5 mil");
 				try {
 					if(existeAcaoHistoricoInvestidor(investidor, compra)){
-						HistoricoTransacao historicoInv;
+						HistoricoTransacao historicoInv = new HistoricoTransacao();
 						
 						if(investidor.getHistoricosTransacoesList().size() == 1){
 							historicoInv = investidor.getHistoricosTransacoesList().get(0);
@@ -58,6 +57,7 @@ public class CompraAcaoService implements Serializable {
 						compraAcaoDAO.atualizarHistorico(historicoInv);
 						
 						atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);	
+						System.out.println("Pode Comprar < 5 mil");
 					}
 					else{			
 						historico.setQuantidadeTotal(quantidade);
@@ -73,6 +73,7 @@ public class CompraAcaoService implements Serializable {
 						compraAcaoDAO.inserirHistorico(historico);
 						
 						atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);	
+						System.out.println("Pode Comprar < 5 mil");
 					}
 					
 				} catch (Exception e) {
@@ -87,21 +88,55 @@ public class CompraAcaoService implements Serializable {
 			}			
 			else{
 				try {
-					System.out.println("Pode Comprar 2 > 5mil");
-					double valorComAcrescimo20 = calculoComum(compra,quantidade);
-					compra.setValorPago(calculoAcrescido(compra, quantidade)-15.21 -0.5 * valorComAcrescimo20);//valor pago sem taxas				
-					compra.setTaxa(20 + 0.5 * calculoComum(compra,quantidade) + 15.21);
-					compra.setTotalPago(calculoAcrescido(compra, quantidade));
-					compra.setQuantidade(quantidade);				
-					compraAcaoDAO.inserirCompra(compra);
-					atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
-				} catch (Exception e) {
+					if(existeAcaoHistoricoInvestidor(investidor, compra)){
+						HistoricoTransacao historicoInv = new HistoricoTransacao();
+						
+						if(investidor.getHistoricosTransacoesList().size() == 1){
+							historicoInv = investidor.getHistoricosTransacoesList().get(0);
+						}
+						else{
+							historicoInv = investidor.getHistoricosTransacoesList().get(i);
+						}
+						
+						int quantidadeExistente = historicoInv.getQuantidadeTotal();
+						int quantidadeAtualizada = quantidadeExistente + quantidade;
+						historicoInv.setQuantidadeTotal(quantidadeAtualizada);
+						historicoInv.setValorDeCompra(compra.getValorFinalAcao());
+						
+						double valorComAcrescimo20 = calculoComum(compra,quantidade);
+						compra.setValorPago(calculoAcrescido(compra, quantidade)-15.21 -0.5 * valorComAcrescimo20);//valor pago sem taxas				
+						compra.setTaxa(20 + 0.5 * calculoComum(compra,quantidade) + 15.21);
+						compra.setTotalPago(calculoAcrescido(compra, quantidade));
+						compra.setQuantidade(quantidade);
+						
+						compraAcaoDAO.inserirCompra(compra);
+						compraAcaoDAO.atualizarHistorico(historicoInv);
+						atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
+						
+					}
+					else{
+						historico.setQuantidadeTotal(quantidade);
+						historico.setNomeAcao(compra.getNomeAcao());
+						historico.setValorDeCompra(compra.getValorFinalAcao());
+						
+						double valorComAcrescimo20 = calculoComum(compra,quantidade);
+						compra.setValorPago(calculoAcrescido(compra, quantidade)-15.21 -0.5 * valorComAcrescimo20);//valor pago sem taxas				
+						compra.setTaxa(20 + 0.5 * calculoComum(compra,quantidade) + 15.21);
+						compra.setTotalPago(calculoAcrescido(compra, quantidade));
+						compra.setQuantidade(quantidade);
+						
+						compraAcaoDAO.inserirCompra(compra);
+						compraAcaoDAO.inserirHistorico(historico);
+					}
+					
+				} catch (Exception e) {					
 					System.out.println(e.getMessage());
 					throw new Exception();
 				}
 			}
 		}
 	}
+	
 	int i =0;
 	private boolean existeAcaoHistoricoInvestidor(Investidor investidor,Compra compra){
 		if(investidor.getHistoricosTransacoesList().size() > 0){

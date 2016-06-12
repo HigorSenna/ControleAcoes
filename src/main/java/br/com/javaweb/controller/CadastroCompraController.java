@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.CompraAcaoService;
+import br.com.javaweb.service.InvestidorService;
 import br.com.javaweb.transacoes.model.Compra;
 import br.com.javaweb.transacoes.model.HistoricoTransacao;
 import br.com.javaweb.utils.ConnectorURL;
@@ -25,7 +26,9 @@ public class CadastroCompraController implements Serializable{
 	
 	private Compra compra;
 	private Investidor investidor;
+	private Investidor investidorSessao;
 	private Acao acao;
+	private InvestidorService investidorService;
 	private CompraAcaoService compraAcaoService;	
 	private HistoricoTransacao historicoTransacao;
 	List<Acao> acoes = new ArrayList<>();
@@ -47,7 +50,7 @@ public class CadastroCompraController implements Serializable{
 		compraAcaoService = new CompraAcaoService();
 		compra = new Compra();
 		historicoTransacao = new HistoricoTransacao();
-		investidor = buscarInvestidorSessao(); // busca o investidor antes de colocar na sessao
+		investidor = buscarInvestidor();
 		
 //		existeAcaoParaInvestidor(acao, investidor,existeAcao);			
 		
@@ -57,11 +60,18 @@ public class CadastroCompraController implements Serializable{
 		historicoTransacao.setIdInvestidor(investidor);		
 		
 		try {
-			compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade(),historicoTransacao);		
-			MessagesAndRedirect.exibirMensagemSucessoRedirect("Compra Realizada com sucesso", "comprarAcoes.xhtml");
+			compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade(),historicoTransacao);	
+			MessagesAndRedirect.exibirMensagemSucessoRedirect("Compra Realizada com sucesso", "comprarAcoes.xhtml");			
+			
 		} catch (Exception e) {
 			MessagesAndRedirect.exibirMensagemErroRedirect("Falha ao comprar, verifique seu saldo ou entre em contato com a empresa!!", "comprarAcoes.xhtml");
 		}		
+	}
+	
+	private Investidor buscarInvestidor(){
+		investidorService = new InvestidorService();
+		investidorSessao = buscarInvestidorSessao();
+		return investidorService.buscarInvestidorLoginSenha(investidorSessao.getLogin(), investidorSessao.getSenha());
 	}
 		
 	public Investidor buscarInvestidorSessao(){

@@ -35,8 +35,15 @@ public class CompraAcaoService implements Serializable {
 				System.out.println("Pode Comprar < 5 mil");
 				try {
 					if(existeAcaoHistoricoInvestidor(investidor, compra)){
+						HistoricoTransacao historicoInv;
 						
-						HistoricoTransacao historicoInv = investidor.getHistoricosTransacoesList().get(i);
+						if(investidor.getHistoricosTransacoesList().size() == 1){
+							historicoInv = investidor.getHistoricosTransacoesList().get(0);
+						}
+						else{
+							historicoInv = investidor.getHistoricosTransacoesList().get(i);
+						}
+						
 						int quantidadeExistente = historicoInv.getQuantidadeTotal();
 						int quantidadeAtualizada = quantidadeExistente + quantidade;
 						historicoInv.setQuantidadeTotal(quantidadeAtualizada);
@@ -97,12 +104,13 @@ public class CompraAcaoService implements Serializable {
 	}
 	int i =0;
 	private boolean existeAcaoHistoricoInvestidor(Investidor investidor,Compra compra){
-		
-		for (HistoricoTransacao hist: investidor.getHistoricosTransacoesList()) {
-			if(hist.getNomeAcao().equals(compra.getNomeAcao())){
+		if(investidor.getHistoricosTransacoesList().size() > 0){
+			for (HistoricoTransacao hist: investidor.getHistoricosTransacoesList()) {			
+				if(hist.getNomeAcao().equals(compra.getNomeAcao())){					
+					return true; //METODO NAO ESTÁ  funcionando-> o problema está na sessao, quando o investidor faz uma nova compra, na sessao ela nao fica armazenada
+				}
 				i++;
-				return true; //METODO NAO ESTÁ  funcionando
-			}			
+			}
 		}
 		return false;
 	}

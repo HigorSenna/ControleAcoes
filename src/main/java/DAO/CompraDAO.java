@@ -87,7 +87,8 @@ public class CompraDAO implements Serializable {
         }
     }
     
-    public List<Compra> buscarTodasCompras(){
+    @SuppressWarnings({ "unused", "unchecked" })
+	public List<Compra> buscarTodasCompras(){
     	EntityManager em = null;     
         em = getEntityManager();       
         String jpql = "SELECT c FROM Compra c";

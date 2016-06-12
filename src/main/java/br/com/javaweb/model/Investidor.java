@@ -85,6 +85,41 @@ public class Investidor implements Serializable{
         this.rg = rg;
         this.senha = senha;
     }
+    
+    public String calcularLucro(){
+    	int elementoFinalLista = this.comprasList.size()-1;
+    	int antesDoUltimoElementoLista = elementoFinalLista - 1;
+    	if(elementoFinalLista > 0){
+    		double diferenca = comprasList.get(elementoFinalLista).getValorFinalAcao() - comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao();
+
+        	if(diferenca < 0){
+        		diferenca = diferenca*(-1);
+        		return String.format("%.2f", diferenca);
+        	}
+        	else{
+        		return "Nao obteve Lucro";
+        	}
+    	}
+    	return "Fez apenas uma compra";
+    	
+    }
+    
+    //LUCRO / PREJUIZO NAO ESTAO SENDO EXIBIDOS CORRETAMENTE, ACOES IGUAIS QUE DEVEM SER COMPARADAS, 
+    //E MESMO ASSIM QUANDO COMPARADAS AS MESMAS ACOES (CASO OCORRA POR COINCIDENCIA) ESTA CALCULANDO ERRADO
+    public String calcularPrejuizo(){
+    	int elementoFinalLista = this.comprasList.size()-1;
+    	int antesDoUltimoElementoLista = elementoFinalLista - 1;    	
+    	if(elementoFinalLista > 0){
+    		double diferenca = comprasList.get(elementoFinalLista).getValorFinalAcao() - comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao();
+        	if(diferenca > 0){        		
+        		return String.format("%.2f", diferenca);
+        	}
+        	else{
+        		return "Nao obteve Prejuizo";
+        	}
+    	}
+    	return "Fez apenas uma compra";
+    }    
 
     public Integer getIdInvestidor() {
         return idInvestidor;

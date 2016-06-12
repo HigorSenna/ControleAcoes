@@ -28,19 +28,21 @@
 						<p:column headerText="Valor Atual para Venda"/>		
 					</p:row>	
 				</p:columnGroup>	
-			<p:subTable var="compra" value="#{investidor.comprasList}">
+			<p:subTable var="historico" value="#{investidor.historicosTransacoesList}">
 				<p:column>
-					<h:outputText value="#{compra.nomeAcao}" />
+					<h:outputText value="#{historico.nomeAcao}" />
 				</p:column>
 				<p:column>
-					<h:outputText value="#{compra.dtCompra}" />
+					<h:outputText value="#{historico.dataAtualizacao}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR"/>
+					</h:outputText>
 				</p:column>				
 				<p:column>
-					<h:outputText value="#{compra.valorFinalAcao}" />
+					<h:outputText value="#{historico.valorDeCompra}" />
 				</p:column>
 				
 				<p:column>
-					<h:outputText value="?" />
+					<h:outputText value="#{historico.quantidadeTotal}" />
 				</p:column>
 				<p:column>
 					<h:outputText value="Buscar do wevbService" />

@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.javaweb.transacoes.model;
 
-import br.com.javaweb.model.Investidor;
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.com.javaweb.model.Investidor;
 
 
 @Entity
@@ -29,9 +27,22 @@ public class HistoricoTransacao implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_HISTORICO", nullable = false)
     private Integer idHistorico;
+    
     @JoinColumn(name = "ID_INVESTIDOR", referencedColumnName = "ID_INVESTIDOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private Investidor idInvestidor;
+    
+    @Column(name="NM_ACAO")
+    private String nomeAcao;
+    
+    @Column(name="QTD_TOTAL")
+    private int quantidadeTotal;
+    
+    @Column(name="VL_COMPRA")
+    private double valorDeCompra;
+    
+    @Column(name="DT_ULT_ATUALIZACAO")
+    private Date dataAtualizacao;
 
     public HistoricoTransacao() {
     }
@@ -56,7 +67,39 @@ public class HistoricoTransacao implements Serializable {
         this.idInvestidor = idInvestidor;
     }
 
-    @Override
+    public String getNomeAcao() {
+		return nomeAcao;
+	}
+
+	public void setNomeAcao(String nomeAcao) {
+		this.nomeAcao = nomeAcao;
+	}
+
+	public int getQuantidadeTotal() {
+		return quantidadeTotal;
+	}
+
+	public void setQuantidadeTotal(int quantidadeTotal) {
+		this.quantidadeTotal = quantidadeTotal;
+	}
+
+	public double getValorDeCompra() {
+		return valorDeCompra;
+	}
+
+	public void setValorDeCompra(double valorDeCompra) {
+		this.valorDeCompra = valorDeCompra;
+	}
+
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idHistorico != null ? idHistorico.hashCode() : 0);

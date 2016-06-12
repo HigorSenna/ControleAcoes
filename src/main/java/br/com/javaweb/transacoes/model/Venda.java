@@ -22,18 +22,33 @@ import javax.persistence.TemporalType;
 public class Venda implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID_VENDA", nullable = false)
     private Integer idVenda;
+    
     @Column(name = "DT_VENDA")
     @Temporal(TemporalType.DATE)
     private Date dtVenda;
+    
     @JoinColumn(name = "ID_INVESTIDOR", referencedColumnName = "ID_INVESTIDOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private Investidor idInvestidor;
-
+    
+    @Column(name="NM_ACAO")
+    private String nomeAcao;
+    
+    @Column(name="VL_VENDA")
+    private double valorFinalAcao;
+    
+    @Column(name="VL_RECEBIDO")
+    private double valorRecebido;
+    
+    @Column(name="QTD_VENDA")
+    private int quantidade;
+    
     public Venda() {
     }
 
@@ -65,7 +80,39 @@ public class Venda implements Serializable {
         this.idInvestidor = idInvestidor;
     }
 
-    @Override
+    public String getNomeAcao() {
+		return nomeAcao;
+	}
+
+	public void setNomeAcao(String nomeAcao) {
+		this.nomeAcao = nomeAcao;
+	}
+
+	public double getValorFinalAcao() {
+		return valorFinalAcao;
+	}
+
+	public void setValorFinalAcao(double valorFinalAcao) {
+		this.valorFinalAcao = valorFinalAcao;
+	}
+
+	public double getValorRecebido() {
+		return valorRecebido;
+	}
+
+	public void setValorRecebido(double valorRecebido) {
+		this.valorRecebido = valorRecebido;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idVenda != null ? idVenda.hashCode() : 0);

@@ -67,7 +67,7 @@ public class Investidor implements Serializable{
     private List<Venda> vendasList;
     
     @OneToMany(mappedBy = "idInvestidor", fetch = FetchType.LAZY)
-    private List<Compra> comprasList;
+    private List<Compra> comprasList; 
 
     public Investidor() {
     }
@@ -90,7 +90,8 @@ public class Investidor implements Serializable{
     	int elementoFinalLista = this.comprasList.size()-1;
     	int antesDoUltimoElementoLista = elementoFinalLista - 1;
     	if(elementoFinalLista > 0){
-    		double diferenca = comprasList.get(elementoFinalLista).getValorFinalAcao() - comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao();
+    		double diferenca = (comprasList.get(elementoFinalLista).getValorFinalAcao() - 
+    				comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao());
 
         	if(diferenca < 0){
         		diferenca = diferenca*(-1);
@@ -110,7 +111,8 @@ public class Investidor implements Serializable{
     	int elementoFinalLista = this.comprasList.size()-1;
     	int antesDoUltimoElementoLista = elementoFinalLista - 1;    	
     	if(elementoFinalLista > 0){
-    		double diferenca = comprasList.get(elementoFinalLista).getValorFinalAcao() - comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao();
+    		double diferenca = (comprasList.get(elementoFinalLista).getValorFinalAcao() - 
+    				comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao());
         	if(diferenca > 0){        		
         		return String.format("%.2f", diferenca);
         	}

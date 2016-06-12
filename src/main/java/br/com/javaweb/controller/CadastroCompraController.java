@@ -12,6 +12,7 @@ import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.CompraAcaoService;
 import br.com.javaweb.transacoes.model.Compra;
+import br.com.javaweb.transacoes.model.HistoricoTransacao;
 import br.com.javaweb.utils.ConnectorURL;
 import br.com.javaweb.utils.MessagesAndRedirect;
 import br.com.javaweb.utils.Session;
@@ -26,6 +27,7 @@ public class CadastroCompraController implements Serializable{
 	private Investidor investidor;
 	private Acao acao;
 	private CompraAcaoService compraAcaoService;	
+	private HistoricoTransacao historicoTransacao;
 	List<Acao> acoes = new ArrayList<>();
 	
 	@PostConstruct
@@ -35,7 +37,6 @@ public class CadastroCompraController implements Serializable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public List<Acao> getAcoes() throws Exception {
@@ -45,19 +46,24 @@ public class CadastroCompraController implements Serializable{
 	public void comprarAcao(Acao acao){
 		compraAcaoService = new CompraAcaoService();
 		compra = new Compra();
+		historicoTransacao = new HistoricoTransacao();
 		investidor = buscarInvestidorSessao(); // busca o investidor antes de colocar na sessao
+		
+//		existeAcaoParaInvestidor(acao, investidor,existeAcao);			
 		
 		compra.setNomeAcao(acao.getNomeAcao());			
 		compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao().replaceAll(",", ".")));
 		compra.setIdInvestidor(investidor);
+		historicoTransacao.setIdInvestidor(investidor);		
+		
 		try {
-			compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade());		
+			compraAcaoService.comprarAcao(compra, investidor,acao.getQuantidade(),historicoTransacao);		
 			MessagesAndRedirect.exibirMensagemSucessoRedirect("Compra Realizada com sucesso", "comprarAcoes.xhtml");
 		} catch (Exception e) {
 			MessagesAndRedirect.exibirMensagemErroRedirect("Falha ao comprar, verifique seu saldo ou entre em contato com a empresa!!", "comprarAcoes.xhtml");
 		}		
 	}
-	
+		
 	public Investidor buscarInvestidorSessao(){
 		 return (Investidor) Session.pegarSessao();
 	}

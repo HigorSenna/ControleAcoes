@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 import DAO.CompraDAO;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.transacoes.model.Compra;
+import br.com.javaweb.transacoes.model.HistoricoTransacao;
 
 public class CompraAcaoService implements Serializable {
 
@@ -20,11 +21,11 @@ public class CompraAcaoService implements Serializable {
 	
 	CompraDAO compraAcaoDAO = new CompraDAO(emf);
 	
-	public void comprarAcao(Compra compra,Investidor investidor,int quantidade) throws Exception{
-		saldoInvestidorSuficiente(compra, quantidade, investidor);
+	public void comprarAcao(Compra compra,Investidor investidor,int quantidade,HistoricoTransacao historico) throws Exception{
+		saldoInvestidorSuficiente(compra, quantidade, investidor,historico);
 	}
 
-	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor) throws Exception{		
+	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor,HistoricoTransacao historico) throws Exception{		
 		if(valorCompraMenor5Mil(compra, quantidade)){
 			if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidade)){
 				System.out.println("Saldo insuficiente < 5 mil");				
@@ -33,13 +34,39 @@ public class CompraAcaoService implements Serializable {
 			else{
 				System.out.println("Pode Comprar < 5 mil");
 				try {
-					compra.setQuantidade(quantidade);
-					compra.setValorPago(calculoComum(compra, quantidade) -20);//valor pago sem taxas
-					compra.setTotalPago(calculoComum(compra, quantidade));
-					compra.setTaxa(20);
-					compraAcaoDAO.inserirCompra(compra);					
-					//SE O INVESTIDOR FIZER 100 COMRPAS DA MESMA ACAO, SERÁ REGISTRADO 100 REGISTROS NO BANCO
-					atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);					
+					if(existeAcaoHistoricoInvestidor(investidor, compra)){
+						
+						HistoricoTransacao historicoInv = investidor.getHistoricosTransacoesList().get(i);
+						int quantidadeExistente = historicoInv.getQuantidadeTotal();
+						int quantidadeAtualizada = quantidadeExistente + quantidade;
+						historicoInv.setQuantidadeTotal(quantidadeAtualizada);
+						historicoInv.setValorDeCompra(compra.getValorFinalAcao());
+						
+						compra.setQuantidade(quantidade);
+						compra.setValorPago(calculoComum(compra, quantidade) -20);//valor pago sem taxas
+						compra.setTotalPago(calculoComum(compra, quantidade));
+						compra.setTaxa(20);
+						
+						compraAcaoDAO.inserirCompra(compra);	
+						compraAcaoDAO.atualizarHistorico(historicoInv);
+						
+						atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);	
+					}
+					else{			
+						historico.setQuantidadeTotal(quantidade);
+						historico.setNomeAcao(compra.getNomeAcao());
+						historico.setValorDeCompra(compra.getValorFinalAcao());
+						
+						compra.setQuantidade(quantidade);
+						compra.setValorPago(calculoComum(compra, quantidade) -20);//valor pago sem taxas
+						compra.setTotalPago(calculoComum(compra, quantidade));
+						compra.setTaxa(20);
+						
+						compraAcaoDAO.inserirCompra(compra);
+						compraAcaoDAO.inserirHistorico(historico);
+						
+						atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);	
+					}
 					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -67,7 +94,18 @@ public class CompraAcaoService implements Serializable {
 				}
 			}
 		}
-	}	
+	}
+	int i =0;
+	private boolean existeAcaoHistoricoInvestidor(Investidor investidor,Compra compra){
+		
+		for (HistoricoTransacao hist: investidor.getHistoricosTransacoesList()) {
+			if(hist.getNomeAcao().equals(compra.getNomeAcao())){
+				i++;
+				return true; //METODO NAO ESTÁ  funcionando
+			}			
+		}
+		return false;
+	}
 		
 	private boolean valorCompraMenor5Mil(Compra compra,int quantidade){
 		if(compra.getValorFinalAcao() * quantidade <= 5000){

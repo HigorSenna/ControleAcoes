@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.transacoes.model.Compra;
+import br.com.javaweb.transacoes.model.HistoricoTransacao;
 
 public class CompraDAO implements Serializable {
 
@@ -35,6 +36,19 @@ public class CompraDAO implements Serializable {
         em.getTransaction().commit(); 
     }
 
+    public void atualizarHistorico(HistoricoTransacao historico){
+    	Date atual = new Date();	    	
+    	historico.setDataAtualizacao(atual);
+    	
+    	EntityManager em = null;
+    	em = getEntityManager();
+        
+        em.getTransaction().begin(); 
+        
+        	em.merge(historico);   
+        	
+        em.getTransaction().commit();
+    }
    
     public void inserirCompra(Compra compra){
     	Date atual = new Date();	
@@ -53,6 +67,25 @@ public class CompraDAO implements Serializable {
         	em.close();
         }
     } 
+    
+    public void inserirHistorico(HistoricoTransacao historico){
+    	Date atual = new Date();	    	
+    	historico.setDataAtualizacao(atual);
+    	
+    	EntityManager em = null;     
+        em = getEntityManager();
+        
+        em.getTransaction().begin(); 
+        
+        	em.persist(historico);   
+        	
+        em.getTransaction().commit();     
+        
+        
+        if(em !=null){
+        	em.close();
+        }
+    }
     
     public List<Compra> buscarTodasCompras(){
     	EntityManager em = null;     

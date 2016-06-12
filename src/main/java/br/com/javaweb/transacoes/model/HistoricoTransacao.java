@@ -2,6 +2,7 @@ package br.com.javaweb.transacoes.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.NotFound;
 
 import br.com.javaweb.model.Investidor;
 
@@ -43,6 +47,9 @@ public class HistoricoTransacao implements Serializable {
     
     @Column(name="DT_ULT_ATUALIZACAO")
     private Date dataAtualizacao;
+    
+    @Transient
+    private double valorVendaAcao;
 
     public HistoricoTransacao() {
     }
@@ -97,6 +104,12 @@ public class HistoricoTransacao implements Serializable {
 
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
+	}
+	
+	public double getValorVendaAcao() {
+		Random gerador = new Random();
+		valorVendaAcao = Math.random()*100;
+		return valorVendaAcao;
 	}
 
 	@Override

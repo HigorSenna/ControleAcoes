@@ -41,7 +41,7 @@ public class Venda implements Serializable {
     private String nomeAcao;
     
     @Column(name="VL_VENDA")
-    private double valorFinalAcao;
+    private double valorVendaAcao;
     
     @Column(name="VL_RECEBIDO")
     private double valorRecebido;
@@ -89,11 +89,11 @@ public class Venda implements Serializable {
 	}
 
 	public double getValorFinalAcao() {
-		return valorFinalAcao;
+		return valorVendaAcao;
 	}
 
-	public void setValorFinalAcao(double valorFinalAcao) {
-		this.valorFinalAcao = valorFinalAcao;
+	public void setValorFinalAcao(double valorVendaAcao) {
+		this.valorVendaAcao = valorVendaAcao;
 	}
 
 	public double getValorRecebido() {

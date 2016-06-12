@@ -2,6 +2,7 @@ package br.com.javaweb.transacoes.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -57,7 +58,6 @@ public class Compra implements Serializable {
     @Column(name="TOTAL_PAGO")
     private double totalPago;
     
-       
     public Compra() {
     }    
 

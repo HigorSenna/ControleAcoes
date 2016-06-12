@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">	
+	<ui:define name="conteudoDinamico">
+		<div class="container-fluid">
+			<h2>Compras Realizadas</h2>
+		</div>		
+		<h:form id="formComprar" prependId="false">
+		 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<div class="table table-hover">
+			<p:dataTable id="acoes" 
+				style="margin-bottom:0;margin-left:10%;width:80%;text-align:center;"
+				paginator="true" rows="10" lazy="false" var="compra"
+				value="#{consultaCompraController.buscarComprasInvestidor()}"
+				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom">
+				<f:facet name="header">
+					Tabela de Compras Realizadas
+				</f:facet>
+				<p:column headerText="Data da compra">
+					<h:outputText value="#{compra.dtCompra}" style="color:greenyellow;">
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Nome da ação">
+					<h:outputText value="#{compra.nomeAcao}" style="color:greenyellow;"/>
+				</p:column>
+				
+				<p:column headerText="Preço Ação">
+					<h:outputText value="#{compra.valorFinalAcao}" style="color:greenyellow;"/>
+				</p:column>		
+				
+				<p:column headerText="Quantidade de compra">
+					<h:outputText value="#{compra.quantidade}" style="color:greenyellow;"/>
+				</p:column>			
+				
+				<p:column headerText="Valor pago sem taxas">
+					<h:outputText value="#{compra.valorPago}" style="color:greenyellow;"/>
+				</p:column>
+				
+				<p:column headerText="Valor total taxas">
+					<h:outputText value="#{compra.taxa}" style="color:greenyellow;"/>
+				</p:column>
+				
+				<p:column headerText="TOTAL">
+					<h:outputText value="#{compra.totalPago}" style="color:greenyellow;"/>
+				</p:column>
+			</p:dataTable>
+		</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+	

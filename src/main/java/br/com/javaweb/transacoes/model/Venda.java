@@ -88,11 +88,11 @@ public class Venda implements Serializable {
 		this.nomeAcao = nomeAcao;
 	}
 
-	public double getValorFinalAcao() {
+	public double getValorVendaAcao() {
 		return valorVendaAcao;
 	}
 
-	public void setValorFinalAcao(double valorVendaAcao) {
+	public void setValorVendaAcao(double valorVendaAcao) {
 		this.valorVendaAcao = valorVendaAcao;
 	}
 

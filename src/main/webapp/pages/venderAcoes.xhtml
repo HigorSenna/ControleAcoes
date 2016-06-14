@@ -14,7 +14,7 @@
 				style="margin-bottom:0;margin-left:10%;width:80%;text-align:center;"
 				paginator="true" rows="10" rowKey="acao" lazy="false"
 				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom"				
-				var="historico" value="#{consultaVendaController.exibirAcoesDisponiveisHistorico()}">
+				var="historico" value="#{consultaVendaController.buscarValoresVendaAcoes()}">
 				<f:facet name="header">
 					Ações Disponíveis
 				</f:facet>			
@@ -47,27 +47,6 @@
 				<p:column>
 					<h:outputText value="#{historico.valorVendaAcao}" />
 				</p:column>	
-<!-- 				<p:subTable var="historico" value="#{investidor.historicosTransacoesList}"> -->
-<!-- 					<p:column> -->
-<!-- 						<h:outputText value="#{historico.nomeAcao}" /> -->
-<!-- 					</p:column> -->
-<!-- 					<p:column> -->
-<!-- 						<h:outputText value="#{historico.dataAtualizacao}" > -->
-<!-- 							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR"/> -->
-<!-- 						</h:outputText> -->
-<!-- 					</p:column>				 -->
-<!-- 					<p:column> -->
-<!-- 						<h:outputText value="#{historico.valorDeCompra}" /> -->
-<!-- 					</p:column> -->
-					
-<!-- 					<p:column> -->
-<!-- 						<h:outputText value="#{historico.quantidadeTotal}" /> -->
-<!-- 					</p:column>	 -->
-										
-<!-- 					<p:column> -->
-<!-- 						<h:outputText value="#{historico.valorVendaAcao}" /> -->
-<!-- 					</p:column>				 -->
-<!-- 				</p:subTable>	 -->
 			</p:dataTable>
 			<h:link outcome="venderAcoes.xhtml" style="margin-left:76%;margin-top:5%;">Atualizar Tabela</h:link>
 		</div>

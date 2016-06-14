@@ -106,10 +106,12 @@ public class HistoricoTransacao implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 	
-	public double getValorVendaAcao() {
-		Random gerador = new Random();
-		valorVendaAcao = Math.random()*100;
+	public double getValorVendaAcao() {		
 		return valorVendaAcao;
+	}	
+
+	public void setValorVendaAcao(double valorVendaAcao) {
+		this.valorVendaAcao = valorVendaAcao;
 	}
 
 	@Override

@@ -19,32 +19,32 @@
 					Tabela de Compras Realizadas
 				</f:facet>
 				<p:column headerText="Data da compra">
-					<h:outputText value="#{compra.dtCompra}" style="color:greenyellow;">
+					<h:outputText value="#{compra.dtCompra}">
 						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR"/>
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Nome da ação">
-					<h:outputText value="#{compra.nomeAcao}" style="color:greenyellow;"/>
+					<h:outputText value="#{compra.nomeAcao}"/>
 				</p:column>
 				
 				<p:column headerText="Preço Ação">
-					<h:outputText value="#{compra.valorFinalAcao}" style="color:greenyellow;"/>
+					<h:outputText value="#{compra.valorFinalAcao}"/>
 				</p:column>		
 				
 				<p:column headerText="Quantidade de compra">
-					<h:outputText value="#{compra.quantidade}" style="color:greenyellow;"/>
+					<h:outputText value="#{compra.quantidade}"/>
 				</p:column>			
 				
 				<p:column headerText="Valor pago sem taxas">
-					<h:outputText value="#{compra.valorPago}" style="color:greenyellow;"/>
+					<h:outputText value="#{compra.valorPago}"/>
 				</p:column>
 				
 				<p:column headerText="Valor total taxas">
-					<h:outputText value="#{compra.taxa}" style="color:greenyellow;"/>
+					<h:outputText value="#{compra.taxa}"/>
 				</p:column>
 				
 				<p:column headerText="TOTAL">
-					<h:outputText value="#{compra.totalPago}" style="color:greenyellow;"/>
+					<h:outputText value="#{compra.totalPago}"/>
 				</p:column>
 			</p:dataTable>
 		</div>

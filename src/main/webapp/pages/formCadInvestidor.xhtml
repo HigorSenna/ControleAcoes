@@ -5,6 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
+							
 	<h2>Cadastro de Investidor</h2>
 	<div class="row">	  
 		<div class="col-xs-12 col-sm-6 col-md-6">
@@ -14,7 +15,7 @@
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">	
-				<p:inputText styleClass="form-control input-lg" id="CPF" required="true" placeholder="CPF" value="#{cadastroInvestidorContaController.investidor.cpf}"/>						
+				<p:inputMask styleClass="form-control input-lg" id="CPF" required="true" placeholder="CPF" value="#{cadastroInvestidorContaController.investidor.cpf}" mask="999.999.999-99" />
 			</div>
 		</div>
 	</div>	

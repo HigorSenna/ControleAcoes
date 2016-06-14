@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
 	<ui:define name="conteudoDinamico">
+	
 		<div class="container-fluid">
 			<h2>Venda de Ações</h2>
 		</div>		
@@ -26,6 +27,7 @@
 						<p:column headerText="Valor Compra"/>						
 						<p:column headerText="Quantidade disponivel"/>					
 						<p:column headerText="Valor Atual para Venda"/>		
+						<p:column headerText="Lucro/Prejuízo"/>	
 					</p:row>	
 				</p:columnGroup>
 				<p:column>
@@ -48,6 +50,10 @@
 				
 				<p:column>
 					<h:outputText value="#{historico.valorVendaAcao}" />
+				</p:column>	
+				
+				<p:column>
+					<h:outputText styleClass="#{historico.styleClass}" value="#{historico.lucroOuPrejuizo}" />
 				</p:column>	
 			</p:dataTable>
 			<h:link outcome="venderAcoes.xhtml" style="margin-left:76%;margin-top:5%;">Atualizar Tabela</h:link>

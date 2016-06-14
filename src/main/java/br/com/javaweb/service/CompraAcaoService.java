@@ -142,7 +142,7 @@ public class CompraAcaoService implements Serializable {
 		if(investidor.getHistoricosTransacoesList().size() > 0){
 			for (HistoricoTransacao hist: investidor.getHistoricosTransacoesList()) {			
 				if(hist.getNomeAcao().equals(compra.getNomeAcao())){					
-					return true; //METODO NAO ESTÁ  funcionando-> o problema está na sessao, quando o investidor faz uma nova compra, na sessao ela nao fica armazenada
+					return true; 
 				}
 				i++;
 			}

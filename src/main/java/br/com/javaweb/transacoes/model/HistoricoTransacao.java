@@ -1,8 +1,9 @@
 package br.com.javaweb.transacoes.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
-import java.util.Random;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.NotFound;
 
 import br.com.javaweb.model.Investidor;
 
@@ -50,6 +49,20 @@ public class HistoricoTransacao implements Serializable {
     
     @Transient
     private double valorVendaAcao;
+    
+    public double getLucroOuPrejuizo(){    	
+    	double valorLucroPrejuizo = this.valorVendaAcao - this.valorDeCompra;
+    	BigDecimal bd = new BigDecimal(valorLucroPrejuizo).setScale(3, RoundingMode.HALF_EVEN);   	
+    	
+    	return bd.doubleValue();
+    }
+    
+    public String getStyleClass(){    	
+    	if(getLucroOuPrejuizo()> 0){
+    		return "lucro";
+    	}
+    	return "prejuizo";
+    }
 
     public HistoricoTransacao() {
     }

@@ -50,9 +50,7 @@ public class CadastroCompraController implements Serializable{
 		compraAcaoService = new CompraAcaoService();
 		compra = new Compra();
 		historicoTransacao = new HistoricoTransacao();
-		investidor = buscarInvestidor();
-		
-//		existeAcaoParaInvestidor(acao, investidor,existeAcao);			
+		investidor = buscarInvestidor();		
 		
 		compra.setNomeAcao(acao.getNomeAcao());			
 		compra.setValorFinalAcao(Double.parseDouble(acao.getValorUltimaCotacao().replaceAll(",", ".")));

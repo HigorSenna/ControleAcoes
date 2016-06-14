@@ -27,11 +27,6 @@ public class ConsultaVendaController {
 		historico = buscarHistoricosComValoresVenda();
 	}
 	
-//	public List<HistoricoTransacao> exibirAcoesDisponiveisHistorico(){
-//		investidor = buscarInvestidorSessao();
-//		return investidor.getHistoricosTransacoesList();
-//	}
-	
 	public List<HistoricoTransacao> buscarHistoricosComValoresVenda(){
 		investidor = buscarInvestidorSessao();
 		vendaAcaoService = new VendaAcaoService();

@@ -21,129 +21,84 @@ public class CompraAcaoService implements Serializable {
 	
 	CompraDAO compraAcaoDAO = new CompraDAO(emf);
 	
-	public void comprarAcao(Compra compra,Investidor investidor,int quantidade,HistoricoTransacao historico) throws Exception{
-		saldoInvestidorSuficiente(compra, quantidade, investidor,historico);
-	}
-
-	private void saldoInvestidorSuficiente(Compra compra,int quantidade,Investidor investidor,HistoricoTransacao historico) throws Exception{		
-		if(valorCompraMenor5Mil(compra, quantidade)){
-			if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidade)){
-				System.out.println("Saldo insuficiente < 5 mil");				
-				throw new Exception();
-			}			
+	public void comprarAcao(Compra compra,Investidor investidor,int quantidadeDeCompra,HistoricoTransacao historico) throws Exception{
+		validarSaldoInvestidor(compra, quantidadeDeCompra, investidor);
+		
+		if(valorCompraMenor5Mil(compra, quantidadeDeCompra)){
+		
+			preencherCompraComum(quantidadeDeCompra, compra, investidor);
+			
+			if(existeAcaoHistoricoInvestidor(investidor, compra)){
+				realizarOperacoesComHistoricoExistente(compra, investidor, quantidadeDeCompra, historico);
+			}
 			else{
-				try {
-					if(existeAcaoHistoricoInvestidor(investidor, compra)){
-						HistoricoTransacao historicoInv = new HistoricoTransacao();
-						
-						if(investidor.getHistoricosTransacoesList().size() == 1){
-							historicoInv = investidor.getHistoricosTransacoesList().get(0);
-						}
-						else{
-							historicoInv = investidor.getHistoricosTransacoesList().get(i);
-						}
-						compra.setQuantidade(quantidade);
-						compra.setValorPago(calculoComum(compra, quantidade) -20);//valor pago sem taxas
-						compra.setTotalPago(calculoComum(compra, quantidade));
-						compra.setTaxa(20);
-						
-						compraAcaoDAO.inserirCompra(compra);
-						
-						int quantidadeExistente = historicoInv.getQuantidadeTotal();
-						int quantidadeAtualizada = quantidadeExistente + quantidade;
-						historicoInv.setQuantidadeTotal(quantidadeAtualizada);
-						
-						historicoInv.setValorDeCompra(compra.getTotalPago()/quantidade);
-							
-						compraAcaoDAO.atualizarHistorico(historicoInv);
-						
-						atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);	
-						System.out.println("Pode Comprar < 5 mil");
-					}
-					else{			
-						compra.setQuantidade(quantidade);
-						compra.setValorPago(calculoComum(compra, quantidade) -20);//valor pago sem taxas
-						compra.setTotalPago(calculoComum(compra, quantidade));
-						compra.setTaxa(20);
-						
-						compraAcaoDAO.inserirCompra(compra);
-						
-						historico.setQuantidadeTotal(quantidade);
-						historico.setNomeAcao(compra.getNomeAcao());						
-						historico.setValorDeCompra(compra.getTotalPago()/quantidade);					
-						
-						compraAcaoDAO.inserirHistorico(historico);
-						
-						atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);	
-						System.out.println("Pode Comprar < 5 mil");
-					}
-					
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					throw new Exception();
-				}
+				realizarOperacoesParaNovoRegistroNoHistorico(compra, investidor, quantidadeDeCompra, historico);
 			}
 		}
 		else{
-			if(investidor.getIdConta().getSaldo() <=calculoAcrescido(compra, quantidade) ){
-				System.out.println("Não Pode Comprar 2");
-			}			
+		
+			preencherCompraComTaxas(quantidadeDeCompra, compra, investidor);
+			
+			if(existeAcaoHistoricoInvestidor(investidor, compra)){
+				realizarOperacoesComHistoricoExistente(compra, investidor, quantidadeDeCompra, historico);
+			}
 			else{
-				try {
-					if(existeAcaoHistoricoInvestidor(investidor, compra)){
-						HistoricoTransacao historicoInv = new HistoricoTransacao();
-						
-						if(investidor.getHistoricosTransacoesList().size() == 1){
-							historicoInv = investidor.getHistoricosTransacoesList().get(0);
-						}
-						else{
-							historicoInv = investidor.getHistoricosTransacoesList().get(i);
-						}
-						
-						double valorComAcrescimo20 = calculoComum(compra,quantidade);
-						compra.setValorPago(calculoAcrescido(compra, quantidade)-15.21 -0.5 * valorComAcrescimo20);//valor pago sem taxas				
-						compra.setTaxa(20 + 0.5 * calculoComum(compra,quantidade) + 15.21);
-						compra.setTotalPago(calculoAcrescido(compra, quantidade));
-						compra.setQuantidade(quantidade);
-						
-						compraAcaoDAO.inserirCompra(compra);
-						
-						int quantidadeExistente = historicoInv.getQuantidadeTotal();
-						int quantidadeAtualizada = quantidadeExistente + quantidade;
-						historicoInv.setQuantidadeTotal(quantidadeAtualizada);
-						
-						historicoInv.setValorDeCompra(compra.getTotalPago()/quantidade);							
-						
-						compraAcaoDAO.atualizarHistorico(historicoInv);
-						
-						atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
-						
-					}
-					else{						
-						double valorComAcrescimo20 = calculoComum(compra,quantidade);
-						compra.setValorPago(calculoAcrescido(compra, quantidade)-15.21 -0.5 * valorComAcrescimo20);//valor pago sem taxas				
-						compra.setTaxa(20 + 0.5 * calculoComum(compra,quantidade) + 15.21);
-						compra.setTotalPago(calculoAcrescido(compra, quantidade));
-						compra.setQuantidade(quantidade);
-						
-						compraAcaoDAO.inserirCompra(compra);
-						
-						historico.setQuantidadeTotal(quantidade);
-						historico.setNomeAcao(compra.getNomeAcao());
-						
-						historico.setValorDeCompra(compra.getTotalPago()/quantidade);							
-						
-						compraAcaoDAO.inserirHistorico(historico);
-						
-						atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
-					}
-					
-				} catch (Exception e) {					
-					System.out.println(e.getMessage());
-					throw new Exception();
-				}
+				realizarOperacoesParaNovoRegistroNoHistorico(compra, investidor, quantidadeDeCompra, historico);
 			}
 		}
+	}
+	
+	private void validarSaldoInvestidor(Compra compra,int quantidadeDeCompra,Investidor investidor) throws Exception{
+		if(investidor.getIdConta().getSaldo() <= calculoComum(compra, quantidadeDeCompra) ||
+				investidor.getIdConta().getSaldo() <= calculoAcrescido(compra, quantidadeDeCompra) ){
+			throw new Exception();
+		}	
+	}
+	
+	private void realizarOperacoesComHistoricoExistente(Compra compra,Investidor investidor,int quantidadeDeCompra,HistoricoTransacao historico){	
+		
+		if(investidor.getHistoricosTransacoesList().size() == 1){
+			historico = investidor.getHistoricosTransacoesList().get(0);
+		}
+		else{
+			historico = investidor.getHistoricosTransacoesList().get(i);
+		}
+		
+		historico.setValorDeCompra(compra.getTotalPago()/quantidadeDeCompra);
+		int quantidadeExistente = historico.getQuantidadeTotal();
+		int quantidadeAtualizada = quantidadeExistente + quantidadeDeCompra;
+		historico.setQuantidadeTotal(quantidadeAtualizada);
+			
+		compraAcaoDAO.atualizarHistorico(historico);
+	}
+	
+	private void realizarOperacoesParaNovoRegistroNoHistorico(Compra compra,Investidor investidor,int quantidadeDeCompra,HistoricoTransacao historico){
+		historico.setQuantidadeTotal(quantidadeDeCompra);
+		historico.setNomeAcao(compra.getNomeAcao());	
+		historico.setValorDeCompra(compra.getTotalPago()/quantidadeDeCompra);					
+		
+		compraAcaoDAO.inserirHistorico(historico);
+	}
+	
+	private void preencherCompraComTaxas(int quantidade,Compra compra, Investidor investidor){
+		double valorComAcrescimo20 = calculoComum(compra,quantidade);
+		compra.setValorPago(calculoAcrescido(compra, quantidade)-15.21 -0.5 * valorComAcrescimo20);//valor pago sem taxas				
+		compra.setTaxa(20 + 0.5 * calculoComum(compra,quantidade) + 15.21);
+		compra.setTotalPago(calculoAcrescido(compra, quantidade));
+		compra.setQuantidade(quantidade);
+		
+		compraAcaoDAO.inserirCompra(compra);
+		atualizarDadosCompraComTaxasInvestidor(investidor,compra,quantidade);
+	}
+	
+	private void preencherCompraComum(int quantidade, Compra compra, Investidor investidor){
+		compra.setQuantidade(quantidade);
+		compra.setValorPago(calculoComum(compra, quantidade) -20);//valor pago sem taxas
+		compra.setTotalPago(calculoComum(compra, quantidade));
+		compra.setTaxa(20);
+		
+		compraAcaoDAO.inserirCompra(compra);
+		atualizarDadosCompraComumInvestidor(investidor,compra,quantidade);	
 	}
 	
 	int i =0;
@@ -156,6 +111,7 @@ public class CompraAcaoService implements Serializable {
 				i++;
 			}
 		}
+		
 		return false;
 	}
 	
@@ -164,29 +120,33 @@ public class CompraAcaoService implements Serializable {
 		if(compra.getValorFinalAcao() * quantidade <= 5000){
 			return true;
 		}
+		
 		return false;			
 	}
 	
 	private double calculoAcrescido(Compra compra,int quantidade){
 		double valorMinPagar = calculoComum(compra, quantidade);
-		
 		double totalPagar = valorMinPagar * 0.5 + valorMinPagar + 15.21; // fazer regra para validar se a taxa de 15.21 ja foi cobrada no dia
+		
 		return totalPagar;
 	}	
 	
 	private double calculoComum(Compra compra,int quantidade){
 		double totalPagar = ((compra.getValorFinalAcao() * quantidade) + 20);
+		
 		return totalPagar;
 	}
 	
 	private void atualizarDadosCompraComumInvestidor(Investidor investidor,Compra compra,int quantidade){		
 		double saldoFinal = investidor.getIdConta().getSaldo() - calculoComum(compra, quantidade);
-		investidor.getIdConta().setSaldo(saldoFinal);		
+		investidor.getIdConta().setSaldo(saldoFinal);	
+		
 		compraAcaoDAO.atualizarCompraInvestidor(investidor);
 	}
 	private void atualizarDadosCompraComTaxasInvestidor(Investidor investidor,Compra compra,int quantidade){
 		double saldoFinal = investidor.getIdConta().getSaldo() - calculoAcrescido(compra, quantidade);
-		investidor.getIdConta().setSaldo(saldoFinal);		
+		investidor.getIdConta().setSaldo(saldoFinal);	
+		
 		compraAcaoDAO.atualizarCompraInvestidor(investidor);
 	}	
 	

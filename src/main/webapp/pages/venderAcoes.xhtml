@@ -28,6 +28,8 @@
 						<p:column headerText="Quantidade disponivel"/>					
 						<p:column headerText="Valor Atual para Venda"/>		
 						<p:column headerText="Lucro/Prejuízo"/>	
+						<p:column headerText="Qtd Vender"/>	
+						<p:column headerText="Opções" style="width:150px;"/>	
 					</p:row>	
 				</p:columnGroup>
 				<p:column>
@@ -53,11 +55,26 @@
 				</p:column>	
 				
 				<p:column>
-					<h:outputText styleClass="#{historico.styleClass}" value="#{historico.lucroOuPrejuizo}" />
+					<h:outputText styleClass="#{historico.styleClass}" value="#{historico.lucroOuPrejuizo}">
+						<f:convertNumber type="currency"/>
+					</h:outputText>
+				</p:column>	
+				
+				<p:column>
+					<h:inputText style="width:100px; margin-left: 16px;"/> 
+				</p:column>	
+				
+				<p:column>
+					<p:commandButton value="Sell" style="margin-left:28px;"/>
 				</p:column>	
 			</p:dataTable>
-			<h:link outcome="venderAcoes.xhtml" style="margin-left:76%;margin-top:5%;">Atualizar Tabela</h:link>
+			<p:button outcome="venderAcoes.xhtml?faces-redirect=true" value="Atualizar Tabela" 
+			onclick="PF('statusDialog').show();" onchange="PF('statusDialog').hide();" style="margin-left: 80.5%; margin-top: 3%;"/>
 		</div>
+		
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="margin-top:-20%;">
+   			<h:graphicImage value="/estilos/img/712.gif" />
+		</p:dialog>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -2,6 +2,7 @@ package br.com.javaweb.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -15,8 +16,12 @@ public class ConsultaCompraController {
 
 	private Investidor investidor;
 	
-	public List<Compra> buscarComprasInvestidor(){
+	@PostConstruct
+	public void init(){
 		investidor = buscarInvestidorSessao();
+	}
+	
+	public List<Compra> buscarComprasInvestidor(){		
 		return investidor.getComprasList();
 	}
 	

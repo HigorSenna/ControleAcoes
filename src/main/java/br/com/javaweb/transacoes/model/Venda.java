@@ -40,7 +40,7 @@ public class Venda implements Serializable {
     @Column(name="NM_ACAO")
     private String nomeAcao;
     
-    @Column(name="VL_VENDA")
+    @Column(name="VL_TOTAL_VENDA")
     private double valorVendaAcao;
     
     @Column(name="VL_RECEBIDO")
@@ -48,6 +48,9 @@ public class Venda implements Serializable {
     
     @Column(name="QTD_VENDA")
     private int quantidade;
+    
+    @Column(name="LUCRO_PREJUIZO")
+    private double lucroPrejuizo;
     
     public Venda() {
     }

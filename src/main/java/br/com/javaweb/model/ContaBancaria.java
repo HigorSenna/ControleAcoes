@@ -38,7 +38,7 @@ public class ContaBancaria implements Serializable {
     private String nmBanco;
     
     @Column(name = "NUM_CONTA", nullable = false)
-    private int numConta;
+    private long numConta;
 
     @Column(name="SALDO",nullable = false, precision = 7, scale = 2)
     private double saldo;
@@ -85,11 +85,11 @@ public class ContaBancaria implements Serializable {
         this.nmBanco = nmBanco;
     }
 
-    public int getNumConta() {
+    public long getNumConta() {
         return numConta;
     }
 
-    public void setNumConta(int numConta) {
+    public void setNumConta(long numConta) {
         this.numConta = numConta;
     }
 

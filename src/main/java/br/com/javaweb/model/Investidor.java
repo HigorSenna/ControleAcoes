@@ -34,7 +34,7 @@ public class Investidor implements Serializable{
     private Integer idInvestidor;
     
     @Column(name="CPF" , nullable = true)
-    private int cpf;
+    private long cpf;
       
     @Size(min = 1, max = 45)
     @Column(name="LOGIN",nullable = true, length = 45)
@@ -131,11 +131,11 @@ public class Investidor implements Serializable{
         this.idInvestidor = idInvestidor;
     }
 
-    public int getCpf() {
+    public long getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 

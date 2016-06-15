@@ -104,7 +104,9 @@ public class HistoricoTransacao implements Serializable {
 	}
 
 	public double getValorDeCompra() {
-		return valorDeCompra;
+		valorDeCompra = this.quantidadeTotal / this.valorDeCompra;
+		BigDecimal bd = new BigDecimal(valorDeCompra).setScale(3, RoundingMode.HALF_EVEN);   
+		return bd.doubleValue();
 	}
 
 	public void setValorDeCompra(double valorDeCompra) {

@@ -1,5 +1,6 @@
 package br.com.javaweb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -28,8 +29,12 @@ public class ConsultaVendaController {
 	}
 	
 	public List<HistoricoTransacao> buscarHistoricosComValoresVenda(){
-		investidor = buscarInvestidorSessao();
+		historico = new ArrayList<>();
+		investidor = new Investidor();
+		acoes = new ArrayList<>();
 		vendaAcaoService = new VendaAcaoService();
+		
+		investidor = buscarInvestidorSessao();
 		acoes = buscarTodasAcoesWebService();
 		return vendaAcaoService.verificarValorVendaCadaAcaoInvestidor(investidor, acoes);
 	}

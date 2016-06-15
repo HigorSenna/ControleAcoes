@@ -113,6 +113,14 @@ public class Venda implements Serializable {
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}	
+
+	public double getLucroPrejuizo() {
+		return lucroPrejuizo;
+	}
+
+	public void setLucroPrejuizo(double lucroPrejuizo) {
+		this.lucroPrejuizo = lucroPrejuizo;
 	}
 
 	@Override

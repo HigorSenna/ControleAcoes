@@ -11,6 +11,7 @@ import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.VendaAcaoService;
 import br.com.javaweb.transacoes.model.HistoricoTransacao;
+import br.com.javaweb.transacoes.model.Venda;
 import br.com.javaweb.utils.ConnectorURL;
 import br.com.javaweb.utils.Session;
 
@@ -22,17 +23,29 @@ public class ConsultaVendaController {
 	private List<Acao> acoes;
 	private VendaAcaoService vendaAcaoService;
 	private List<HistoricoTransacao> historico;
+	private int quantidadeVenda;
+	private Venda venda;
 	
 	@PostConstruct
 	public void init(){
 		historico = buscarHistoricosComValoresVenda();
 	}
 	
+	public void realizarVenda(){
+		vendaAcaoService = new VendaAcaoService();
+		investidor = new Investidor();
+		investidor = buscarInvestidorSessao();
+		venda = new Venda();
+		venda.setIdInvestidor(investidor);	
+		
+		vendaAcaoService.inserirVenda(venda, quantidadeVenda);
+	}
+	
 	public List<HistoricoTransacao> buscarHistoricosComValoresVenda(){
 		historico = new ArrayList<>();
 		investidor = new Investidor();
 		acoes = new ArrayList<>();
-		vendaAcaoService = new VendaAcaoService();
+		vendaAcaoService = new VendaAcaoService();		
 		
 		investidor = buscarInvestidorSessao();
 		acoes = buscarTodasAcoesWebService();
@@ -58,5 +71,13 @@ public class ConsultaVendaController {
 
 	public List<HistoricoTransacao> getHistorico() {
 		return historico;
+	}
+
+	public int getQuantidadeVenda() {
+		return quantidadeVenda;
+	}
+
+	public void setQuantidadeVenda(int quantidadeVenda) {
+		this.quantidadeVenda = quantidadeVenda;
 	}
 }

@@ -22,10 +22,31 @@ public class VendaAcaoService {
 	private List<HistoricoTransacao> historico;
 	
 	public void inserirVenda(Venda venda,int quantidadeVenda){
-		vendaDAO.inserirVenda(venda);	
+		
+		HistoricoTransacao historicoAtualizar = buscarRegistroHistoricoParaAtualizar(
+				venda.getIdInvestidor().getHistoricosTransacoesList(), venda.getNomeAcao());
+		
+		montarInstanciaVenda(venda, historicoAtualizar, quantidadeVenda);		
+		vendaDAO.inserirVenda(venda);			
 		atualizarContaInvestidor(venda.getIdInvestidor().getIdConta(),venda.getValorRecebido());
-		HistoricoTransacao historicoAtualizar = buscarRegistroHistoricoParaAtualizar(venda.getIdInvestidor().getHistoricosTransacoesList(), venda.getNomeAcao());
 		atualizarHistoricoInvestidor(historicoAtualizar, quantidadeVenda);		
+	}
+	
+	private void montarInstanciaVenda(Venda venda,HistoricoTransacao historico,int quantidadeVenda){
+		String nomeAcao = historico.getNomeAcao();
+		venda.setNomeAcao(nomeAcao);
+		venda.setQuantidade(quantidadeVenda);
+		double valorVendaAcao = historico.getValorVendaAcao();
+		double valorTotalVenda = valorVendaAcao * quantidadeVenda;		
+		venda.setValorVendaAcao(valorTotalVenda);
+		
+		atribuirValorLucroOuPrejuizoVenda(historico.getLucroOuPrejuizo(), quantidadeVenda, venda);
+	}
+	
+	private void atribuirValorLucroOuPrejuizoVenda(double valorLucroPrejuizoHistorico,int quantidadeVenda,Venda venda){
+		double valorLucroPrejuizo =  valorLucroPrejuizoHistorico * quantidadeVenda;
+		
+		venda.setLucroPrejuizo(valorLucroPrejuizo);
 	}
 	
 	private void atualizarHistoricoInvestidor(HistoricoTransacao historico,int quantidadeVenda){
@@ -43,6 +64,7 @@ public class VendaAcaoService {
 				historicoAtualizar = historico;
 			}
 		}
+		
 		return historicoAtualizar;
 	}
 	
@@ -56,10 +78,8 @@ public class VendaAcaoService {
 	}
 	
 	public List<HistoricoTransacao> verificarValorVendaCadaAcaoInvestidor(Investidor investidor,List<Acao> acoes){
-		historico = new ArrayList<>();
-		
+		historico = new ArrayList<>();		
 		historico = investidor.getHistoricosTransacoesList();		
-		
 		for(HistoricoTransacao cadaHistorico: historico){
 			for(Acao cadaAcao : acoes){
 				if(cadaHistorico.getNomeAcao().equals(cadaAcao.getNomeAcao())){
@@ -67,6 +87,7 @@ public class VendaAcaoService {
 				}
 			}
 		}
+		
 		return historico;
 	}
 }

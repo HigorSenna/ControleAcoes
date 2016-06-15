@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
 	<ui:define name="conteudoDinamico">
-	
+		<link href="../estilos/statusDialog.css" rel="stylesheet" type="text/css"/>
 		<div class="container-fluid">
 			<h2>Venda de Ações</h2>
 		</div>		
@@ -60,7 +60,8 @@
 				</p:column>	
 				
 				<p:column>
-					<h:inputText style="width:100px; margin-left: 16px;"/> 
+					<h:inputText style="width:100px; margin-left: 16px;" value="#{consultaVendaController.quantidadeVenda}"
+					maxlength="#{historico.quantidadeTotal}"/> 
 				</p:column>	
 				
 				<p:column>
@@ -68,12 +69,30 @@
 				</p:column>	
 			</p:dataTable>
 			<p:button outcome="venderAcoes.xhtml?faces-redirect=true" value="Atualizar Tabela" 
-			onclick="PF('statusDialog').show();" onchange="PF('statusDialog').hide();" style="margin-left: 80.5%; margin-top: 3%;"/>
+			onclick="$('#wait').show();"  style="margin-left: 80.5%; margin-top: 3%;"/>
 		</div>
-		
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="margin-top:-20%;">
-   			<h:graphicImage value="/estilos/img/712.gif" />
-		</p:dialog>
+
+
+		<div class="windows8" id="wait" style="display:none;">
+			
+			<div class="wBall" id="wBall_1">
+				<div class="wInnerBall"></div>
+			</div>
+			<div class="wBall" id="wBall_2">
+				<div class="wInnerBall"></div>
+			</div>			
+			<div class="wBall" id="wBall_3">			
+				<div class="wInnerBall"></div>
+			</div>
+			<div class="wBall" id="wBall_4">
+				<div class="wInnerBall"></div>
+			</div>
+			<div class="wBall" id="wBall_5">
+				<div class="wInnerBall"></div>
+			</div>
+			<p style="margin-top: 31px;position: absolute;margin-left: 9px;">aguarde..</p>
+		</div>
+
 	</ui:define>
 </ui:composition>
 	

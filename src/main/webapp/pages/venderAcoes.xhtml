@@ -5,6 +5,8 @@
 	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
 	<ui:define name="conteudoDinamico">
 		<link href="../estilos/statusDialog.css" rel="stylesheet" type="text/css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
 		<div class="container-fluid">
 			<h2>Venda de Ações</h2>
 		</div>		
@@ -69,28 +71,7 @@
 				</p:column>	
 			</p:dataTable>
 			<p:button outcome="venderAcoes.xhtml?faces-redirect=true" value="Atualizar Tabela" 
-			onclick="$('#wait').show();"  style="margin-left: 80.5%; margin-top: 3%;"/>
-		</div>
-
-
-		<div class="windows8" id="wait" style="display:none;">
-			
-			<div class="wBall" id="wBall_1">
-				<div class="wInnerBall"></div>
-			</div>
-			<div class="wBall" id="wBall_2">
-				<div class="wInnerBall"></div>
-			</div>			
-			<div class="wBall" id="wBall_3">			
-				<div class="wInnerBall"></div>
-			</div>
-			<div class="wBall" id="wBall_4">
-				<div class="wInnerBall"></div>
-			</div>
-			<div class="wBall" id="wBall_5">
-				<div class="wInnerBall"></div>
-			</div>
-			<p style="margin-top: 31px;position: absolute;margin-left: 9px;">aguarde..</p>
+			onclick="$('#divWaiting').show();"  style="margin-left: 80.5%; margin-top: 3%;"/>
 		</div>
 
 	</ui:define>

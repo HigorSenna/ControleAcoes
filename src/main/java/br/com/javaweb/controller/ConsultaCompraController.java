@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.javaweb.model.Investidor;
+import br.com.javaweb.service.InvestidorService;
 import br.com.javaweb.transacoes.model.Compra;
 import br.com.javaweb.utils.Session;
 
@@ -15,10 +16,11 @@ import br.com.javaweb.utils.Session;
 public class ConsultaCompraController {
 
 	private Investidor investidor;
+	private InvestidorService investidorService;
 	
 	@PostConstruct
 	public void init(){
-		investidor = buscarInvestidorSessao();
+		investidor = buscarInvestidor();
 	}
 	
 	public List<Compra> buscarComprasInvestidor(){		
@@ -27,5 +29,11 @@ public class ConsultaCompraController {
 	
 	private Investidor buscarInvestidorSessao(){
 		return (Investidor) Session.pegarSessao();		
+	}
+	
+	private Investidor buscarInvestidor(){
+		investidor = buscarInvestidorSessao();
+		investidorService = new InvestidorService();
+		return investidorService.buscarInvestidorLoginSenha(investidor.getLogin(), investidor.getSenha());
 	}
 }

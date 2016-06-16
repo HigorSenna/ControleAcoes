@@ -23,64 +23,43 @@
 		
 		<p:dataTable id="lucrosPrejuizos" 
 				style="width:80%!important;margin:3% auto;text-align:center;"
-				paginator="true" rows="10" lazy="false" var="investidor" emptyMessage="Nenhum registro encontado!"
-				value="#{consultaLucroPrejuizoInvestidorController.buscarInvestidor()}"
+				paginator="true" rows="10" lazy="false" var="venda" emptyMessage="Nenhum registro encontado!"
+				value="#{consultaLucroPrejuizoInvestidorController.buscarVendasInvestidor()}"
 				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom">
 				<f:facet name="header">
 					Lucros/Prejuizos
 				</f:facet>
 				
-				<!-- Investidor tem lista de compra e vendas, metodos para calculçar lucro e prejuiizos devem estar na classe Investidor -->				
-				
 				<p:columnGroup type="header">
 					<p:row>
 						<p:column headerText="Nome Ação"/>
-						<p:column headerText="Data"/>
-						<p:column headerText="Valor"/>
-						<p:column headerText="Lucro"/>
-						<p:column headerText="Prejuizo"/>
+						<p:column headerText="Data Ultima Venda"/>
+						<p:column headerText="Valor total venda"/>
+						<p:column headerText="Quantidade"/>
+						<p:column headerText="Lucro/Prejuízo"/>
 					</p:row>	
 				</p:columnGroup>	
-			<p:subTable var="compra" value="#{investidor.comprasList}">
+				
 				<p:column>
-					<h:outputText value="#{compra.nomeAcao}" />
+					<h:outputText value="#{venda.nomeAcao}" />
 				</p:column>
+				
 				<p:column>
-					<h:outputText value="#{compra.dtCompra}" />
-				</p:column>				
-				<p:column>
-					<h:outputText value="#{compra.valorFinalAcao}" />
+					<h:outputText value="#{venda.dtVenda}" />
 				</p:column>
+				
 				<p:column>
-					<h:outputText value="#{investidor.calcularLucro()}" />
+					<h:outputText value="#{venda.valorVendaAcao}" />
 				</p:column>
+				
 				<p:column>
-					<h:outputText value="#{investidor.calcularPrejuizo()}" />
+					<h:outputText value="#{venda.quantidade}" />
 				</p:column>
-			
-			</p:subTable>	
+				
+				<p:column>
+					<h:outputText value="#{venda.lucroPrejuizo}" />
+				</p:column>
 		</p:dataTable>
 		
 	</ui:define>
 </ui:composition>
-<!-- 	<p:column headerText="Nome ação"> -->
-<!-- 					<h:outputText value="" /> -->
-<!-- 				</p:column>				 -->
-				
-<!-- 				<p:column headerText="Data de compra"> -->
-<!-- 					<h:outputText value="" /> -->
-<!-- 				</p:column>								 -->
-								
-<!-- 				<p:column headerText="Lucro"> -->
-<!-- 					<h:outputText value="#{investidor.calcularLucro()}" /> -->
-<!-- 				</p:column> -->
-				
-<!-- 				<p:column headerText="Prejuizo"> -->
-<!-- 					<h:outputText value="" /> -->
-<!-- 				</p:column>					 -->
-				
-<!-- 					<p:subTable var="compras" value="#{investidor.comprasList}"> -->
-<!-- 						<p:column headerText="dfsd">						 -->
-<!-- 							<h:outputText value="#{compras.valorFinalAcao}" /> -->
-<!-- 						</p:column>							 -->
-<!-- 					</p:subTable>	 -->

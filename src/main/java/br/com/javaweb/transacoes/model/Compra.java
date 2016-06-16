@@ -1,6 +1,8 @@
 package br.com.javaweb.transacoes.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.Random;
 
@@ -107,7 +109,8 @@ public class Compra implements Serializable {
 	}
 
 	public double getValorPago() {
-		return valorPago;
+		BigDecimal bd = new BigDecimal(valorPago).setScale(3, RoundingMode.HALF_EVEN);   
+		return bd.doubleValue();
 	}
 
 	public void setValorPago(double valorPago) {
@@ -131,7 +134,8 @@ public class Compra implements Serializable {
 	}
 
 	public double getTotalPago() {
-		return totalPago;
+		BigDecimal bd = new BigDecimal(totalPago).setScale(3, RoundingMode.HALF_EVEN);   
+		return bd.doubleValue();
 	}
 
 	public void setTotalPago(double totalPago) {

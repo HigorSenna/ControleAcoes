@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
+import br.com.javaweb.service.InvestidorService;
 import br.com.javaweb.service.VendaAcaoService;
 import br.com.javaweb.transacoes.model.HistoricoTransacao;
 import br.com.javaweb.transacoes.model.Venda;
@@ -23,13 +24,21 @@ public class ConsultaVendaController {
 	private Investidor investidor;
 	private List<Acao> acoes;
 	private VendaAcaoService vendaAcaoService;
+	private InvestidorService investidorService;
 	private List<HistoricoTransacao> historico;
 	private int quantidadeVenda;
 	private Venda venda;
 	
 	@PostConstruct
 	public void init(){
-		historico = buscarHistoricosComValoresVenda();
+		investidor = buscarInvestidor();
+		historico = buscarHistoricosComValoresVenda();		
+	}
+	
+	private Investidor buscarInvestidor(){
+		investidorService = new InvestidorService();
+		investidor = buscarInvestidorSessao();
+		return investidorService.buscarInvestidorLoginSenha(investidor.getLogin(), investidor.getSenha());
 	}
 	
 	public void realizarVenda(HistoricoTransacao historico){
@@ -49,11 +58,8 @@ public class ConsultaVendaController {
 	
 	public List<HistoricoTransacao> buscarHistoricosComValoresVenda(){
 		historico = new ArrayList<>();
-		investidor = new Investidor();
 		acoes = new ArrayList<>();
 		vendaAcaoService = new VendaAcaoService();		
-		
-		investidor = buscarInvestidorSessao();
 		acoes = buscarTodasAcoesWebService();
 		return vendaAcaoService.verificarValorVendaCadaAcaoInvestidor(investidor, acoes);
 	}

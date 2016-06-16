@@ -15,7 +15,7 @@
 		<div class="table table-hover">
 			<h:form prependId="false">
 				<p:dataTable id="acoes" 
-					style="margin-bottom:0;margin-left:10%;width:80%;text-align:center;"
+					style="margin-bottom:0;margin-left:10%;width:80%;"
 					paginator="true" rows="10" rowKey="acao" lazy="false"
 					rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom"				
 					var="historico" value="#{consultaVendaController.historico}">
@@ -28,8 +28,8 @@
 							<p:column headerText="Nome Ação"/>
 							<p:column headerText="Data Compra"/>
 							<p:column headerText="Valor Compra"/>						
-							<p:column headerText="Quantidade disponivel"/>					
-							<p:column headerText="Valor Atual para Venda"/>		
+							<p:column headerText="Qtd" style="width:10%;"/>					
+							<p:column headerText="Valor Venda"/>		
 							<p:column headerText="Lucro/Prejuízo"/>	
 							<p:column headerText="Qtd Vender"/>	
 							<p:column headerText="Opções" style="width:150px;"/>	

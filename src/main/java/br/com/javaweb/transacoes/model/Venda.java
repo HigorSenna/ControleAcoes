@@ -40,14 +40,14 @@ public class Venda implements Serializable {
     @Column(name="NM_ACAO")
     private String nomeAcao;
     
-    @Column(name="VL_VENDA")
+    @Column(name="VL_TOTAL_VENDA")
     private double valorVendaAcao;
-    
-    @Column(name="VL_RECEBIDO")
-    private double valorRecebido;
     
     @Column(name="QTD_VENDA")
     private int quantidade;
+    
+    @Column(name="LUCRO_PREJUIZO")
+    private double lucroPrejuizo;
     
     public Venda() {
     }
@@ -96,20 +96,20 @@ public class Venda implements Serializable {
 		this.valorVendaAcao = valorVendaAcao;
 	}
 
-	public double getValorRecebido() {
-		return valorRecebido;
-	}
-
-	public void setValorRecebido(double valorRecebido) {
-		this.valorRecebido = valorRecebido;
-	}
-
 	public int getQuantidade() {
 		return quantidade;
 	}
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}	
+
+	public double getLucroPrejuizo() {
+		return lucroPrejuizo;
+	}
+
+	public void setLucroPrejuizo(double lucroPrejuizo) {
+		this.lucroPrejuizo = lucroPrejuizo;
 	}
 
 	@Override

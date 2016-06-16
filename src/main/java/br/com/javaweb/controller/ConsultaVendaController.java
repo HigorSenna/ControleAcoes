@@ -1,5 +1,6 @@
 package br.com.javaweb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +11,9 @@ import br.com.javaweb.model.Acao;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.VendaAcaoService;
 import br.com.javaweb.transacoes.model.HistoricoTransacao;
+import br.com.javaweb.transacoes.model.Venda;
 import br.com.javaweb.utils.ConnectorURL;
+import br.com.javaweb.utils.MessagesAndRedirect;
 import br.com.javaweb.utils.Session;
 
 @ManagedBean
@@ -21,15 +24,36 @@ public class ConsultaVendaController {
 	private List<Acao> acoes;
 	private VendaAcaoService vendaAcaoService;
 	private List<HistoricoTransacao> historico;
+	private int quantidadeVenda;
+	private Venda venda;
 	
 	@PostConstruct
 	public void init(){
 		historico = buscarHistoricosComValoresVenda();
 	}
 	
-	public List<HistoricoTransacao> buscarHistoricosComValoresVenda(){
-		investidor = buscarInvestidorSessao();
+	public void realizarVenda(HistoricoTransacao historico){
 		vendaAcaoService = new VendaAcaoService();
+		investidor = new Investidor();
+		investidor = buscarInvestidorSessao();
+		venda = new Venda();
+		venda.setIdInvestidor(investidor);	
+		
+		try {
+			vendaAcaoService.inserirVenda(venda, quantidadeVenda,historico);
+			MessagesAndRedirect.exibirMensagemSucessoRedirect("Venda realizada com sucesso!!", "venderAcoes.xhtml");
+		} catch (Exception e) {
+			MessagesAndRedirect.exibirMensagemErroRedirect("Erro ao vender!", "venderAcoes.xhtml");
+		}
+	}
+	
+	public List<HistoricoTransacao> buscarHistoricosComValoresVenda(){
+		historico = new ArrayList<>();
+		investidor = new Investidor();
+		acoes = new ArrayList<>();
+		vendaAcaoService = new VendaAcaoService();		
+		
+		investidor = buscarInvestidorSessao();
 		acoes = buscarTodasAcoesWebService();
 		return vendaAcaoService.verificarValorVendaCadaAcaoInvestidor(investidor, acoes);
 	}
@@ -53,5 +77,13 @@ public class ConsultaVendaController {
 
 	public List<HistoricoTransacao> getHistorico() {
 		return historico;
+	}
+
+	public int getQuantidadeVenda() {
+		return quantidadeVenda;
+	}
+
+	public void setQuantidadeVenda(int quantidadeVenda) {
+		this.quantidadeVenda = quantidadeVenda;
 	}
 }

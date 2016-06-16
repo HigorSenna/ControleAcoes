@@ -38,8 +38,6 @@ public class ConnectorURL {
         for(int i = 0; i < arraysDoWebService.size(); i++){
         	Acao acao = new Acao();
         	int j = 0;
-//        	System.out.println(arraysDoWebService.size());
-//			System.out.println(arraysDoWebService.get(i)); 			
 			arrayAcao = (JSONObject)arraysDoWebService.get(i); //pego o array na posicao i da acao especifica	
 			
 			for(j = 0 ;j <= 0;j++){ //para cada i, tenho que fazer o for apenas uma vez
@@ -59,7 +57,8 @@ public class ConnectorURL {
 				acoes.add(acao);
 			}
         }
-        testarMetodoAcoes(acoes);              
+        testarMetodoAcoes(acoes);  
+        
         return acoes;
 	}
 	

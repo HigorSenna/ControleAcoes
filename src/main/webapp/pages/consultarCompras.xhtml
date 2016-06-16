@@ -10,7 +10,7 @@
 		<h:form id="formComprar" prependId="false">
 		 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		<div class="table table-hover">
-			<p:dataTable id="acoes" 
+			<p:dataTable id="acoes" emptyMessage="Nenhum registro encontrado!!"
 				style="margin-bottom:0;margin-left:10%;width:80%;text-align:center;"
 				paginator="true" rows="10" lazy="false" var="compra"
 				value="#{consultaCompraController.buscarComprasInvestidor()}"

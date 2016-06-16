@@ -4,6 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
 	<ui:define name="conteudoDinamico">
+	
+		<link href="../estilos/statusDialog.css" rel="stylesheet" type="text/css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />		
+		
 		<div class="container-fluid">
 			<h2>Compra de Ações</h2>
 		</div>		
@@ -53,18 +58,14 @@
 
 				<p:column headerText="Comprar" style="width:100px;">
 					<p:commandButton value="Buy" style="width:80px;margin-left:0px;"
-						action="#{cadastroCompraController.comprarAcao(acao)}" />
+						action="#{cadastroCompraController.comprarAcao(acao)}" onclick="$('#divWaiting').show();"/>
 				</p:column>
-				
-<!-- 				<p:column headerText="Vender" style="width:100px;"> -->
-<!-- 					<h:link> -->
-<!-- 						<h:graphicImage value="/estilos/img/sell.png" style="width:40px; height:40px;margin:auto 25%!important;" /> -->
-<!-- 					</h:link> -->
-<!-- 				</p:column> -->
-			</p:dataTable>
-			<h:link outcome="comprarAcoes.xhtml" style="margin-left:76%;margin-top:5%;">Atualizar Tabela</h:link>
+
+			</p:dataTable>			
 		</div>
 		</h:form>
+		<p:button outcome="comprarAcoes.xhtml?faces-redirect=true" value="Atualizar Tabela" 
+			onclick="$('#divWaiting').show();"  style="margin-left: 80.5%; margin-top: 3%;"/>
 	</ui:define>
 </ui:composition>
 	

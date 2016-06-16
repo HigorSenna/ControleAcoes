@@ -1,13 +1,17 @@
 package DAO;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 import br.com.javaweb.model.ContaBancaria;
+import br.com.javaweb.model.Investidor;
 import br.com.javaweb.transacoes.model.HistoricoTransacao;
 import br.com.javaweb.transacoes.model.Venda;
+import br.com.javaweb.vo.FiltroLucroPrejuizoVO;
 
 public class VendaDAO implements Serializable {
 
@@ -20,6 +24,28 @@ public class VendaDAO implements Serializable {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<Venda> buscarNomesVenda(){
+    	EntityManager em = null;
+   	 	em = getEntityManager();
+   	 	
+   	 	String jpql = "SELECT DISTINCT v FROM Venda v";
+   	 	Query q = em.createQuery(jpql);
+   	 	
+   	 	return q.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<Venda> buscarVendaPorNomeAcao(String nomeAcao){
+    	EntityManager em = null;
+   	 	em = getEntityManager();
+    	String jpql = "SELECT v FROM Venda v WHERE v.nomeAcao =:acaoParam";
+    	Query q = em.createQuery(jpql);
+        q.setParameter("acaoParam", nomeAcao);
+        
+        return (List<Venda>) q.getResultList();
     }
     
     public void atualizarHistoricoInvestidor(HistoricoTransacao historico){

@@ -22,6 +22,16 @@ public class VendaAcaoService {
 	
 	private List<HistoricoTransacao> historico;
 	
+	public List<Venda> buscarNomesVendas(){
+		vendaDAO = new VendaDAO(emf);
+		return vendaDAO.buscarNomesVenda();
+	}
+	
+	public List<Venda> pesquisarPorNome(String nomeAcao){
+		vendaDAO = new VendaDAO(emf);
+		return vendaDAO.buscarVendaPorNomeAcao(nomeAcao);
+	}
+	
 	public void inserirVenda(Venda venda,int quantidadeVenda,HistoricoTransacao historicoAtualizar){
 		vendaDAO = new VendaDAO(emf);
 		

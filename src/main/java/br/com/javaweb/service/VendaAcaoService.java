@@ -27,7 +27,8 @@ public class VendaAcaoService {
 		
 		montarInstanciaVenda(venda, historicoAtualizar, quantidadeVenda);		
 		vendaDAO.inserirVenda(venda);			
-		atualizarContaInvestidor(venda.getIdInvestidor().getIdConta(),venda.getValorVendaAcao());
+		atualizarContaInvestidor(venda.getIdInvestidor().getIdConta(),historicoAtualizar.getValorVendaAcao());
+	
 		atualizarHistoricoInvestidor(historicoAtualizar, quantidadeVenda);		
 	}
 	
@@ -62,7 +63,6 @@ public class VendaAcaoService {
 		double saldoExistente = conta.getSaldo();
 		double saldoAtualizado = saldoExistente + valorDaVenda;
 		conta.setSaldo(saldoAtualizado);	
-		
 		vendaDAO.atualizarContaBancaria(conta);
 	}
 	

@@ -69,8 +69,8 @@
 				<p:column>
 					<p:commandButton value="Vender" style="margin-left:28px;" onclick="$('#divWaiting').show();"
 					process="quantidade @this" action="#{consultaVendaController.realizarVenda(historico)}"/>
-					
 				</p:column>	
+				
 			</p:dataTable>
 			</h:form>
 			<p:button outcome="venderAcoes.xhtml?faces-redirect=true" value="Atualizar Tabela" 

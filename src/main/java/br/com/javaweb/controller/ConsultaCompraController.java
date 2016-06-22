@@ -10,7 +10,6 @@ import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
 import br.com.javaweb.transacoes.model.Compra;
 import br.com.javaweb.utils.Session;
-import br.com.javaweb.vo.FiltroLucroPrejuizoVO;
 
 @ManagedBean
 @ViewScoped

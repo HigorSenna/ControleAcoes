@@ -34,7 +34,7 @@ public class Investidor implements Serializable{
     private Integer idInvestidor;
     
     @Column(name="CPF" , nullable = true)
-    private long cpf;
+    private String cpf;
       
     @Size(min = 1, max = 45)
     @Column(name="LOGIN",nullable = true, length = 45)
@@ -76,7 +76,7 @@ public class Investidor implements Serializable{
         this.idInvestidor = idInvestidor;
     }
 
-    public Investidor(Integer idInvestidor, int cpf, String login, String nomeInvestidor, String profissao, String rg, String senha) {
+    public Investidor(Integer idInvestidor, String cpf, String login, String nomeInvestidor, String profissao, String rg, String senha) {
         this.idInvestidor = idInvestidor;
         this.cpf = cpf;
         this.login = login;
@@ -104,9 +104,7 @@ public class Investidor implements Serializable{
     	return "Fez apenas uma compra";
     	
     }
-    
-    //LUCRO / PREJUIZO NAO ESTAO SENDO EXIBIDOS CORRETAMENTE, ACOES IGUAIS QUE DEVEM SER COMPARADAS, 
-    //E MESMO ASSIM QUANDO COMPARADAS AS MESMAS ACOES (CASO OCORRA POR COINCIDENCIA) ESTA CALCULANDO ERRADO
+        
     public String calcularPrejuizo(){
     	int elementoFinalLista = this.comprasList.size()-1;
     	int antesDoUltimoElementoLista = elementoFinalLista - 1;    	
@@ -131,11 +129,11 @@ public class Investidor implements Serializable{
         this.idInvestidor = idInvestidor;
     }
 
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

@@ -38,6 +38,7 @@ public class CadastroCompraController implements Serializable{
 		try {
 			acoes = ConnectorURL.conectarNaUrlPegandoValoresDoWebService("http://cotacao.davesmartins.com.br/webCotacao/?cod=VALE5;PETR4;ITSA3;BBDC4;ABEV3;");
 		} catch (Exception e) {
+			MessagesAndRedirect.exibirMensagemAvisoRedirect("WebService Offline", "comprarAcoes.xhtml");
 			e.printStackTrace();
 		}
 	}

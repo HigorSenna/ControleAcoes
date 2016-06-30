@@ -2,7 +2,7 @@
 package br.com.javaweb.controller;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;

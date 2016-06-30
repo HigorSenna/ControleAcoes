@@ -18,11 +18,12 @@ public class MessagesAndRedirect {
 		redirecionarPara(paginaRedirecionar);
 	}
 	
-	public static void exibirMensagemAviso(String msg){
+	public static void exibirMensagemAvisoRedirect(String msg,String pagina){
 		context = FacesContext.getCurrentInstance();
 		FacesMessage formatoMensagem = new FacesMessage(FacesMessage.SEVERITY_WARN,"",msg);		
 		manterMensagemAoRedirecionar();
 		context.addMessage(null,formatoMensagem);
+		redirecionarPara(pagina);
 	}
 	
 	public static void exibirMensagemErroRedirect(String msg,String paginaRedirecionar){

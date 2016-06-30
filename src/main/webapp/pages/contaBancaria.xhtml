@@ -5,8 +5,19 @@
 	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">	
 	
 	<ui:define name="conteudoDinamico">
-		Pagina de conta bancária
-
+		<p:fieldset legend="Conta Bancaria" toggleable="true" toggleSpeed="500">
+	        <p:ajax event="toggle" listener="#{fieldsetView.handleToggle}"/>        
+	        <h:panelGrid columns="2" cellpadding="5">
+	        
+		        <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+		        <h:outputText value="Olá investidor,aqui você poderá realizar eventos relacionador a sua conta bancara" />
+		       	<br/>
+		        <h:outputText value="Abaixo você encontra informações referente a sua conta." />
+	        </h:panelGrid>
+	          <p:dataTable>
+	             	<p:column headerText="Nome">
+	             	</p:column>
+	          </p:dataTable>
+	    </p:fieldset>
 	</ui:define>
-	
 </ui:composition>

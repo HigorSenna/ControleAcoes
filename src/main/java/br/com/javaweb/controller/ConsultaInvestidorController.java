@@ -30,7 +30,7 @@ public class ConsultaInvestidorController implements Serializable {
 	
 	private void validarPermissao(){
 		if(!(investidor.getLogin().equalsIgnoreCase("admin") || investidor.getLogin().equalsIgnoreCase(("adminisrtrador")))){
-			MessagesAndRedirect.exibirMensagemAvisoRedirect("Você nao possui permissoes para acessar a página","fail.xhtml");
+			MessagesAndRedirect.redirecionarPara("fail.xhtml");
 		}
 	}
 	

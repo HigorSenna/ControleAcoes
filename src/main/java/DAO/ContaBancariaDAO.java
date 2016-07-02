@@ -55,6 +55,19 @@ public class ContaBancariaDAO implements Serializable {
             }
         }
     }
+    
+    public void atualizarSaldo(ContaBancaria conta) throws Exception{
+    	EntityManager em = null;
+    	em = getEntityManager();
+    	
+    	em.getTransaction().begin();
+    	em.merge(conta);
+    	em.getTransaction().commit();
+    	
+    	em.close();
+    	
+    }
+    
 
     public void edit(ContaBancaria contasBancarias) throws NonexistentEntityException, Exception {
         EntityManager em = null;

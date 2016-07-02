@@ -19,14 +19,6 @@ public class ConsultaInvestidorController implements Serializable {
 	private Investidor investidor = new Investidor();
 	private InvestidorService investidorService = new InvestidorService();
 	
-//	public void conectarUrl(){
-//		try {
-//			ConnectorURL.conectarNaUrlPegandoValoresDoWebService("http://cotacao.davesmartins.com.br/webCotacao/?cod=VALE5;PETR4;ITSA3");
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage()); 
-//		}
-//	}
-
 	public void excluirInvestidor(Investidor investidor) {
 		try {
 			investidorService.excluir(investidor.getIdInvestidor());

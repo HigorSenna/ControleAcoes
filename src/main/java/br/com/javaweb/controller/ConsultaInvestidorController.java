@@ -3,6 +3,7 @@ package br.com.javaweb.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
@@ -10,6 +11,7 @@ import DAO.exceptions.NonexistentEntityException;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
 import br.com.javaweb.utils.MessagesAndRedirect;
+import br.com.javaweb.utils.Session;
 
 @ManagedBean
 @ViewScoped
@@ -18,6 +20,23 @@ public class ConsultaInvestidorController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Investidor investidor = new Investidor();
 	private InvestidorService investidorService = new InvestidorService();
+	
+	@PostConstruct
+	public void init(){
+		investidor = new Investidor();
+		investidor = buscarInvestidorSessao();
+		validarPermissao();
+	}
+	
+	private void validarPermissao(){
+		if(!(investidor.getLogin().equalsIgnoreCase("admin") || investidor.getLogin().equalsIgnoreCase(("adminisrtrador")))){
+			MessagesAndRedirect.exibirMensagemAvisoRedirect("Você nao possui permissoes para acessar a página","fail.xhtml");
+		}
+	}
+	
+	private Investidor buscarInvestidorSessao(){
+		return (Investidor)Session.pegarSessao();
+	}
 	
 	public void excluirInvestidor(Investidor investidor) {
 		try {

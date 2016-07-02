@@ -57,7 +57,7 @@ public class Investidor implements Serializable{
     private String senha;
     
     @JoinColumn(name = "ID_CONTA", referencedColumnName = "ID_CONTA")
-    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private ContaBancaria idConta;
     
     @OneToMany(mappedBy = "idInvestidor", fetch = FetchType.LAZY)
@@ -208,7 +208,7 @@ public class Investidor implements Serializable{
 	public void setComprasList(List<Compra> comprasList) {
 		this.comprasList = comprasList;
 	}
-
+	
 	@Override
     public int hashCode() {
         int hash = 0;

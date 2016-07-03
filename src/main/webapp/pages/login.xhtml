@@ -19,16 +19,16 @@
 		<link id="bodybg" href="./estilos/bodybg/bg1.css" rel="stylesheet"
 			type="text/css" />
 	</h:head>
-<body>
-	<div class="row">	 	
+<body style="background-image: url('./estilos/fundo.jpg');">
+	<div class="row" style="background: none;border-radius: 5px; width:48%;margin:10% auto!important;">	 	
 		<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 			<h:form styleClass="register-form" prependId="false"
 				id="formularioLogin">							
-				<h2>
-					Login <small>faça seu login</small>
+				<h2 style="color:white;">
+					Login <small style="color:white;">faça seu login</small>
 				</h2>
 				<p:messages id="messages" showDetail="true" autoUpdate="true"/>	
-				<hr class="colorgraph" />
+				<hr  />
 
 				<div class="form-group">
 					<p:inputText id="email" styleClass="form-control input-lg"
@@ -39,7 +39,7 @@
 						id="exampleInputPassword1" placeholder="Senha"
 						value="#{loginController.investidor.senha}" />
 				</div>
-				<hr class="colorgraph" />
+				<hr />
 				<div class="row">
 					<div class="col-xs-12 col-md-6">
 						<p:commandButton value="Logar"

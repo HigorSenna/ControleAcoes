@@ -16,9 +16,9 @@
 						value="#{consultaLucroPrejuizoInvestidorController.filtroLucroPrejuizoVO.nomeAcao}">
 						<f:selectItem itemLabel="Selecione.." itemValue=""
 							noSelectionOption="true" />
-						<f:selectItems var="venda"
-							value="#{consultaLucroPrejuizoInvestidorController.vendas}"
-							itemLabel="#{venda.nomeAcao}" itemValue="#{venda.nomeAcao}" />
+						<f:selectItems var="nomeAcaoVendas"
+							value="#{consultaLucroPrejuizoInvestidorController.nomeAcaoVendas}"
+							itemLabel="#{nomeAcaoVendas}" itemValue="#{nomeAcaoVendas}" />
 					</p:selectOneMenu>
 
 					<p:commandButton value="Pesquisar" style="margin-left: 21%;position: absolute;margin-top: 0%;"

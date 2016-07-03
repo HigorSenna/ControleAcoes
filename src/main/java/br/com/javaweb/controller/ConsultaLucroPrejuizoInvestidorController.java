@@ -2,10 +2,14 @@ package br.com.javaweb.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import org.primefaces.component.tree.Tree;
 
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
@@ -22,17 +26,17 @@ public class ConsultaLucroPrejuizoInvestidorController {
 	private InvestidorService investidorService;
 	private VendaAcaoService vendaService;
 	private FiltroLucroPrejuizoVO filtroLucroPrejuizoVO;
-	private List<Venda> vendas;
+	private List<String> nomeAcaoVendas;
 	private List<Venda> vendasPesquisadas = new ArrayList<>();
 	
 	@PostConstruct
 	public void init(){		
 		investidor = buscarInvestidor();
-		vendas = buscarNomesAcao();
+		nomeAcaoVendas = buscarNomesAcao();
 		filtroLucroPrejuizoVO = new FiltroLucroPrejuizoVO();
 	}
 	
-	private List<Venda> buscarNomesAcao(){
+	private List<String> buscarNomesAcao(){
 		vendaService = new VendaAcaoService();
 		return vendaService.buscarNomesVendas();
 	}
@@ -68,11 +72,11 @@ public class ConsultaLucroPrejuizoInvestidorController {
 		this.filtroLucroPrejuizoVO = filtroLucroPrejuizoVO;
 	}
 
-	public List<Venda> getVendas() {
-		return vendas;
+	public List<String> getNomeAcaoVendas() {
+		return nomeAcaoVendas;
 	}
 
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
-	}	
+	public void setNomeAcaoVendas(List<String> nomeAcaoVendas) {
+		this.nomeAcaoVendas = nomeAcaoVendas;
+	}
 }

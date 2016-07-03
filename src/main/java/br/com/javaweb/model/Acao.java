@@ -61,5 +61,29 @@ public class Acao {
 	}
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
-	}	
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nomeAcao == null) ? 0 : nomeAcao.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Acao other = (Acao) obj;
+		if (nomeAcao == null) {
+			if (other.nomeAcao != null)
+				return false;
+		} else if (!nomeAcao.equals(other.nomeAcao))
+			return false;
+		return true;
+	}
+	
 }

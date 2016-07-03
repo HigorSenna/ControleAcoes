@@ -3,6 +3,7 @@ package br.com.javaweb.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,7 +23,7 @@ public class VendaAcaoService {
 	
 	private List<HistoricoTransacao> historico;
 	
-	public List<Venda> buscarNomesVendas(){
+	public List<String> buscarNomesVendas(){
 		vendaDAO = new VendaDAO(emf);
 		return vendaDAO.buscarNomesVenda();
 	}

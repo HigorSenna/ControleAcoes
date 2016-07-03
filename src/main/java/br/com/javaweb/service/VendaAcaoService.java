@@ -28,9 +28,9 @@ public class VendaAcaoService {
 		return vendaDAO.buscarNomesVenda();
 	}
 	
-	public List<Venda> pesquisarPorNome(String nomeAcao){
+	public List<Venda> pesquisarPorNome(String nomeAcao,int idInvestidor){
 		vendaDAO = new VendaDAO(emf);
-		return vendaDAO.buscarVendaPorNomeAcao(nomeAcao);
+		return vendaDAO.buscarVendaPorNomeAcao(nomeAcao,idInvestidor);
 	}
 	
 	public void inserirVenda(Venda venda,int quantidadeVenda,HistoricoTransacao historicoAtualizar){

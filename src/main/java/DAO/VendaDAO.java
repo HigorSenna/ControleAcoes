@@ -39,12 +39,13 @@ public class VendaDAO implements Serializable {
     }
     
     @SuppressWarnings("unchecked")
-	public List<Venda> buscarVendaPorNomeAcao(String nomeAcao){
+	public List<Venda> buscarVendaPorNomeAcao(String nomeAcao,int idInvestidor){
     	EntityManager em = null;
    	 	em = getEntityManager();
-    	String jpql = "SELECT v FROM Venda v WHERE v.nomeAcao =:acaoParam";
+    	String jpql = "SELECT v FROM Venda v WHERE v.nomeAcao =:acaoParam AND v.idInvestidor.idInvestidor =:idParam";
     	Query q = em.createQuery(jpql);
         q.setParameter("acaoParam", nomeAcao);
+        q.setParameter("idParam", idInvestidor);
         
         return (List<Venda>) q.getResultList();
     }

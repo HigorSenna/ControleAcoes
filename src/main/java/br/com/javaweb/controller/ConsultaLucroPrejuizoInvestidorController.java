@@ -2,14 +2,10 @@ package br.com.javaweb.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.primefaces.component.tree.Tree;
 
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
@@ -43,7 +39,7 @@ public class ConsultaLucroPrejuizoInvestidorController {
 	
 	public List<Venda> pesquisarPorNome(){
 		vendaService = new VendaAcaoService();
-		vendasPesquisadas = vendaService.pesquisarPorNome(filtroLucroPrejuizoVO.getNomeAcao());
+		vendasPesquisadas = vendaService.pesquisarPorNome(filtroLucroPrejuizoVO.getNomeAcao(),investidor.getIdInvestidor());
 		return vendasPesquisadas;
 	}
 	

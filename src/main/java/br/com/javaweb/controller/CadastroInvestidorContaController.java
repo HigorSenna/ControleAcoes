@@ -1,5 +1,6 @@
 package br.com.javaweb.controller;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
@@ -7,6 +8,7 @@ import br.com.javaweb.model.ContaBancaria;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
 import br.com.javaweb.utils.MessagesAndRedirect;
+import br.com.javaweb.utils.Session;
 
 @ManagedBean
 @ViewScoped
@@ -14,6 +16,20 @@ public class CadastroInvestidorContaController {
 	private ContaBancaria contaBancaria = new ContaBancaria();
 	private Investidor investidor = new Investidor();
 	private InvestidorService investidorService = new InvestidorService();
+	
+	@PostConstruct
+	public void init(){
+		investidor = new Investidor();
+		buscarInvestidorSessao();
+	}
+	
+	private void buscarInvestidorSessao(){	
+		try {
+			investidor = (Investidor) Session.pegarSessao();			
+		} catch (Exception e) {
+			MessagesAndRedirect.redirecionarPara("login.xhtml");
+		}
+	}
 
 	public void salvar() {
 		try {

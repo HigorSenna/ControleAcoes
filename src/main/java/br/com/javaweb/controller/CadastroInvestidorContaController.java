@@ -15,17 +15,18 @@ import br.com.javaweb.utils.Session;
 public class CadastroInvestidorContaController {
 	private ContaBancaria contaBancaria = new ContaBancaria();
 	private Investidor investidor = new Investidor();
+	private Investidor investidorDaSessao;
 	private InvestidorService investidorService = new InvestidorService();
 	
 	@PostConstruct
 	public void init(){
-		investidor = new Investidor();
+		investidorDaSessao = new Investidor();
 		buscarInvestidorSessao();
 	}
 	
 	private void buscarInvestidorSessao(){	
 		try {
-			investidor = (Investidor) Session.pegarSessao();			
+			investidorDaSessao = (Investidor) Session.pegarSessao();			
 		} catch (Exception e) {
 			MessagesAndRedirect.redirecionarPara("login.xhtml");
 		}

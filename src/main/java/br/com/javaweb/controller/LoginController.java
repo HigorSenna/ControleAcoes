@@ -18,13 +18,13 @@ public class LoginController {
 	
 	public void fecharSessao(){
 		Session.fecharSessao();
-		MessagesAndRedirect.exibirMensagemErroRedirect("Você deslogou!", "login.xhtml");;
+		MessagesAndRedirect.exibirMensagemErroRedirect("Você deslogou!", "../login.xhtml");;
 	}
 	public void validarSessao(String paginaRedirecionar){
 		if (Session.existeSessao("user")) {			 
 			MessagesAndRedirect.redirecionarPara(paginaRedirecionar);
 		} else {
-			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "pages/login.xhtml");
+			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "login.xhtml");
 		}
 	}
 
@@ -39,7 +39,7 @@ public class LoginController {
 		} catch (Exception e) {
 			e.getMessage();
 			investidor = new Investidor();
-			MessagesAndRedirect.exibirMensagemErroRedirect("Login Inválido", "pages/login.xhtml");
+			MessagesAndRedirect.exibirMensagemErroRedirect("Login Inválido", "login.xhtml");
 		}
 	}
 

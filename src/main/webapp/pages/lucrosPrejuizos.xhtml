@@ -10,9 +10,9 @@
 
 		<p:panel header="Selecione os filtros de busca"	style="margin-bottom:10px;width:50%!important;margin:0 auto;">
 			<h:panelGrid columns="2" cellpadding="5">
-				<h:form id="filtros" prependId="false">
+				<h:form id="filtros" prependId="false" style="width:100%!important;">
 					<p:outputLabel for="acao" value="Nome ação: " />
-					<p:selectOneMenu id="acao" style="width:190px; margin-left: 10px;"
+					<p:selectOneMenu id="acao" style="width:80%; margin-left: 5%;"
 						value="#{consultaLucroPrejuizoInvestidorController.filtroLucroPrejuizoVO.nomeAcao}">
 						<f:selectItem itemLabel="Selecione.." itemValue=""
 							noSelectionOption="true" />
@@ -20,6 +20,9 @@
 							value="#{consultaLucroPrejuizoInvestidorController.nomeAcaoVendas}"
 							itemLabel="#{nomeAcaoVendas}" itemValue="#{nomeAcaoVendas}" />
 					</p:selectOneMenu>
+					
+					<p:outputLabel value="Quantidade"/>
+					<p:inputText value="#{consultaLucroPrejuizoInvestidorController.filtroLucroPrejuizoVO.quantidade}"/>
 
 					<p:commandButton value="Pesquisar" style="margin-left: 21%;position: absolute;margin-top: 0%;"
 						action="#{consultaLucroPrejuizoInvestidorController.pesquisarPorNome()}"

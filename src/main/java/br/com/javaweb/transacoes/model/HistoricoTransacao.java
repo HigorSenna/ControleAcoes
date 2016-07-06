@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.javaweb.transacoes.model;
 
-import br.com.javaweb.model.Investidor;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import br.com.javaweb.model.Investidor;
 
 
 @Entity
@@ -29,9 +30,39 @@ public class HistoricoTransacao implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_HISTORICO", nullable = false)
     private Integer idHistorico;
+    
     @JoinColumn(name = "ID_INVESTIDOR", referencedColumnName = "ID_INVESTIDOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private Investidor idInvestidor;
+    
+    @Column(name="NM_ACAO")
+    private String nomeAcao;
+    
+    @Column(name="QTD_TOTAL")
+    private int quantidadeTotal;
+    
+    @Column(name="VL_COMPRA")
+    private double valorDeCompra;
+    
+    @Column(name="DT_ULT_ATUALIZACAO")
+    private Date dataAtualizacao;
+    
+    @Transient
+    private double valorVendaAcao;
+    
+    public double getLucroOuPrejuizo(){    	
+    	double valorLucroPrejuizo = this.valorVendaAcao - this.valorDeCompra;
+    	BigDecimal bd = new BigDecimal(valorLucroPrejuizo).setScale(3, RoundingMode.HALF_EVEN);   	
+    	
+    	return bd.doubleValue();
+    }
+    
+    public String getStyleClass(){    	
+    	if(getLucroOuPrejuizo()> 0){
+    		return "lucro";
+    	}
+    	return "prejuizo";
+    }
 
     public HistoricoTransacao() {
     }
@@ -56,7 +87,48 @@ public class HistoricoTransacao implements Serializable {
         this.idInvestidor = idInvestidor;
     }
 
-    @Override
+    public String getNomeAcao() {
+		return nomeAcao;
+	}
+
+	public void setNomeAcao(String nomeAcao) {
+		this.nomeAcao = nomeAcao;
+	}
+
+	public int getQuantidadeTotal() {
+		return quantidadeTotal;
+	}
+
+	public void setQuantidadeTotal(int quantidadeTotal) {
+		this.quantidadeTotal = quantidadeTotal;
+	}
+
+	public double getValorDeCompra() {		
+		BigDecimal bd = new BigDecimal(valorDeCompra).setScale(3, RoundingMode.HALF_EVEN);   
+		return bd.doubleValue();
+	}
+
+	public void setValorDeCompra(double valorDeCompra) {
+		this.valorDeCompra = valorDeCompra;
+	}
+
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+	
+	public double getValorVendaAcao() {		
+		return valorVendaAcao;
+	}	
+
+	public void setValorVendaAcao(double valorVendaAcao) {
+		this.valorVendaAcao = valorVendaAcao;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idHistorico != null ? idHistorico.hashCode() : 0);

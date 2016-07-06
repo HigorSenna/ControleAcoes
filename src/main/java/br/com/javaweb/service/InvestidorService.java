@@ -42,4 +42,8 @@ public class InvestidorService {
     	return investidorDAO.buscarTodos();
     	
     }
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public Investidor buscarInvestidorLoginSenha(String login,String senha) {
+		return investidorDAO.buscarInvestidorLoginSenha(login, senha);
+	}
 }

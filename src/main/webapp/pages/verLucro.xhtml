@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">	
+	<ui:define name="conteudoDinamico">
+		<div class="container-fluid">
+			<h2>Lucro corretora</h2>
+		</div>		
+		<h:form id="formComprar" prependId="false">
+		 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<div class="table table-hover">
+			<p:dataTable id="acoes" 
+				style="margin-bottom:0;margin-left:10%;width:80%;text-align:center;"
+				paginator="true" rows="10" lazy="false" var="corretora"
+				value="#{consultaLucroCorretoraController.corretora}"
+				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom">
+				<f:facet name="header">
+					Tabela de lucro da corretora
+				</f:facet>
+				<p:column headerText="Qtd Vendas(Compra realizada pelos investidores)" style="backgrund-color:black!important;">
+					<h:outputText value="#{corretora.numeroTransacoesFeitas}" />
+				</p:column>
+				
+				<p:column headerText="Lucro">
+					<h:outputText value="#{corretora.lucro}"/>
+				</p:column>					
+			</p:dataTable>
+		</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+	

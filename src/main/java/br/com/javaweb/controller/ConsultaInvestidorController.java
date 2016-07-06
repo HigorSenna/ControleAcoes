@@ -3,14 +3,15 @@ package br.com.javaweb.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 
 import DAO.exceptions.NonexistentEntityException;
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
-import br.com.javaweb.utils.ConnectorURL;
 import br.com.javaweb.utils.MessagesAndRedirect;
+import br.com.javaweb.utils.Session;
 
 @ManagedBean
 @ViewScoped
@@ -20,14 +21,23 @@ public class ConsultaInvestidorController implements Serializable {
 	private Investidor investidor = new Investidor();
 	private InvestidorService investidorService = new InvestidorService();
 	
-	public void conectarUrl(){
-		try {
-			ConnectorURL.pegarParametrosWebService("http://cotacao.davesmartins.com.br/webCotacao/?cod=VALE5;PETR4;ITSA3");
-		} catch (Exception e) {
-			System.out.println(e.getMessage()); 
+	@PostConstruct
+	public void init(){
+		investidor = new Investidor();
+		investidor = buscarInvestidorSessao();
+		validarPermissao();
+	}
+	
+	private void validarPermissao(){
+		if(!(investidor.getLogin().equalsIgnoreCase("admin") || investidor.getLogin().equalsIgnoreCase(("adminisrtrador")))){
+			MessagesAndRedirect.redirecionarPara("fail.xhtml");
 		}
 	}
-
+	
+	private Investidor buscarInvestidorSessao(){
+		return (Investidor)Session.pegarSessao();
+	}
+	
 	public void excluirInvestidor(Investidor investidor) {
 		try {
 			investidorService.excluir(investidor.getIdInvestidor());

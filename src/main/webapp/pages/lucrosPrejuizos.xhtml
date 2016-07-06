@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">	
+	<ui:define name="conteudoDinamico">
+		<div class="container-fluid">
+			<h2>Lucros e Prejuizos</h2>
+		</div>
+
+		<p:panel header="Selecione os filtros de busca"	style="margin-bottom:10px;width:50%!important;margin:0 auto;">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:form id="filtros" prependId="false" style="width:100%!important;">
+					<p:outputLabel for="acao" value="Nome ação: " />
+					<p:selectOneMenu id="acao" style="width:80%; margin-left: 5%;"
+						value="#{consultaLucroPrejuizoInvestidorController.filtroLucroPrejuizoVO.nomeAcao}">
+						<f:selectItem itemLabel="Selecione.." itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems var="nomeAcaoVendas"
+							value="#{consultaLucroPrejuizoInvestidorController.nomeAcaoVendas}"
+							itemLabel="#{nomeAcaoVendas}" itemValue="#{nomeAcaoVendas}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Quantidade"/>
+					<p:inputText value="#{consultaLucroPrejuizoInvestidorController.filtroLucroPrejuizoVO.quantidade}"/>
+
+					<p:commandButton value="Pesquisar" style="margin-left: 21%;position: absolute;margin-top: 0%;"
+						action="#{consultaLucroPrejuizoInvestidorController.pesquisarPorNome()}"
+						process="@this filtros" update="tabelaLucroPrejuizo" />
+				</h:form>
+			</h:panelGrid>
+		</p:panel>
+
+		<p:dataTable id="tabelaLucroPrejuizo" 
+				style="width:80%!important;margin:3% auto;text-align:center;"
+				paginator="true" rows="10" lazy="false" var="venda" emptyMessage="Você ainda nao realizou vendas!!"
+				value="#{consultaLucroPrejuizoInvestidorController.buscarVendasInvestidor()}"
+				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom">
+				<f:facet name="header">
+					Lucros/Prejuizos
+				</f:facet>
+				
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column headerText="Nome Ação"/>
+						<p:column headerText="Data Ultima Venda"/>
+						<p:column headerText="Valor total venda"/>
+						<p:column headerText="Quantidade"/>
+						<p:column headerText="Lucro/Prejuízo"/>
+					</p:row>	
+				</p:columnGroup>	
+				
+				<p:column>
+					<h:outputText value="#{venda.nomeAcao}" />
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{venda.dtVenda}" />
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{venda.valorVendaAcao}" />
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{venda.quantidade}" />
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{venda.lucroPrejuizo}" />
+				</p:column>
+		</p:dataTable>
+		
+	</ui:define>
+</ui:composition>

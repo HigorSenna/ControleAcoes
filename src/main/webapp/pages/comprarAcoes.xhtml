@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
+	<ui:define name="conteudoDinamico">
+	
+		<link href="../estilos/statusDialog.css" rel="stylesheet" type="text/css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />		
+		
+		<div class="container-fluid">
+			<h2>Compra de Ações</h2>
+		</div>		
+		<h:form id="formComprar" prependId="false">
+		 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<div class="table table-hover">
+			<p:dataTable id="acoes" 
+				style="margin-bottom:0;margin-left:10%;width:80%;text-align:center;"
+				paginator="true" rows="10" rowKey="acao" lazy="false"
+				rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom"
+				var="acao"
+				value="#{cadastroCompraController.acoes}">
+				<f:facet name="header">
+					Ações
+				</f:facet>
+				<p:column headerText="Empresa">
+					<h:outputText value="#{acao.nomeAcao}" />
+				</p:column>
+				
+				<p:column headerText="Valor de Abertura">
+					<h:outputText value="#{acao.aberturaCotacao}" />
+				</p:column>
+				
+				<p:column headerText="Valor Mínimo">
+					<h:outputText value="#{acao.minimoCotacaoDia}" />
+				</p:column>
+				
+				<p:column headerText="Valor Máximo">
+					<h:outputText value="#{acao.maximoCotacaoDia}" />
+				</p:column>
+				
+				<p:column headerText="Variação">
+					<h:outputText value="#{acao.variacao}" />
+				</p:column>
+				
+				<p:column headerText="Média">
+					<h:outputText value="#{acao.mediaAcaoDia}" />
+				</p:column>
+				
+				<p:column headerText="Valor final Dia">
+					<h:outputText value="#{acao.valorUltimaCotacao}" />
+				</p:column>
+				
+				<p:column headerText="Quantidade">
+					<h:inputText id="qtd" value="#{acao.quantidade}" style="width:100px;"/>
+				</p:column>
+
+				<p:column headerText="Comprar" style="width:100px;">
+					<p:commandButton value="Buy" style="width:80px;margin-left:0px;"
+						action="#{cadastroCompraController.comprarAcao(acao)}" onclick="$('#divWaiting').show();"/>
+				</p:column>
+
+			</p:dataTable>			
+		</div>
+		</h:form>
+		<p:button outcome="comprarAcoes.xhtml?faces-redirect=true" value="Atualizar Tabela" 
+			onclick="$('#divWaiting').show();"  style="margin-left: 80.5%; margin-top: 3%;"/>
+	</ui:define>
+</ui:composition>
+	

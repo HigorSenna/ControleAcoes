@@ -5,27 +5,33 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
+							
 	<h2>Cadastro de Investidor</h2>
 	<div class="row">	  
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
+			<h:outputText value="Nome:" />
 				<p:inputText styleClass="form-control input-lg" placeholder="Nome" id="Nome" required="true" value="#{cadastroInvestidorContaController.investidor.nomeInvestidor}"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">	
-				<p:inputText styleClass="form-control input-lg" id="CPF" required="true" placeholder="CPF" value="#{cadastroInvestidorContaController.investidor.cpf}"/>						
+			<h:outputText value="CPF:" />
+				<p:inputMask mask="999.999.999-99" styleClass="form-control input-lg" id="CPF" required="true" placeholder="CPF" value="#{cadastroInvestidorContaController.investidor.cpf}" maxlength="11" />
 			</div>
 		</div>
 	</div>	
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<p:inputText styleClass="form-control input-lg" placeholder="RG" id="RG" required="true" value="#{cadastroInvestidorContaController.investidor.rg}" />
+			<h:outputText value="RG:" />
+				<p:inputText styleClass="form-control input-lg" placeholder="RG" id="RG" required="true" value="#{cadastroInvestidorContaController.investidor.rg}" 
+				maxlength="15"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
+			<h:outputText value="Profissão:" />
 				<p:inputText styleClass="form-control input-lg"
 					placeholder="Profissao" value="#{cadastroInvestidorContaController.investidor.profissao}" />
 			</div>
@@ -35,11 +41,13 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
+			<h:outputText value="Login:" />
 				<p:inputText styleClass="form-control input-lg" placeholder="Login" id="Login" required="true" value="#{cadastroInvestidorContaController.investidor.login}"/>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
+			<h:outputText value="Senha:" />
 				<p:password styleClass="form-control input-lg" placeholder="Senha" required="true" id="Senha" value="#{cadastroInvestidorContaController.investidor.senha}"/>
 			</div>
 		</div>

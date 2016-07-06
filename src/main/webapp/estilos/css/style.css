@@ -4,6 +4,14 @@
  Author: BootstrapTaste
  Author URI: http://bootstraptaste.com
  */
+ 
+ .prejuizo{
+	color:red !important; 
+}
+
+ .lucro{
+	color:green !important;
+}
 
 /* ==== Google font ==== */
 @import url('http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900|Open+Sans:300,400,600,700');

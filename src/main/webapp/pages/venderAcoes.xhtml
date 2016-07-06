@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">
+	<ui:define name="conteudoDinamico">
+		<link href="../estilos/statusDialog.css" rel="stylesheet" type="text/css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
+		
+		<div class="container-fluid">
+			<h2>Venda de Ações</h2>
+		</div>		
+		 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<div class="table table-hover">
+			<h:form prependId="false">
+				<p:dataTable id="acoes" 
+					style="margin-bottom:0;margin-left:10%;width:80%;"
+					paginator="true" rows="10" rowKey="acao" lazy="false"
+					rowsPerPageTemplate="5, 10, 15" paginatorPosition="bottom"				
+					var="historico" value="#{consultaVendaController.historico}">
+					<f:facet name="header">
+						Ações Disponíveis
+					</f:facet>			
+					
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Nome Ação"/>
+							<p:column headerText="Data Compra"/>
+							<p:column headerText="Valor Compra"/>						
+							<p:column headerText="Qtd" style="width:10%;"/>					
+							<p:column headerText="Valor Venda"/>		
+							<p:column headerText="Lucro/Prejuízo"/>	
+							<p:column headerText="Qtd Vender"/>	
+							<p:column headerText="Opções" style="width:150px;"/>	
+						</p:row>	
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{historico.nomeAcao}" />
+					</p:column>	
+					
+					<p:column>
+						<h:outputText value="#{historico.dataAtualizacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt,BR"/>
+						</h:outputText>
+					</p:column>	
+					
+					<p:column>
+						<h:outputText value="#{historico.valorDeCompra}" />
+					</p:column>	
+					
+					<p:column>
+						<h:outputText value="#{historico.quantidadeTotal}" />
+					</p:column>	
+					
+					<p:column>
+						<h:outputText value="#{historico.valorVendaAcao}" />
+					</p:column>	
+					
+					<p:column>
+						<h:outputText styleClass="#{historico.styleClass}" value="#{historico.lucroOuPrejuizo}">
+							<f:convertNumber type="currency"/>
+						</h:outputText>
+					</p:column>	
+					
+					<p:column>
+						<h:inputText id="quantidade" style="width:100px; margin-left: 16px;" value="#{consultaVendaController.quantidadeVenda}" /> 
+					</p:column>	
+					
+					<p:column>
+						<p:commandButton value="Vender" style="margin-left:28px;" onclick="$('#divWaiting').show();"
+						process="quantidade @this" action="#{consultaVendaController.realizarVenda(historico)}"/>
+					</p:column>	
+					
+				</p:dataTable>
+			</h:form>
+			<p:button outcome="venderAcoes.xhtml?faces-redirect=true" value="Atualizar Tabela" 
+			onclick="$('#divWaiting').show();"  style="margin-left: 80.5%; margin-top: 3%;"/>
+		</div>
+	</ui:define>
+</ui:composition>
+	

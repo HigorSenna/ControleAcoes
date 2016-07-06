@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="../template/layout.xhtml">	
+	
+	<ui:define name="conteudoDinamico">
+		<p:fieldset legend="Conta Bancária" toggleable="true" toggleSpeed="500" style="width:50% !important; margin:0 auto;">
+	        <p:ajax event="toggle"/>        
+	        <h:panelGrid columns="2" cellpadding="5" style="margin:0 auto;width:100%;">	        
+		        <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+		        
+		        <h:outputText value="Olá investidor,aqui você poderá realizar eventos relacionados a sua conta bancária" />
+		        
+		       	<br/>
+		       	
+		        <h:outputText value="Abaixo você encontra informações referente a sua conta." />
+	        </h:panelGrid>
+	        
+	          <p:dataTable var="investidor" value="#{consultaContaBancariaController.investidor}"
+	         	style="margin:0 auto;">
+	             	<p:column headerText="Nome">
+	             		<p:outputLabel value="#{investidor.nomeInvestidor}"/>
+	             	</p:column>
+	             	
+	             	<p:column headerText="Numero Conta">
+	             		<p:outputLabel value="#{investidor.idConta.numConta}"/>
+	             	</p:column>
+	             	
+	             	<p:column headerText="Agencia">
+	             		<p:outputLabel value="#{investidor.idConta.agencia}"/>
+	             	</p:column>
+	             	
+	             	<p:column headerText="Banco">
+	             		<p:outputLabel value="#{investidor.idConta.nmBanco}"/>
+	             	</p:column>
+	             	
+	             	<p:column headerText="Saldo">
+	             		<p:outputLabel value="#{investidor.idConta.saldo}"/>
+	             	</p:column>
+	          </p:dataTable>
+	    </p:fieldset>
+	    
+	    <h4 style="margin: 6% auto !important;width: 16% !important">Manipulações de conta</h4>
+	    <h:form style="width:26%;margin:2% auto;" prependId="false">		
+	        
+	    	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+	    	
+	    	<p:outputLabel value="Digite o valor de Depósito: "/>
+	    	<p:inputMask mask="99999.99" value="#{consultaContaBancariaController.valorDepositar}" />
+	    	<br/>
+	    	<p:commandButton value="Depositar" style="margin: 9% 67%;width: 27%;" action="#{consultaContaBancariaController.depositar()}"/>
+	    	
+	    </h:form>
+	</ui:define>
+</ui:composition>

@@ -34,7 +34,7 @@ public class Investidor implements Serializable{
     private Integer idInvestidor;
     
     @Column(name="CPF" , nullable = true)
-    private int cpf;
+    private String cpf;
       
     @Size(min = 1, max = 45)
     @Column(name="LOGIN",nullable = true, length = 45)
@@ -57,7 +57,7 @@ public class Investidor implements Serializable{
     private String senha;
     
     @JoinColumn(name = "ID_CONTA", referencedColumnName = "ID_CONTA")
-    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private ContaBancaria idConta;
     
     @OneToMany(mappedBy = "idInvestidor", fetch = FetchType.LAZY)
@@ -67,7 +67,7 @@ public class Investidor implements Serializable{
     private List<Venda> vendasList;
     
     @OneToMany(mappedBy = "idInvestidor", fetch = FetchType.LAZY)
-    private List<Compra> compasList;
+    private List<Compra> comprasList; 
 
     public Investidor() {
     }
@@ -76,7 +76,7 @@ public class Investidor implements Serializable{
         this.idInvestidor = idInvestidor;
     }
 
-    public Investidor(Integer idInvestidor, int cpf, String login, String nomeInvestidor, String profissao, String rg, String senha) {
+    public Investidor(Integer idInvestidor, String cpf, String login, String nomeInvestidor, String profissao, String rg, String senha) {
         this.idInvestidor = idInvestidor;
         this.cpf = cpf;
         this.login = login;
@@ -85,6 +85,41 @@ public class Investidor implements Serializable{
         this.rg = rg;
         this.senha = senha;
     }
+    
+    public String calcularLucro(){
+    	int elementoFinalLista = this.comprasList.size()-1;
+    	int antesDoUltimoElementoLista = elementoFinalLista - 1;
+    	if(elementoFinalLista > 0){
+    		double diferenca = (comprasList.get(elementoFinalLista).getValorFinalAcao() - 
+    				comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao());
+
+        	if(diferenca < 0){
+        		diferenca = diferenca*(-1);
+        		return String.format("%.2f", diferenca);
+        	}
+        	else{
+        		return "Nao obteve Lucro";
+        	}
+    	}
+    	return "Fez apenas uma compra";
+    	
+    }
+        
+    public String calcularPrejuizo(){
+    	int elementoFinalLista = this.comprasList.size()-1;
+    	int antesDoUltimoElementoLista = elementoFinalLista - 1;    	
+    	if(elementoFinalLista > 0){
+    		double diferenca = (comprasList.get(elementoFinalLista).getValorFinalAcao() - 
+    				comprasList.get(antesDoUltimoElementoLista).getValorFinalAcao());
+        	if(diferenca > 0){        		
+        		return String.format("%.2f", diferenca);
+        	}
+        	else{
+        		return "Nao obteve Prejuizo";
+        	}
+    	}
+    	return "Fez apenas uma compra";
+    }    
 
     public Integer getIdInvestidor() {
         return idInvestidor;
@@ -94,11 +129,11 @@ public class Investidor implements Serializable{
         this.idInvestidor = idInvestidor;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -165,16 +200,16 @@ public class Investidor implements Serializable{
     public void setVendasList(List<Venda> vendasList) {
         this.vendasList = vendasList;
     }
+    
+    public List<Compra> getComprasList() {
+		return comprasList;
+	}
 
-    public List<Compra> getCompasList() {
-        return compasList;
-    }
-
-    public void setCompasList(List<Compra> compasList) {
-        this.compasList = compasList;
-    }
-
-    @Override
+	public void setComprasList(List<Compra> comprasList) {
+		this.comprasList = comprasList;
+	}
+	
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (idInvestidor != null ? idInvestidor.hashCode() : 0);
@@ -183,7 +218,6 @@ public class Investidor implements Serializable{
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Investidor)) {
             return false;
         }

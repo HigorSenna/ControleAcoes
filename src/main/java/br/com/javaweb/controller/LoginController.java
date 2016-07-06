@@ -2,7 +2,7 @@
 package br.com.javaweb.controller;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.javaweb.model.Investidor;
 import br.com.javaweb.service.InvestidorService;
@@ -18,13 +18,13 @@ public class LoginController {
 	
 	public void fecharSessao(){
 		Session.fecharSessao();
-		MessagesAndRedirect.exibirMensagemErroRedirect("Você deslogou!", "login.xhtml");;
+		MessagesAndRedirect.exibirMensagemErroRedirect("Você deslogou!", "../login.xhtml");;
 	}
 	public void validarSessao(String paginaRedirecionar){
 		if (Session.existeSessao("user")) {			 
 			MessagesAndRedirect.redirecionarPara(paginaRedirecionar);
 		} else {
-			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "pages/login.xhtml");
+			MessagesAndRedirect.exibirMensagemErroRedirect("Você não esta logado", "login.xhtml");
 		}
 	}
 
@@ -32,13 +32,14 @@ public class LoginController {
 	public void validarLogin() {
 		try {
 			investidorService.verificarLogin(investidor.getLogin(), investidor.getSenha());
-			Session.criarSessao("user", investidor.getLogin());
+			investidor = investidorService.buscarInvestidorLoginSenha(investidor.getLogin(), investidor.getSenha());
+			Session.criarSessao("user", investidor);
 			MessagesAndRedirect.redirecionarPara("pages/principal.xhtml");		
 
 		} catch (Exception e) {
 			e.getMessage();
 			investidor = new Investidor();
-			MessagesAndRedirect.exibirMensagemErroRedirect("Login Inválido", "pages/login.xhtml");
+			MessagesAndRedirect.exibirMensagemErroRedirect("Login Inválido", "login.xhtml");
 		}
 	}
 
